@@ -48,7 +48,7 @@ export function Hero() {
         </article>
       </div>
 
-      <div className={styles.controls}>
+      <div className={`${styles.controls} ${activeSlide === 0 ? styles.photoControls : styles.artControls}`}>
         <button type="button" onClick={showPrevious} aria-label="Banner anterior">
           <ChevronLeft aria-hidden="true" />
         </button>
