@@ -37,8 +37,8 @@
 .note span { width: 2.6rem; height: 1px; margin-top: 0.45rem; background: var(--apricot); }
 
 @media (max-width: 820px) {
-  .hero, .content { min-height: 40rem; }
-  .content { align-items: flex-end; padding-block: 5rem 2.85rem; }
+  .hero, .content { min-height: 34rem; }
+  .content { align-items: flex-end; padding-block: 3.5rem 2.5rem; }
   .overlay { background: linear-gradient(0deg, rgb(11 36 43 / 94%) 10%, rgb(11 36 43 / 55%) 68%, rgb(11 36 43 / 20%)); }
   .note { display: none; }
   .copy h1 { font-size: clamp(2.9rem, 14vw, 4.5rem); }
