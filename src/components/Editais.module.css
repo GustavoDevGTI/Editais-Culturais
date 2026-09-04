@@ -4,28 +4,34 @@
 .heading h2 { max-width: 45rem; }
 .heading > p { margin: 0 0 0.25rem; color: var(--muted); font-size: 0.94rem; line-height: 1.7; }
 
-.demoNote { display: flex; align-items: center; gap: 0.6rem; margin: 2.25rem 0 0.8rem; color: var(--muted); font-size: 0.78rem; }
-.demoNote strong { border-radius: 999px; background: var(--apricot-soft); color: var(--terracotta-dark); padding: 0.3rem 0.65rem; }
-
-.filters { position: relative; display: grid; grid-template-columns: 1fr 15rem auto; gap: 0.65rem; padding: 0.65rem; border: 1px solid var(--line); border-top: 0.2rem solid var(--ink); border-radius: 1.5rem 1.5rem 0.4rem 0.4rem; background: var(--sand); box-shadow: var(--shadow-soft); }
+.filters { position: relative; display: flex; align-items: center; gap: 0.65rem; margin-top: 2.3rem; padding: 0.65rem; border: 1px solid var(--line); border-top: 0.2rem solid var(--ink); border-radius: 1.5rem 1.5rem 0.4rem 0.4rem; background: var(--sand); box-shadow: var(--shadow-soft); }
 .filters::before { content: ""; position: absolute; top: -0.2rem; left: 1.5rem; width: 4.5rem; height: 0.25rem; background: var(--terracotta); }
+.filters::after { content: "JANELA DE OPORTUNIDADES"; position: absolute; top: -1.55rem; right: 1.1rem; color: #849397; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.14em; }
 
-.search { position: relative; display: flex; align-items: center; }
+.search { position: relative; display: flex; flex: 1; align-items: center; }
 .search svg { position: absolute; left: 0.9rem; width: 1.15rem; color: var(--muted); }
 .search input, .select select { width: 100%; height: 2.85rem; border: 1px solid transparent; border-radius: 0.3rem; background: var(--white); color: var(--ink); }
 .search input { padding: 0 0.9rem 0 2.8rem; }
 .search input:focus, .select select:focus { border-color: var(--terracotta); box-shadow: 0 0 0 0.18rem color-mix(in srgb, var(--terracotta) 20%, transparent); outline: 0; }
-.select select { padding: 0 0.9rem; font-weight: 700; }
-.clear { display: inline-flex; align-items: center; gap: 0.3rem; border: 0; background: transparent; color: var(--terracotta-dark); font-weight: 800; }
+.select { position: relative; display: flex; height: 2.75rem; align-items: center; gap: 0.5rem; border-left: 1px solid #ded2be; padding: 0 0.8rem; color: var(--ink-soft); }
+.select > svg { width: 1.05rem; }
+.select > svg:last-child { position: absolute; right: 0.5rem; width: 0.9rem; pointer-events: none; }
+.select select { width: 11rem; padding: 0 1.3rem 0 0; appearance: none; background: transparent; font-size: 0.8rem; font-weight: 700; }
+.filterToggle { display: inline-flex; height: 2.75rem; align-items: center; gap: 0.5rem; border: 0; border-radius: 0.35rem; padding: 0 0.75rem; background: var(--white); color: var(--ink); font-size: 0.8rem; font-weight: 800; box-shadow: 0 1px 2px rgb(0 0 0 / 5%); }
+.filterToggle svg { width: 1.05rem; }
+.filterToggle span { display: inline-grid; width: 1.15rem; height: 1.15rem; place-items: center; border-radius: 50%; background: var(--terracotta); color: white; font-size: 0.62rem; }
+.clear { display: inline-flex; align-items: center; gap: 0.3rem; border: 0; background: transparent; color: var(--terracotta-dark); font-size: 0.75rem; font-weight: 800; }
 .clear svg { width: 1rem; }
 
-.statusFilters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
+.statusFilters { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.8rem; border-left: 0.13rem solid var(--terracotta); padding-left: 0.75rem; color: var(--muted); font-size: 0.75rem; }
 .statusFilters button { display: inline-flex; align-items: center; gap: 0.35rem; border: 1px solid var(--line); border-radius: 999px; padding: 0.45rem 0.8rem; background: var(--white); color: var(--muted); font-size: 0.8rem; font-weight: 700; }
 .statusFilters button.active { border-color: var(--ink); background: var(--ink); color: var(--white); }
 .statusFilters svg { width: 0.85rem; }
 
-.resultCount { margin: 2.25rem 0 0.9rem; color: var(--muted); font-size: 0.8rem; }
-.resultCount strong { color: var(--ink); }
+.resultsMeta { display: flex; align-items: center; justify-content: space-between; margin: 2.15rem 0 0.9rem; color: var(--muted); font-size: 0.75rem; }
+.resultsMeta p { display: flex; align-items: center; gap: 0.4rem; margin: 0; }
+.resultsMeta strong { color: var(--ink); }
+.resultsMeta svg { width: 0.95rem; }
 .list { display: grid; gap: 0.85rem; }
 
 .card { position: relative; border: 1px solid var(--line); border-left: 0.45rem solid var(--green-soft); border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; padding: 1.4rem 1.6rem 1.1rem; background: var(--white); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
@@ -54,19 +60,25 @@
 .empty > svg { color: var(--terracotta); }
 .empty h3 { margin: 0.8rem 0 0.3rem; color: var(--ink); }
 .empty p { margin: 0 0 1.2rem; }
-.total { margin: 1.25rem 0 0; color: var(--muted); font-size: 0.75rem; }
+.listFooter { display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem; color: var(--muted); font-size: 0.75rem; }
+.listFooter p { margin: 0; }
 
 @media (max-width: 760px) {
   .section { padding: 4.5rem 0; }
   .heading { grid-template-columns: 1fr; gap: 1rem; }
   .heading > p { max-width: 31rem; }
-  .demoNote { align-items: flex-start; flex-direction: column; }
-  .filters { grid-template-columns: 1fr; }
+  .filters { display: block; padding: 0.5rem; }
+  .search { margin-bottom: 0.5rem; }
+  .select { justify-content: space-between; border-top: 1px solid #ded2be; border-left: 0; }
+  .select select { width: 100%; }
+  .filterToggle { width: 100%; justify-content: center; margin-top: 0.5rem; }
   .clear { justify-content: center; height: 2.5rem; }
+  .resultsMeta { align-items: flex-start; flex-direction: column; gap: 0.75rem; }
   .card { padding: 1.2rem 1rem 1rem; }
   .cardBody { grid-template-columns: 2.2rem 1fr; }
   .number { font-size: 1.5rem; }
   .card h3 { font-size: 1.18rem; }
   .cardFooter { align-items: flex-start; flex-direction: column; }
   .cardFooter button { align-self: flex-end; }
+  .listFooter { align-items: flex-start; flex-direction: column; gap: 1rem; }
 }

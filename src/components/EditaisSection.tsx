@@ -1,4 +1,5 @@
-import { Check, Search, X } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Clock3, Filter, Search, SlidersHorizontal, X } from "lucide-react";
+import { useState } from "react";
 import type { Categoria, Edital, Status } from "../types/edital";
 import { categorias, statuses } from "../types/edital";
 import { EditalCard } from "./EditalCard";
@@ -18,7 +19,9 @@ interface EditaisSectionProps {
 }
 
 export function EditaisSection(props: EditaisSectionProps) {
+  const [showFilters, setShowFilters] = useState(false);
   const hasFilters = props.query || props.categoria !== "Todas" || props.status !== "Todos";
+  const statusFilterCount = props.status === "Todos" ? 0 : 1;
 
   return (
     <section className={styles.section} id="editais">
@@ -28,8 +31,6 @@ export function EditaisSection(props: EditaisSectionProps) {
           <p>Informação reunida em um só lugar, com prazos e caminhos mais fáceis de encontrar.</p>
         </div>
 
-        <div className={styles.demoNote}><strong>Conteúdo demonstrativo</strong><span>Substitua os exemplos pelos editais oficiais antes da divulgação pública.</span></div>
-
         <div className={styles.filters} role="search" aria-label="Buscar e filtrar editais">
           <label className={styles.search}>
             <Search aria-hidden="true" />
@@ -37,24 +38,35 @@ export function EditaisSection(props: EditaisSectionProps) {
             <input value={props.query} onChange={(event) => props.onQueryChange(event.target.value)} placeholder="Busque por palavra-chave..." />
           </label>
           <label className={styles.select}>
+            <SlidersHorizontal aria-hidden="true" />
             <span className="sr-only">Área cultural</span>
             <select value={props.categoria} onChange={(event) => props.onCategoriaChange(event.target.value as Categoria | "Todas")}>
               <option value="Todas">Todas as áreas</option>
               {categorias.map((categoria) => <option key={categoria}>{categoria}</option>)}
             </select>
+            <ChevronDown aria-hidden="true" />
           </label>
-          {hasFilters && <button className={styles.clear} type="button" onClick={props.onClear}><X /> Limpar</button>}
+          <button className={styles.filterToggle} type="button" aria-expanded={showFilters} onClick={() => setShowFilters((current) => !current)}>
+            <Filter aria-hidden="true" /> Filtros <span>{statusFilterCount}</span>
+          </button>
+          {hasFilters && <button className={styles.clear} type="button" onClick={props.onClear}><X aria-hidden="true" /> Limpar</button>}
         </div>
 
-        <div className={styles.statusFilters} aria-label="Filtrar por situação">
-          {(["Todos", ...statuses] as const).map((status) => (
-            <button key={status} className={props.status === status ? styles.active : ""} type="button" onClick={() => props.onStatusChange(status)}>
-              {status}{props.status === status && <Check aria-hidden="true" />}
-            </button>
-          ))}
-        </div>
+        {showFilters && (
+          <div className={styles.statusFilters} aria-label="Filtrar por situação">
+            <span>Mostrar:</span>
+            {(["Todos", ...statuses] as const).map((status) => (
+              <button key={status} className={props.status === status ? styles.active : ""} type="button" onClick={() => props.onStatusChange(status)}>
+                {status}{props.status === status && <Check aria-hidden="true" />}
+              </button>
+            ))}
+          </div>
+        )}
 
-        <p className={styles.resultCount}><strong>{props.editais.length}</strong> {props.editais.length === 1 ? "oportunidade encontrada" : "oportunidades encontradas"}</p>
+        <div className={styles.resultsMeta}>
+          <p><strong>{props.editais.length}</strong> {props.editais.length === 1 ? "oportunidade encontrada" : "oportunidades encontradas"}</p>
+          <p><Clock3 aria-hidden="true" />Atualizado em 4 de setembro de 2026</p>
+        </div>
 
         {props.editais.length > 0 ? (
           <div className={styles.list}>
@@ -69,7 +81,10 @@ export function EditaisSection(props: EditaisSectionProps) {
           </div>
         )}
 
-        <p className={styles.total}>Mostrando {props.editais.length} de {props.total} editais cadastrados</p>
+        <div className={styles.listFooter}>
+          <p>Mostrando {props.editais.length} de {props.total} editais publicados</p>
+          <button className="button button--outline" type="button" onClick={props.onClear}>Ver todos os editais <ArrowRight aria-hidden="true" /></button>
+        </div>
       </div>
     </section>
   );

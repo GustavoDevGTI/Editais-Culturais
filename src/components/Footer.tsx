@@ -5,9 +5,9 @@ export function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.footerInner}`}>
-        <Brand compact />
+        <div className={styles.footerBrand}><Brand compact /><span>Informação para criar e participar.</span></div>
         <nav aria-label="Links do rodapé"><a href="#editais">Editais</a><a href="#sobre">Sobre</a><a href="#inicio">Voltar ao topo ↑</a></nav>
-        <p>Um espaço para a cultura de Amargosa, Bahia.</p>
+        <p>Um espaço de cultura pública para Amargosa, Bahia.</p>
       </div>
     </footer>
   );
