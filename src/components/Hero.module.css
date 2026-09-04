@@ -107,16 +107,14 @@
 
 .controls::before {
   position: absolute;
-  inset: -1rem;
+  inset: 0;
   z-index: -1;
   content: "";
   pointer-events: none;
   background-image: var(--control-image-desktop);
   background-position: center bottom;
   background-repeat: no-repeat;
-  background-size: 100% auto;
-  filter: blur(0.75rem) saturate(0.92);
-  transform: scale(1.025);
+  background-size: 100% 100%;
 }
 
 .photoControls {
@@ -125,6 +123,12 @@
 
 .photoControls::before {
   background-size: cover;
+}
+
+.photoControls .controlPanel {
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .artControls {

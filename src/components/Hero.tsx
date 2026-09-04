@@ -23,9 +23,11 @@ export function Hero() {
   const photoImage = `${import.meta.env.BASE_URL}images/amargosa-hero.jpg`;
   const artworkDesktop = `${import.meta.env.BASE_URL}images/banner-cultura-desktop.png`;
   const artworkMobile = `${import.meta.env.BASE_URL}images/banner-cultura-mobile.png`;
+  const artworkDesktopEdge = `${import.meta.env.BASE_URL}images/banner-cultura-desktop-edge.png`;
+  const artworkMobileEdge = `${import.meta.env.BASE_URL}images/banner-cultura-mobile-edge.png`;
   const controlStripStyle: ControlStripStyle = {
-    "--control-image-desktop": `url("${activeSlide === 0 ? photoImage : artworkDesktop}")`,
-    "--control-image-mobile": `url("${activeSlide === 0 ? photoImage : artworkMobile}")`,
+    "--control-image-desktop": `url("${activeSlide === 0 ? photoImage : artworkDesktopEdge}")`,
+    "--control-image-mobile": `url("${activeSlide === 0 ? photoImage : artworkMobileEdge}")`,
   };
 
   return (
