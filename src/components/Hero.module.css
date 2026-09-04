@@ -9,7 +9,7 @@
 }
 
 .artTheme {
-  background: #fbe59a;
+  background: #f2d674;
 }
 
 .viewport {
@@ -84,7 +84,7 @@
 }
 
 .artSlide {
-  background: #fbe59a;
+  background: #f2d674;
 }
 
 .artSlide picture {
@@ -105,12 +105,10 @@
   min-height: 3rem;
   align-items: center;
   justify-content: center;
-  gap: 0.9rem;
   border: 0;
-  background: rgb(255 255 255 / 5%);
+  background: transparent;
   color: var(--cream);
-  backdrop-filter: blur(0.6rem);
-  transition: background-color 0.35s ease, color 0.35s ease;
+  transition: color 0.35s ease;
 }
 
 .photoControls { color: var(--cream); }
@@ -119,7 +117,18 @@
   color: #9f1d45;
 }
 
-.controls > button {
+.controlPanel {
+  display: flex;
+  min-height: 2.25rem;
+  align-items: center;
+  gap: 0.9rem;
+  border-radius: 999px;
+  padding: 0.15rem 0.4rem;
+  background: rgb(0 0 0 / 18%);
+  backdrop-filter: blur(0.45rem);
+}
+
+.controlPanel > button {
   display: grid;
   width: 2rem;
   height: 2rem;
@@ -130,11 +139,11 @@
   color: inherit;
 }
 
-.controls > button:hover {
+.controlPanel > button:hover {
   background: rgb(255 255 255 / 10%);
 }
 
-.artControls > button:hover {
+.artControls .controlPanel > button:hover {
   background: rgb(161 26 69 / 9%);
 }
 
