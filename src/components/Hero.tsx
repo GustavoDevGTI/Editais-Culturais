@@ -1,8 +1,13 @@
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import styles from "./Hero.module.css";
 
 const slideCount = 2;
+
+type ControlStripStyle = CSSProperties & {
+  "--control-image-desktop": string;
+  "--control-image-mobile": string;
+};
 
 export function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -15,9 +20,17 @@ export function Hero() {
     setActiveSlide((current) => (current + 1) % slideCount);
   };
 
+  const photoImage = `${import.meta.env.BASE_URL}images/amargosa-hero.jpg`;
+  const artworkDesktop = `${import.meta.env.BASE_URL}images/banner-cultura-desktop.png`;
+  const artworkMobile = `${import.meta.env.BASE_URL}images/banner-cultura-mobile.png`;
+  const controlStripStyle: ControlStripStyle = {
+    "--control-image-desktop": `url("${activeSlide === 0 ? photoImage : artworkDesktop}")`,
+    "--control-image-mobile": `url("${activeSlide === 0 ? photoImage : artworkMobile}")`,
+  };
+
   return (
     <section
-      className={`${styles.hero} ${activeSlide === 0 ? styles.photoTheme : styles.artTheme}`}
+      className={styles.hero}
       id="inicio"
       aria-roledescription="carrossel"
       aria-label="Destaques culturais"
@@ -26,7 +39,7 @@ export function Hero() {
         <article className={`${styles.slide} ${styles.photoSlide} ${activeSlide === 0 ? styles.active : ""}`} aria-hidden={activeSlide !== 0}>
           <img
             className={styles.photo}
-            src={`${import.meta.env.BASE_URL}images/amargosa-hero.jpg`}
+            src={photoImage}
             alt="Paisagem ensolarada de Amargosa com morros verdes e bandeirolas coloridas"
           />
           <div className={styles.overlay} aria-hidden="true" />
@@ -41,10 +54,10 @@ export function Hero() {
 
         <article className={`${styles.slide} ${styles.artSlide} ${activeSlide === 1 ? styles.active : ""}`} aria-hidden={activeSlide !== 1}>
           <picture>
-            <source media="(max-width: 820px)" srcSet={`${import.meta.env.BASE_URL}images/banner-cultura-mobile.png`} />
+            <source media="(max-width: 820px)" srcSet={artworkMobile} />
             <img
               className={styles.banner}
-              src={`${import.meta.env.BASE_URL}images/banner-cultura-desktop.png`}
+              src={artworkDesktop}
               alt="Cadastro Municipal de Agentes Culturais. Sua arte, sua história, sua cultura. Cadastre-se e fortaleça as políticas públicas de cultura em Amargosa."
               width="4081"
               height="1020"
@@ -53,7 +66,10 @@ export function Hero() {
         </article>
       </div>
 
-      <div className={`${styles.controls} ${activeSlide === 0 ? styles.photoControls : styles.artControls}`}>
+      <div
+        className={`${styles.controls} ${activeSlide === 0 ? styles.photoControls : styles.artControls}`}
+        style={controlStripStyle}
+      >
         <div className={styles.controlPanel}>
           <button type="button" onClick={showPrevious} aria-label="Banner anterior">
             <ChevronLeft aria-hidden="true" />
