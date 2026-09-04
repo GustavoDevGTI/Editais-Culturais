@@ -13,12 +13,15 @@ svg { flex: 0 0 auto; }
 .section-kicker { margin: 0 0 0.75rem; color: var(--terracotta); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
 h2 { margin: 0; font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 3.65rem); font-weight: 400; letter-spacing: -0.04em; line-height: 1; }
 
-.button { display: inline-flex; min-height: 2.8rem; align-items: center; justify-content: center; gap: 0.55rem; border: 1px solid transparent; border-radius: 0.3rem; padding: 0.65rem 1rem; font-size: 0.84rem; font-weight: 800; transition: transform 160ms ease, background 160ms ease; }
+.button { display: inline-flex; min-height: 2.25rem; align-items: center; justify-content: center; gap: 0.55rem; border: 1px solid transparent; border-radius: 0.25rem; padding: 0.65rem 1.1rem; font-size: 0.82rem; font-weight: 800; transition: transform 160ms ease, background 160ms ease; }
 .button svg { width: 1.05rem; }
 .button:hover { transform: translateY(-0.12rem); }
 .button--primary { background: var(--terracotta); color: var(--cream); }
 .button--primary:hover { background: var(--terracotta-dark); }
 .button--outline { border-color: var(--sand-dark); background: transparent; color: var(--ink); }
+.button--outline:hover { background: var(--sand); }
+.button--secondary { background: var(--ink); color: var(--cream); }
+.button--secondary:hover { background: var(--ink-deep); }
 .button--full { width: 100%; }
 
 .skip-link { position: fixed; top: -5rem; left: 1rem; z-index: 100; border-radius: 0 0 0.3rem 0.3rem; background: var(--ink); color: var(--cream); padding: 0.75rem 1rem; font-weight: 800; }

@@ -28,7 +28,7 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
       <div className={styles.cardFooter}>
         <span><CalendarDays aria-hidden="true" />{edital.deadline}</span>
         <button type="button" onClick={() => onOpen(edital)}>
-          Ver detalhes <ArrowUpRight aria-hidden="true" />
+          Ver edital <ArrowUpRight aria-hidden="true" />
         </button>
       </div>
     </article>
