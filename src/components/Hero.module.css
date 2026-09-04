@@ -36,8 +36,6 @@
 .copy h1 em { color: var(--apricot); }
 .lede { max-width: 32.5rem; margin: 0; color: color-mix(in srgb, var(--cream) 87%, transparent); font-size: 1.05rem; line-height: 1.7; }
 .actions { display: flex; align-items: center; gap: 1.55rem; margin-top: 2.125rem; }
-.textLink { border-bottom: 1px solid rgb(255 250 240 / 45%); padding-bottom: 0.25rem; font-size: 0.8rem; font-weight: 800; }
-.textLink span { margin-left: 0.35rem; color: var(--apricot); }
 .note { align-self: flex-end; display: flex; align-items: flex-start; gap: 0.8rem; margin: 0 0 0.3rem; color: rgb(255 250 240 / 72%); font-size: 0.75rem; line-height: 1.45; }
 .note span { width: 2.6rem; height: 1px; margin-top: 0.45rem; background: var(--apricot); }
 

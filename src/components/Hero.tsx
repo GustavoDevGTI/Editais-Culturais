@@ -13,7 +13,6 @@ export function Hero() {
           <p className={styles.lede}>Um ponto de encontro para descobrir editais, bolsas e oportunidades que movimentam a cultura de Amargosa.</p>
           <div className={styles.actions}>
             <a className="button button--primary" href="#editais">Explorar editais <ArrowRight aria-hidden="true" /></a>
-            <a className={styles.textLink} href="#como-funciona">Como funciona <span aria-hidden="true">↗</span></a>
           </div>
         </div>
         <p className={styles.note}><span aria-hidden="true" />Feito para quem cria,<br />produz e participa.</p>

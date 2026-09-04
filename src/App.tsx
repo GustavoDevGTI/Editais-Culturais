@@ -5,7 +5,6 @@ import { EditaisSection } from "./components/EditaisSection";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
-import { HowItWorks } from "./components/HowItWorks";
 import { editais } from "./data/editais";
 import type { Categoria, Edital, Status } from "./types/edital";
 
@@ -54,7 +53,6 @@ export function App() {
           onQueryChange={setQuery}
           onStatusChange={setStatus}
         />
-        <HowItWorks />
         <About />
       </main>
       <Footer />
