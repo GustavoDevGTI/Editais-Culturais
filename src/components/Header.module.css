@@ -1,0 +1,88 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: 5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(1rem);
+}
+
+.inner {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.brandMark {
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.14rem;
+  border-radius: 50%;
+  background: var(--terracotta);
+  transform: rotate(-8deg);
+}
+
+.brandMark i {
+  width: 0.25rem;
+  height: 0.95rem;
+  border-radius: 0.3rem 0.3rem 0.12rem 0.12rem;
+  background: var(--cream);
+  transform: skew(-9deg);
+}
+
+.brandMark i:nth-child(2) { height: 1.35rem; }
+.brandMark i:nth-child(3) { height: 0.8rem; }
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+}
+
+.brandText strong { font-size: 1rem; letter-spacing: -0.04em; }
+.brandText em { color: var(--terracotta); font-family: var(--font-display); font-size: 1.15rem; }
+
+.desktopNav { display: flex; gap: 2.25rem; font-size: 0.86rem; font-weight: 700; color: var(--ink-soft); }
+.desktopNav a { transition: color 160ms ease; }
+.desktopNav a:hover { color: var(--terracotta); }
+
+.menuButton {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+}
+
+.mobileNav { display: none; }
+
+@media (max-width: 720px) {
+  .header { height: 4.5rem; }
+  .desktopNav { display: none; }
+  .menuButton { display: inline-flex; }
+  .menuButton svg { width: 1.25rem; }
+  .mobileNav {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.75rem 1.25rem 1.25rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+    box-shadow: var(--shadow-soft);
+  }
+  .mobileNav a { padding: 0.85rem 0; border-bottom: 1px solid var(--line); font-weight: 700; }
+}

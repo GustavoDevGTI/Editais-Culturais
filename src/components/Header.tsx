@@ -1,0 +1,44 @@
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { Brand } from "./Brand";
+import styles from "./Header.module.css";
+
+const links = [
+  { label: "Editais", href: "#editais" },
+  { label: "Como funciona", href: "#como-funciona" },
+  { label: "Sobre", href: "#sobre" },
+];
+
+export function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <header className={styles.header}>
+      <div className={`container ${styles.inner}`}>
+        <a href="#inicio" aria-label="Amargosa Cultura — início">
+          <Brand />
+        </a>
+        <nav className={styles.desktopNav} aria-label="Navegação principal">
+          {links.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
+        </nav>
+        <button
+          className={styles.menuButton}
+          type="button"
+          aria-expanded={menuOpen}
+          aria-controls="menu-mobile"
+          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+          onClick={() => setMenuOpen((current) => !current)}
+        >
+          {menuOpen ? <X /> : <Menu />}
+        </button>
+      </div>
+      {menuOpen && (
+        <nav id="menu-mobile" className={styles.mobileNav} aria-label="Navegação móvel">
+          {links.map((link) => (
+            <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>{link.label}</a>
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+}

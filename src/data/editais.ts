@@ -1,0 +1,50 @@
+import type { Edital } from "../types/edital";
+
+// Conteúdo demonstrativo. Para publicar um novo edital, adicione um item nesta lista.
+export const editais: Edital[] = [
+  {
+    id: "premio-cultura-viva",
+    title: "Prêmio Amargosa de Cultura Viva",
+    summary: "Reconhece iniciativas que mantêm vivas as expressões culturais do nosso território.",
+    category: "Cultura popular",
+    status: "Aberto",
+    deadline: "18 de outubro de 2026",
+    publishedAt: "Publicado em 2 de setembro de 2026",
+    label: "Destaque",
+    audience: "Artistas, grupos, coletivos e iniciativas culturais de Amargosa.",
+    featured: true,
+  },
+  {
+    id: "bolsa-criacao-artistas",
+    title: "Bolsa de Criação para Artistas Locais",
+    summary: "Apoio para desenvolver novas obras, pesquisas e processos criativos em Amargosa.",
+    category: "Artes visuais",
+    status: "Aberto",
+    deadline: "30 de outubro de 2026",
+    publishedAt: "Publicado em 29 de agosto de 2026",
+    label: "Inscrições abertas",
+    audience: "Artistas visuais residentes no município.",
+  },
+  {
+    id: "circuito-musical-serra",
+    title: "Circuito Musical da Serra",
+    summary: "Seleção de artistas e bandas para compor a programação cultural do verão.",
+    category: "Música",
+    status: "Em breve",
+    deadline: "A partir de 5 de novembro de 2026",
+    publishedAt: "Publicado em 27 de agosto de 2026",
+    label: "Prepare-se",
+    audience: "Artistas solo, bandas e grupos musicais da região.",
+  },
+  {
+    id: "inventario-afetivo",
+    title: "Inventário Afetivo de Amargosa",
+    summary: "Chamamento para iniciativas de memória, patrimônio e histórias da cidade.",
+    category: "Patrimônio",
+    status: "Encerrado",
+    deadline: "Encerrado em 2 de setembro de 2026",
+    publishedAt: "Publicado em 4 de agosto de 2026",
+    label: "Resultado disponível",
+    audience: "Pesquisadores, moradores, coletivos e agentes culturais.",
+  },
+];
