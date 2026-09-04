@@ -1,21 +1,21 @@
-import { ArrowRight } from "lucide-react";
 import styles from "./Hero.module.css";
 
 export function Hero() {
   return (
-    <section className={styles.hero} id="inicio">
-      <div className={styles.image} role="img" aria-label="Paisagem ensolarada de Amargosa com morros verdes e bandeirolas coloridas" />
-      <div className={styles.overlay} aria-hidden="true" />
-      <div className={`container ${styles.content}`}>
-        <div className={styles.copy}>
-          <h1>A próxima ideia pode começar <em>aqui.</em></h1>
-          <p className={styles.lede}>Um ponto de encontro para descobrir editais, bolsas e oportunidades que movimentam a cultura de Amargosa.</p>
-          <div className={styles.actions}>
-            <a className="button button--primary" href="#editais">Explorar editais <ArrowRight aria-hidden="true" /></a>
-          </div>
-        </div>
-        <p className={styles.note}><span aria-hidden="true" />Feito para quem cria,<br />produz e participa.</p>
-      </div>
+    <section className={styles.hero} id="inicio" aria-label="Destaque cultural">
+      <picture>
+        <source
+          media="(max-width: 820px)"
+          srcSet={`${import.meta.env.BASE_URL}images/banner-cultura-mobile.png`}
+        />
+        <img
+          className={styles.banner}
+          src={`${import.meta.env.BASE_URL}images/banner-cultura-desktop.png`}
+          alt="Cadastro Municipal de Agentes Culturais. Sua arte, sua história, sua cultura. Cadastre-se e fortaleça as políticas públicas de cultura em Amargosa."
+          width="4081"
+          height="1020"
+        />
+      </picture>
     </section>
   );
 }
