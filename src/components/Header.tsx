@@ -5,7 +5,6 @@ import styles from "./Header.module.css";
 
 const links = [
   { label: "Editais", href: "#editais" },
-  { label: "Como funciona", href: "#como-funciona" },
   { label: "Sobre o portal", href: "#sobre" },
 ];
 
