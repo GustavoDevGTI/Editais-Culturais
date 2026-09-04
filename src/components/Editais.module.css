@@ -34,11 +34,9 @@
 .resultsMeta svg { width: 0.95rem; }
 .list { display: grid; gap: 0.85rem; }
 
-.card { position: relative; border: 1px solid var(--line); border-left: 0.45rem solid var(--green-soft); border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; padding: 1.4rem 1.6rem 1.1rem; background: var(--white); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
-.card::after { content: ""; position: absolute; top: 1.4rem; left: -0.45rem; width: 0.45rem; height: 2.35rem; border-radius: 0 0.25rem 0.25rem 0; background: var(--green); }
+.card { position: relative; border: 1px solid var(--line); border-left: 0.45rem solid var(--green); border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; padding: 1.4rem 1.6rem 1.1rem; background: var(--white); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
 .card:hover { transform: translateY(-0.2rem); border-color: var(--apricot); box-shadow: var(--shadow-card); }
 .featured { border-left-color: var(--terracotta); }
-.featured::after { background: var(--terracotta); }
 .cardTopline, .cardFooter { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .status { display: inline-flex; align-items: center; gap: 0.4rem; border-radius: 999px; padding: 0.35rem 0.65rem; font-size: 0.72rem; font-weight: 800; }
 .status i { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: currentColor; }
