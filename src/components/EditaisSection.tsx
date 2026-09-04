@@ -1,7 +1,8 @@
-import { ArrowRight, Check, ChevronDown, Clock3, Filter, Search, SlidersHorizontal, X } from "lucide-react";
+import { ArrowRight, Check, Clock3, Filter, Search, X } from "lucide-react";
 import { useState } from "react";
 import type { Categoria, Edital, Status } from "../types/edital";
-import { categorias, statuses } from "../types/edital";
+import { statuses } from "../types/edital";
+import { CategorySelect } from "./CategorySelect";
 import { EditalCard } from "./EditalCard";
 import styles from "./Editais.module.css";
 
@@ -36,15 +37,7 @@ export function EditaisSection(props: EditaisSectionProps) {
             <span className="sr-only">Buscar editais</span>
             <input value={props.query} onChange={(event) => props.onQueryChange(event.target.value)} placeholder="Busque por palavra-chave..." />
           </label>
-          <label className={styles.select}>
-            <SlidersHorizontal aria-hidden="true" />
-            <span className="sr-only">Área cultural</span>
-            <select value={props.categoria} onChange={(event) => props.onCategoriaChange(event.target.value as Categoria | "Todas")}>
-              <option value="Todas">Todas as áreas</option>
-              {categorias.map((categoria) => <option key={categoria}>{categoria}</option>)}
-            </select>
-            <ChevronDown aria-hidden="true" />
-          </label>
+          <CategorySelect value={props.categoria} onChange={props.onCategoriaChange} />
           <button className={styles.filterToggle} type="button" aria-expanded={showFilters} onClick={() => setShowFilters((current) => !current)}>
             <Filter aria-hidden="true" /> Filtros <span>{statusFilterCount}</span>
           </button>
