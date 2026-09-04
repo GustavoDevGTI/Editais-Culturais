@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { About } from "./components/About";
 import { EditalDialog } from "./components/EditalDialog";
 import { EditaisSection } from "./components/EditaisSection";
 import { Footer } from "./components/Footer";
@@ -53,7 +52,6 @@ export function App() {
           onQueryChange={setQuery}
           onStatusChange={setStatus}
         />
-        <About />
       </main>
       <Footer />
       <EditalDialog edital={selected} onClose={() => setSelected(null)} />
