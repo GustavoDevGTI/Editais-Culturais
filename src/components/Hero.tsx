@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import styles from "./Hero.module.css";
 
 export function Hero() {
@@ -8,7 +8,6 @@ export function Hero() {
       <div className={styles.overlay} aria-hidden="true" />
       <div className={`container ${styles.content}`}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}><Sparkles /> Cultura que encontra caminho</p>
           <h1>A próxima ideia pode começar <em>aqui.</em></h1>
           <p className={styles.lede}>Um ponto de encontro para descobrir editais, bolsas e oportunidades que movimentam a cultura de Amargosa.</p>
           <div className={styles.actions}>

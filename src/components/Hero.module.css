@@ -20,9 +20,6 @@
 }
 
 .copy { max-width: 41.25rem; }
-.eyebrow { display: flex; align-items: center; gap: 0.5rem; color: var(--apricot); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
-.eyebrow svg { width: 1rem; }
-
 .copy h1 {
   max-width: 45.625rem;
   margin: 1.375rem 0;
