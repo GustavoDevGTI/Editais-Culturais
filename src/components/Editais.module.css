@@ -1,12 +1,10 @@
 .section { padding: 6rem 0; background: var(--paper); }
 
-.heading { display: grid; grid-template-columns: minmax(0, 1fr) 21rem; align-items: end; gap: 3rem; }
+.heading { display: block; }
 .heading h2 { max-width: 45rem; }
-.heading > p { margin: 0 0 0.25rem; color: var(--muted); font-size: 0.94rem; line-height: 1.7; }
 
 .filters { position: relative; display: flex; align-items: center; gap: 0.65rem; margin-top: 2.3rem; padding: 0.65rem; border: 1px solid var(--line); border-top: 0.2rem solid var(--ink); border-radius: 1.5rem 1.5rem 0.4rem 0.4rem; background: var(--sand); box-shadow: var(--shadow-soft); }
 .filters::before { content: ""; position: absolute; top: -0.2rem; left: 1.5rem; width: 4.5rem; height: 0.25rem; background: var(--terracotta); }
-.filters::after { content: "JANELA DE OPORTUNIDADES"; position: absolute; top: -1.55rem; right: 1.1rem; color: #849397; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.14em; }
 
 .search { position: relative; display: flex; flex: 1; align-items: center; }
 .search svg { position: absolute; left: 0.9rem; width: 1.15rem; color: var(--muted); }
@@ -64,8 +62,6 @@
 
 @media (max-width: 760px) {
   .section { padding: 4.5rem 0; }
-  .heading { grid-template-columns: 1fr; gap: 1rem; }
-  .heading > p { max-width: 31rem; }
   .filters { display: block; padding: 0.5rem; }
   .search { margin-bottom: 0.5rem; }
   .select { justify-content: space-between; border-top: 1px solid #ded2be; border-left: 0; }

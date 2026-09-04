@@ -28,7 +28,6 @@ export function EditaisSection(props: EditaisSectionProps) {
       <div className="container">
         <div className={styles.heading}>
           <div><p className="section-kicker">Oportunidades em destaque</p><h2>Editais para fazer a cultura acontecer.</h2></div>
-          <p>Informação reunida em um só lugar, com prazos e caminhos mais fáceis de encontrar.</p>
         </div>
 
         <div className={styles.filters} role="search" aria-label="Buscar e filtrar editais">

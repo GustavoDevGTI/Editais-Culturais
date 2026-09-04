@@ -1,6 +1,5 @@
 import { Heart, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Brand } from "./Brand";
 import styles from "./Header.module.css";
 
 const links = [
@@ -14,8 +13,12 @@ export function Header() {
   return (
     <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
-        <a href="#inicio" aria-label="Amargosa Cultura — início">
-          <Brand />
+        <a className={styles.logoLink} href="#inicio" aria-label="Prefeitura de Amargosa — início">
+          <img
+            className={styles.governmentLogo}
+            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`}
+            alt="Prefeitura de Amargosa — Cidade Jardim de Todos"
+          />
         </a>
         <nav className={styles.desktopNav} aria-label="Navegação principal">
           {links.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
