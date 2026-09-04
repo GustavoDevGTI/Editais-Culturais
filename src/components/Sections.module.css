@@ -8,16 +8,19 @@
 .steps h3 { margin: 0 0 0.25rem; }
 .steps p { margin: 0; color: var(--muted); font-size: 0.86rem; }
 
-.footer { padding: 4.7rem 0; background: var(--ink); color: var(--cream); }
-.footerGrid { display: grid; grid-template-columns: 9rem 1fr 18rem; align-items: center; gap: 3rem; }
-.footer h2 { max-width: 34rem; margin: 0.7rem 0 1rem; }
-.footerGrid > div > p:last-child { max-width: 36rem; color: color-mix(in srgb, var(--cream) 66%, transparent); line-height: 1.7; }
-.seal { display: grid; width: 7.8rem; height: 7.8rem; place-items: center; border: 1px dashed color-mix(in srgb, var(--cream) 38%, transparent); border-radius: 50% 50% 1rem 1rem; transform: rotate(-7deg); }
-.seal > span { transform: rotate(7deg); }
-.footer blockquote { margin: 0; color: var(--apricot); font-family: var(--font-display); font-size: 1.6rem; font-style: italic; line-height: 1.2; }
+.footer { padding: 2.75rem 0; background: var(--ink); color: var(--cream); }
+.footerGrid { display: grid; grid-template-columns: 6rem minmax(0, 1fr) 15rem; align-items: center; gap: 2.25rem; }
+.footer h2 { max-width: 44rem; margin: 0.4rem 0 0.65rem; font-size: clamp(2.1rem, 3.5vw, 2.8rem); }
+.footerGrid > div > p:last-child { max-width: 44rem; margin-bottom: 0; color: color-mix(in srgb, var(--cream) 66%, transparent); line-height: 1.55; }
+.seal { display: grid; width: 5.5rem; height: 5.5rem; place-items: center; }
+.seal img { display: block; width: 4.75rem; height: auto; }
+.footer blockquote { margin: 0; color: var(--apricot); font-family: var(--font-display); font-size: 1.35rem; font-style: italic; line-height: 1.18; }
 
 @media (max-width: 800px) {
-  .howGrid, .footerGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .howGrid, .footerGrid { grid-template-columns: 1fr; gap: 1.5rem; }
   .how { padding: 4.5rem 0; }
+  .footer { padding: 2.75rem 0; }
+  .seal { width: 4.5rem; height: 4.5rem; }
+  .seal img { width: 4rem; }
   .footer blockquote { max-width: 22rem; }
 }

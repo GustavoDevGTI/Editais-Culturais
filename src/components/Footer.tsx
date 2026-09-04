@@ -1,11 +1,15 @@
-import { Brand } from "./Brand";
 import styles from "./Sections.module.css";
 
 export function Footer() {
   return (
     <footer className={styles.footer} id="sobre">
       <div className={`container ${styles.footerGrid}`}>
-        <div className={styles.seal}><Brand compact /></div>
+        <div className={styles.seal}>
+          <img
+            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-icon.png`}
+            alt="Símbolo da Prefeitura de Amargosa"
+          />
+        </div>
         <div>
           <p className="section-kicker">Sobre o portal</p>
           <h2>Uma janela aberta para a cultura da nossa cidade.</h2>
