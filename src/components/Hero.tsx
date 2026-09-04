@@ -54,25 +54,27 @@ export function Hero() {
       </div>
 
       <div className={`${styles.controls} ${activeSlide === 0 ? styles.photoControls : styles.artControls}`}>
-        <button type="button" onClick={showPrevious} aria-label="Banner anterior">
-          <ChevronLeft aria-hidden="true" />
-        </button>
-        <div className={styles.indicators} aria-label="Selecionar banner">
-          {Array.from({ length: slideCount }, (_, index) => (
-            <button
-              key={index}
-              className={activeSlide === index ? styles.current : ""}
-              type="button"
-              onClick={() => setActiveSlide(index)}
-              aria-label={`Mostrar banner ${index + 1}`}
-              aria-current={activeSlide === index ? "true" : undefined}
-            />
-          ))}
+        <div className={styles.controlPanel}>
+          <button type="button" onClick={showPrevious} aria-label="Banner anterior">
+            <ChevronLeft aria-hidden="true" />
+          </button>
+          <div className={styles.indicators} aria-label="Selecionar banner">
+            {Array.from({ length: slideCount }, (_, index) => (
+              <button
+                key={index}
+                className={activeSlide === index ? styles.current : ""}
+                type="button"
+                onClick={() => setActiveSlide(index)}
+                aria-label={`Mostrar banner ${index + 1}`}
+                aria-current={activeSlide === index ? "true" : undefined}
+              />
+            ))}
+          </div>
+          <button type="button" onClick={showNext} aria-label="Próximo banner">
+            <ChevronRight aria-hidden="true" />
+          </button>
+          <span className="sr-only" aria-live="polite">Banner {activeSlide + 1} de {slideCount}</span>
         </div>
-        <button type="button" onClick={showNext} aria-label="Próximo banner">
-          <ChevronRight aria-hidden="true" />
-        </button>
-        <span className="sr-only" aria-live="polite">Banner {activeSlide + 1} de {slideCount}</span>
       </div>
     </section>
   );
