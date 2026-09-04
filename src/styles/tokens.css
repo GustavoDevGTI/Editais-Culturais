@@ -1,0 +1,26 @@
+:root {
+  --paper: #fbf8f1;
+  --white: #fffdf8;
+  --cream: #fff8eb;
+  --sand: #f1e9da;
+  --sand-dark: #c7b7a4;
+  --ink: #173b4a;
+  --ink-deep: #102e3a;
+  --ink-soft: #45606a;
+  --muted: #63777c;
+  --terracotta: #c85a3f;
+  --terracotta-dark: #a94732;
+  --apricot: #f0ad69;
+  --apricot-soft: #fff0d8;
+  --green: #81a578;
+  --green-dark: #34704b;
+  --green-soft: #d9e8d6;
+  --green-wash: #e8f0e8;
+  --green-line: #b8cfc0;
+  --line: #e3d8c7;
+  --line-soft: #eee6da;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-display: "DM Serif Display", Georgia, serif;
+  --shadow-soft: 0 0.75rem 2rem rgb(23 59 74 / 6%);
+  --shadow-card: 0 1rem 2.2rem rgb(23 59 74 / 10%);
+}
