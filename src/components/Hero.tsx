@@ -1,13 +1,8 @@
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import styles from "./Hero.module.css";
 
 const slideCount = 2;
-
-type ControlStripStyle = CSSProperties & {
-  "--control-image-desktop": string;
-  "--control-image-mobile": string;
-};
 
 export function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -23,12 +18,6 @@ export function Hero() {
   const photoImage = `${import.meta.env.BASE_URL}images/amargosa-hero.jpg`;
   const artworkDesktop = `${import.meta.env.BASE_URL}images/banner-cultura-desktop.png`;
   const artworkMobile = `${import.meta.env.BASE_URL}images/banner-cultura-mobile.png`;
-  const artworkDesktopEdge = `${import.meta.env.BASE_URL}images/banner-cultura-desktop-edge.png`;
-  const artworkMobileEdge = `${import.meta.env.BASE_URL}images/banner-cultura-mobile-edge.png`;
-  const controlStripStyle: ControlStripStyle = {
-    "--control-image-desktop": `url("${activeSlide === 0 ? photoImage : artworkDesktopEdge}")`,
-    "--control-image-mobile": `url("${activeSlide === 0 ? photoImage : artworkMobileEdge}")`,
-  };
 
   return (
     <section
@@ -68,10 +57,7 @@ export function Hero() {
         </article>
       </div>
 
-      <div
-        className={`${styles.controls} ${activeSlide === 0 ? styles.photoControls : styles.artControls}`}
-        style={controlStripStyle}
-      >
+      <div className={`${styles.controls} ${activeSlide === 0 ? styles.photoControls : styles.artControls}`}>
         <div className={styles.controlPanel}>
           <button type="button" onClick={showPrevious} aria-label="Banner anterior">
             <ChevronLeft aria-hidden="true" />

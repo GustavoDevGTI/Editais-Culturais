@@ -93,42 +93,18 @@
 }
 
 .controls {
-  position: relative;
-  isolation: isolate;
   display: flex;
   min-height: 3rem;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   border: 0;
+  background: var(--paper);
   color: var(--cream);
   transition: color 0.35s ease;
 }
 
-.controls::before {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  content: "";
-  pointer-events: none;
-  background-image: var(--control-image-desktop);
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-
 .photoControls {
   color: var(--cream);
-}
-
-.photoControls::before {
-  background-size: cover;
-}
-
-.photoControls .controlPanel {
-  background: transparent;
-  box-shadow: none;
-  backdrop-filter: none;
 }
 
 .artControls {
@@ -201,10 +177,6 @@
 }
 
 @media (max-width: 820px) {
-  .controls::before {
-    background-image: var(--control-image-mobile);
-  }
-
   .viewport {
     height: clamp(15rem, 50vw, 25rem);
   }
