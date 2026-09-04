@@ -34,8 +34,11 @@
 .resultsMeta svg { width: 0.95rem; }
 .list { display: grid; gap: 0.85rem; }
 
-.card { position: relative; border: 1px solid var(--line); border-left: 0.45rem solid var(--green); border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; padding: 1.4rem 1.6rem 1.1rem; background: var(--white); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+.card { position: relative; cursor: pointer; border: 1px solid var(--line); border-left: 0.45rem solid var(--green); border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; padding: 1.4rem 1.6rem 1.1rem; background: var(--white); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
 .card:hover { transform: translateY(-0.2rem); border-color: var(--apricot); box-shadow: var(--shadow-card); }
+.card:focus-within { border-color: var(--terracotta); box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--terracotta) 24%, transparent), var(--shadow-card); }
+.cardHitArea { position: absolute; inset: 0; z-index: 2; border: 0; border-radius: inherit; background: transparent; }
+.cardHitArea:focus { outline: 0; }
 .featured { border-left-color: var(--terracotta); }
 .cardTopline, .cardFooter { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .status { display: inline-flex; align-items: center; gap: 0.4rem; border-radius: 999px; padding: 0.35rem 0.65rem; font-size: 0.72rem; font-weight: 800; }
@@ -49,11 +52,9 @@
 .label { margin: 0 0 0.4rem !important; color: var(--terracotta) !important; font-size: 0.64rem !important; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
 .card h3 { margin: 0 0 0.45rem; font-size: 1.4rem; letter-spacing: -0.035em; }
 .cardBody p { margin: 0; color: var(--muted); font-size: 0.86rem; line-height: 1.55; }
-.cardFooter { border-top: 1px solid var(--line-soft); padding-top: 0.9rem; }
+.cardFooter { justify-content: flex-start; border-top: 1px solid var(--line-soft); padding-top: 0.9rem; }
 .cardFooter > span { display: flex; align-items: center; gap: 0.45rem; color: var(--muted); font-size: 0.75rem; }
 .cardFooter svg { width: 1rem; }
-.cardFooter button { display: inline-flex; align-items: center; gap: 0.4rem; border: 0; background: transparent; color: var(--terracotta-dark); font-weight: 800; }
-.cardFooter button:hover { text-decoration: underline; text-underline-offset: 0.25rem; }
 .empty { border: 1px dashed var(--sand-dark); padding: 3.5rem 1.25rem; text-align: center; color: var(--muted); }
 .empty > svg { color: var(--terracotta); }
 .empty h3 { margin: 0.8rem 0 0.3rem; color: var(--ink); }
@@ -77,6 +78,5 @@
   .number { font-size: 1.5rem; }
   .card h3 { font-size: 1.18rem; }
   .cardFooter { align-items: flex-start; flex-direction: column; }
-  .cardFooter button { align-self: flex-end; }
   .listFooter { align-items: flex-start; flex-direction: column; gap: 1rem; }
 }

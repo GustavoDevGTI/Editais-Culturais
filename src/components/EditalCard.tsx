@@ -1,4 +1,4 @@
-import { ArrowUpRight, CalendarDays } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import type { Edital } from "../types/edital";
 import styles from "./Editais.module.css";
 
@@ -13,6 +13,12 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
 
   return (
     <article className={`${styles.card} ${edital.featured ? styles.featured : ""}`}>
+      <button
+        className={styles.cardHitArea}
+        type="button"
+        aria-label={`Abrir detalhes de ${edital.title}`}
+        onClick={() => onOpen(edital)}
+      />
       <div className={styles.cardTopline}>
         <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
         <span className={styles.category}>{edital.category}</span>
@@ -27,9 +33,6 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
       </div>
       <div className={styles.cardFooter}>
         <span><CalendarDays aria-hidden="true" />{edital.deadline}</span>
-        <button type="button" onClick={() => onOpen(edital)}>
-          Ver edital <ArrowUpRight aria-hidden="true" />
-        </button>
       </div>
     </article>
   );
