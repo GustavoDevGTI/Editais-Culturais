@@ -1,7 +1,15 @@
 .hero {
   position: relative;
   overflow: hidden;
+  transition: background-color 0.35s ease;
+}
+
+.photoTheme {
   background: var(--ink-deep);
+}
+
+.artTheme {
+  background: #fbe59a;
 }
 
 .viewport {
@@ -76,7 +84,7 @@
 }
 
 .artSlide {
-  background: #f9df83;
+  background: #fbe59a;
 }
 
 .artSlide picture {
@@ -98,19 +106,16 @@
   align-items: center;
   justify-content: center;
   gap: 0.9rem;
-  border-top: 1px solid rgb(255 255 255 / 8%);
+  border: 0;
+  background: rgb(255 255 255 / 5%);
   color: var(--cream);
   backdrop-filter: blur(0.6rem);
   transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-.photoControls {
-  background: rgb(16 46 58 / 88%);
-}
+.photoControls { color: var(--cream); }
 
 .artControls {
-  border-top-color: rgb(161 26 69 / 10%);
-  background: rgb(249 223 131 / 88%);
   color: #9f1d45;
 }
 

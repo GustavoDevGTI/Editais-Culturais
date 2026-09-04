@@ -16,7 +16,12 @@ export function Hero() {
   };
 
   return (
-    <section className={styles.hero} id="inicio" aria-roledescription="carrossel" aria-label="Destaques culturais">
+    <section
+      className={`${styles.hero} ${activeSlide === 0 ? styles.photoTheme : styles.artTheme}`}
+      id="inicio"
+      aria-roledescription="carrossel"
+      aria-label="Destaques culturais"
+    >
       <div className={styles.viewport}>
         <article className={`${styles.slide} ${styles.photoSlide} ${activeSlide === 0 ? styles.active : ""}`} aria-hidden={activeSlide !== 0}>
           <img
