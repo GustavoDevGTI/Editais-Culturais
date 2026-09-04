@@ -15,6 +15,17 @@
   justify-content: space-between;
 }
 
+.logoLink {
+  display: flex;
+  align-items: center;
+}
+
+.governmentLogo {
+  display: block;
+  width: clamp(11rem, 16vw, 14rem);
+  height: auto;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -77,6 +88,7 @@
 
 @media (max-width: 720px) {
   .header { height: 4.5rem; }
+  .governmentLogo { width: 10.5rem; }
   .desktopNav, .savedLink { display: none; }
   .menuButton { display: inline-flex; }
   .menuButton svg { width: 1.25rem; }
