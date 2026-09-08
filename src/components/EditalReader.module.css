@@ -162,7 +162,36 @@
 .documentSearch input { min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 0.88rem; }
 .documentSearch input::placeholder { color: var(--muted); }
 
-.searchSummary { min-height: 1.7rem; padding: 0.55rem 0 0; color: var(--muted); font-size: 0.72rem; }
+.searchStatusRow {
+  display: flex;
+  min-height: 2.35rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.searchSummary { padding-top: 0.45rem; color: var(--muted); font-size: 0.72rem; }
+
+.matchControls {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.3rem;
+  padding-top: 0.35rem;
+}
+
+.matchControls button {
+  display: grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  border: 1px solid var(--sand-dark);
+  border-radius: 0.3rem;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.matchControls button:hover { border-color: var(--terracotta); color: var(--terracotta); }
+.matchControls svg { width: 0.9rem; }
 
 .searchResults {
   display: grid;

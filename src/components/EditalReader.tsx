@@ -1,4 +1,4 @@
-import { ArrowLeft, CalendarDays, ChevronLeft, ChevronRight, Download, FileText, Search, ZoomIn, ZoomOut } from "lucide-react";
+import { ArrowLeft, CalendarDays, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Download, FileText, Search, ZoomIn, ZoomOut } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Edital } from "../types/edital";
 import { usePdfDocument } from "../hooks/usePdfDocument";
@@ -27,10 +27,12 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const [zoom, setZoom] = useState(1);
   const [activeMatchId, setActiveMatchId] = useState<string | null>(null);
   const documentViewportRef = useRef<HTMLDivElement>(null);
+  const matchNavigationPageRef = useRef<number | null>(null);
 
   useEffect(() => {
     setQuery("");
     setActiveMatchId(null);
+    matchNavigationPageRef.current = null;
     setPageNumber(1);
     setZoom(1);
     window.document.title = `${activeEdital.title} | Editais Culturais`;
@@ -69,6 +71,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
   const changePage = (nextPage: number) => {
     const boundedPage = Math.min(Math.max(nextPage, 1), totalPages || 1);
+    matchNavigationPageRef.current = null;
     setActiveMatchId(null);
     setPageNumber(boundedPage);
     window.requestAnimationFrame(() => {
@@ -77,11 +80,32 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   };
 
   const selectMatch = (result: PdfSearchResult) => {
+    matchNavigationPageRef.current = result.pageNumber === pageNumber ? null : result.pageNumber;
     setPageNumber(result.pageNumber);
     setActiveMatchId(result.id);
     window.requestAnimationFrame(() => {
       window.document.getElementById(`pdf-page-${result.pageNumber}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+  };
+
+  const navigateMatch = (direction: -1 | 1) => {
+    if (!results.length) return;
+
+    const currentIndex = results.findIndex((result) => result.id === activeMatchId);
+    if (currentIndex >= 0) {
+      selectMatch(results[(currentIndex + direction + results.length) % results.length]);
+      return;
+    }
+
+    if (direction > 0) {
+      selectMatch(results.find((result) => result.pageNumber >= pageNumber) ?? results[0]);
+      return;
+    }
+
+    selectMatch(
+      [...results].reverse().find((result) => result.pageNumber <= pageNumber)
+        ?? results[results.length - 1],
+    );
   };
 
   const renderHighlightedText = (text: string) => {
@@ -115,7 +139,14 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
       return !current || distance < current.distance ? { distance, page: pageValue } : current;
     }, null);
 
-    if (closest && closest.page !== pageNumber) setPageNumber(closest.page);
+    if (closest && closest.page !== pageNumber) {
+      if (matchNavigationPageRef.current === closest.page) {
+        matchNavigationPageRef.current = null;
+      } else if (matchNavigationPageRef.current === null) {
+        setActiveMatchId(null);
+      }
+      setPageNumber(closest.page);
+    }
   };
 
   return (
@@ -151,18 +182,37 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                 type="search"
                 value={query}
                 onChange={(event) => {
+                  matchNavigationPageRef.current = null;
                   setQuery(event.target.value);
                   setActiveMatchId(null);
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "ArrowUp") {
+                    event.preventDefault();
+                    navigateMatch(-1);
+                  }
+                  if (event.key === "ArrowDown") {
+                    event.preventDefault();
+                    navigateMatch(1);
+                  }
                 }}
                 placeholder="Buscar dentro do edital…"
                 disabled={!pdfUrl}
               />
             </label>
 
-            <div className={styles.searchSummary} aria-live="polite">
-              {indexing && "Preparando a busca…"}
-              {!indexing && query.trim().length > 1 && `${results.length} ${results.length === 1 ? "resultado" : "resultados"}`}
-              {!indexing && query.trim().length === 1 && "Digite mais uma letra para buscar"}
+            <div className={styles.searchStatusRow}>
+              <div className={styles.searchSummary} aria-live="polite">
+                {indexing && "Preparando a busca…"}
+                {!indexing && query.trim().length > 1 && `${results.length} ${results.length === 1 ? "resultado" : "resultados"}`}
+                {!indexing && query.trim().length === 1 && "Digite mais uma letra para buscar"}
+              </div>
+              {!indexing && results.length > 0 && (
+                <div className={styles.matchControls} aria-label="Navegar pelas ocorrências">
+                  <button type="button" onClick={() => navigateMatch(-1)} aria-label="Ocorrência anterior"><ChevronUp /></button>
+                  <button type="button" onClick={() => navigateMatch(1)} aria-label="Próxima ocorrência"><ChevronDown /></button>
+                </div>
+              )}
             </div>
 
             {query.trim().length > 1 && !indexing && (
