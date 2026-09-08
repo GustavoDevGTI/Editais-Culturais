@@ -83,11 +83,11 @@
   position: relative;
   z-index: 2;
   display: grid;
-  align-content: start;
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 0.85rem;
-  overflow-y: auto;
+  overflow: hidden;
   min-height: 0;
-  padding: 0.1rem 0.45rem 0.1rem 0.1rem;
+  padding: 0.1rem;
 }
 
 .searchBlock,
@@ -181,7 +181,21 @@
 .searchResults > p { margin: 0; color: var(--muted); font-size: 0.8rem; }
 
 .allEditais h2 { margin: 0 0 0.75rem; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 800; letter-spacing: 0; }
-.allEditais > div { display: grid; gap: 0.4rem; margin-top: 0.75rem; }
+.allEditais {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.allEditais > div {
+  display: grid;
+  min-height: 0;
+  gap: 0.4rem;
+  overflow-y: auto;
+  margin-top: 0.75rem;
+  padding-right: 0.25rem;
+}
 
 .editalSearch {
   display: grid;
@@ -332,9 +346,10 @@
   .pageHeader { width: min(calc(100% - 2rem), 48rem); align-items: flex-start; flex-direction: column; gap: 0.85rem; margin-block: 1.25rem 0.85rem; }
   .pageMeta { max-width: none; justify-content: flex-start; }
   .workspace { width: min(calc(100% - 1rem), 48rem); height: auto; min-height: 0; grid-template-columns: 1fr; gap: 0.75rem; overflow: visible; margin: 0.75rem auto 2rem; }
-  .sidebar { max-height: none; overflow: visible; padding: 0; }
+  .sidebar { max-height: none; grid-template-rows: auto auto; overflow: visible; padding: 0; }
   .searchResults { max-height: 14rem; }
-  .allEditais > div { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .allEditais { overflow: visible; }
+  .allEditais > div { max-height: 20rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .documentPanel { min-height: 75dvh; }
   .documentViewport { height: 72dvh; min-height: 32rem; padding: 0.85rem; }
 }
