@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 
 const routePattern = /^#\/editais\/([^/?#]+)/;
 
-function readEditalId() {
+function readRoute() {
   const match = window.location.hash.match(routePattern);
-  return match ? decodeURIComponent(match[1]) : null;
+  if (match) return { editalId: decodeURIComponent(match[1]), showAllEditais: false };
+  return { editalId: null, showAllEditais: /^#\/editais\/?$/.test(window.location.hash) };
 }
 
 export function useEditalRoute() {
-  const [editalId, setEditalId] = useState(readEditalId);
+  const [route, setRoute] = useState(readRoute);
 
   useEffect(() => {
-    const updateRoute = () => setEditalId(readEditalId());
+    const updateRoute = () => setRoute(readRoute());
     window.addEventListener("hashchange", updateRoute);
     return () => window.removeEventListener("hashchange", updateRoute);
   }, []);
@@ -21,8 +22,16 @@ export function useEditalRoute() {
   };
 
   const closeEdital = () => {
+    window.location.hash = "/editais";
+  };
+
+  const openAllEditais = () => {
+    window.location.hash = "/editais";
+  };
+
+  const closeAllEditais = () => {
     window.location.hash = "editais";
   };
 
-  return { closeEdital, editalId, openEdital };
+  return { closeAllEditais, closeEdital, editalId: route.editalId, openAllEditais, openEdital, showAllEditais: route.showAllEditais };
 }

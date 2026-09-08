@@ -16,6 +16,7 @@ interface EditaisSectionProps {
   onOpen: (edital: Edital) => void;
   onQueryChange: (value: string) => void;
   onStatusChange: (value: Status | "Todos") => void;
+  onViewAll: () => void;
 }
 
 export function EditaisSection(props: EditaisSectionProps) {
@@ -68,12 +69,12 @@ export function EditaisSection(props: EditaisSectionProps) {
             <Search aria-hidden="true" />
             <h3>Nenhum edital encontrado</h3>
             <p>Tente outra palavra ou remova os filtros.</p>
-            <button className="button button--outline" type="button" onClick={props.onClear}>Ver todos os editais</button>
+            <button className="button button--outline" type="button" onClick={props.onViewAll}>Ver todos os editais</button>
           </div>
         )}
 
         <div className={styles.listFooter}>
-          <button className="button button--outline" type="button" onClick={props.onClear}>Ver todos os editais <ArrowRight aria-hidden="true" /></button>
+          <button className="button button--outline" type="button" onClick={props.onViewAll}>Ver todos os editais <ArrowRight aria-hidden="true" /></button>
         </div>
       </div>
     </section>

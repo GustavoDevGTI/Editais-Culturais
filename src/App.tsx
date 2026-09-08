@@ -1,4 +1,5 @@
 import { lazy, Suspense, useMemo, useState } from "react";
+import { AllEditaisPage } from "./components/AllEditaisPage";
 import { EditaisSection } from "./components/EditaisSection";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
@@ -21,12 +22,17 @@ export function App() {
   const [query, setQuery] = useState("");
   const [categoria, setCategoria] = useState<Categoria | "Todas">("Todas");
   const [status, setStatus] = useState<Status | "Todos">("Todos");
-  const { closeEdital, editalId, openEdital } = useEditalRoute();
+  const { closeAllEditais, closeEdital, editalId, openAllEditais, openEdital, showAllEditais } = useEditalRoute();
+
+  const orderedEditais = useMemo(() => [...editais].sort((left, right) => (
+    statusPriority[left.status] - statusPriority[right.status]
+    || right.publishedDate.localeCompare(left.publishedDate)
+  )), []);
 
   const filteredEditais = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");
 
-    return editais
+    return orderedEditais
       .filter((edital) => {
         const searchableText = [edital.title, edital.summary, edital.category]
           .join(" ")
@@ -36,12 +42,8 @@ export function App() {
         const matchesStatus = status === "Todos" || edital.status === status;
 
         return matchesQuery && matchesCategory && matchesStatus;
-      })
-      .sort((left, right) => (
-        statusPriority[left.status] - statusPriority[right.status]
-        || right.publishedDate.localeCompare(left.publishedDate)
-      ));
-  }, [categoria, query, status]);
+      });
+  }, [categoria, orderedEditais, query, status]);
 
   const clearFilters = () => {
     setQuery("");
@@ -62,6 +64,10 @@ export function App() {
     );
   }
 
+  if (showAllEditais) {
+    return <AllEditaisPage editais={orderedEditais} onBack={closeAllEditais} onOpen={openEdital} />;
+  }
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -78,6 +84,7 @@ export function App() {
           onOpen={(edital) => openEdital(edital.id)}
           onQueryChange={setQuery}
           onStatusChange={setStatus}
+          onViewAll={openAllEditais}
         />
       </main>
       <Footer />
