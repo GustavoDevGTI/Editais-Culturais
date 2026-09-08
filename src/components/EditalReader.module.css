@@ -408,7 +408,10 @@
   .pageHeader h1 { white-space: normal; }
   .pageMeta { max-width: none; justify-content: flex-start; }
   .workspace { width: min(calc(100% - 1rem), 48rem); height: auto; min-height: 0; grid-template-columns: 1fr; gap: 0.75rem; overflow: visible; margin: 0.75rem auto 2rem; }
-  .sidebar { max-height: none; grid-template-rows: auto auto; overflow: visible; padding: 0; }
+  .sidebar { display: contents; }
+  .searchBlock { grid-row: 1; }
+  .documentPanel { grid-row: 2; }
+  .allEditais { grid-row: 3; }
   .searchResults { max-height: 14rem; }
   .allEditais { overflow: visible; }
   .allEditais > div { max-height: 20rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
