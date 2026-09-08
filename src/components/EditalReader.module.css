@@ -1,0 +1,297 @@
+.readerShell {
+  min-height: 100dvh;
+  background: #edf0ee;
+  color: var(--ink);
+}
+
+.topbar {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  min-height: 4.5rem;
+  grid-template-columns: 13rem 1fr 13rem;
+  align-items: center;
+  gap: 1.25rem;
+  border-bottom: 1px solid rgb(19 60 74 / 16%);
+  background: var(--paper);
+  padding: 0.65rem clamp(1rem, 2.5vw, 2.5rem);
+}
+
+.backButton,
+.brand {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  justify-self: start;
+  padding: 0.6rem 0;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.backButton svg { width: 1.05rem; }
+.brand { justify-self: center; padding: 0; }
+.brand img { display: block; width: 10.5rem; height: 2.8rem; object-fit: contain; }
+.topbar > p { overflow: hidden; margin: 0; color: var(--muted); font-size: 0.76rem; text-align: right; text-overflow: ellipsis; white-space: nowrap; }
+
+.workspace {
+  display: grid;
+  height: calc(100dvh - 4.5rem);
+  grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.sidebar {
+  position: relative;
+  z-index: 2;
+  overflow-y: auto;
+  border-right: 1px solid rgb(19 60 74 / 14%);
+  background: var(--white);
+  padding: 1.4rem;
+  box-shadow: 0.6rem 0 2rem rgb(16 48 58 / 6%);
+}
+
+.currentInfo {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.2rem;
+}
+
+.status {
+  display: inline-flex;
+  margin-bottom: 0.85rem;
+  border-radius: 999px;
+  background: var(--green-soft);
+  color: var(--green-dark);
+  padding: 0.35rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.currentInfo h1 {
+  margin: 0.4rem 0 0.7rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 2.5vw, 2.35rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.currentInfo > p:not(:global(.section-kicker)) {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.deadline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+.deadline svg { width: 1rem; color: var(--terracotta); }
+
+.searchBlock {
+  border-bottom: 1px solid var(--line);
+  padding: 1.2rem 0;
+}
+
+.documentSearch {
+  display: grid;
+  min-height: 3rem;
+  grid-template-columns: 1.2rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--sand-dark);
+  border-radius: 0.35rem;
+  background: var(--paper);
+  padding: 0 0.85rem;
+}
+
+.documentSearch:focus-within { border-color: var(--terracotta); box-shadow: 0 0 0 3px rgb(207 85 59 / 12%); }
+.documentSearch svg { width: 1.05rem; color: var(--muted); }
+.documentSearch input { min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 0.88rem; }
+.documentSearch input::placeholder { color: var(--muted); }
+
+.searchSummary { min-height: 1.7rem; padding: 0.55rem 0 0; color: var(--muted); font-size: 0.72rem; }
+
+.searchResults {
+  display: grid;
+  max-height: 17rem;
+  gap: 0.45rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.searchResults > button {
+  display: grid;
+  gap: 0.25rem;
+  border: 1px solid transparent;
+  border-radius: 0.35rem;
+  background: var(--paper);
+  padding: 0.7rem;
+  color: var(--ink);
+  text-align: left;
+}
+
+.searchResults > button:hover,
+.searchResults > button.activeResult { border-color: var(--terracotta); background: var(--sand); }
+.searchResults strong { color: var(--terracotta); font-size: 0.72rem; text-transform: uppercase; }
+.searchResults span { color: var(--ink-soft); font-size: 0.75rem; line-height: 1.42; }
+.searchResults > p { margin: 0; color: var(--muted); font-size: 0.8rem; }
+
+.otherEditais { padding-top: 1.2rem; }
+.otherEditais h2 { font-family: var(--font-sans); font-size: 0.9rem; font-weight: 800; letter-spacing: 0; }
+.otherEditais > p { margin: 0.3rem 0 0.85rem; color: var(--muted); font-size: 0.75rem; }
+.otherEditais > div { display: grid; gap: 0.4rem; }
+
+.otherEditais button {
+  display: grid;
+  grid-template-columns: 1.2rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
+  background: transparent;
+  padding: 0.7rem;
+  color: var(--ink-soft);
+  text-align: left;
+}
+
+.otherEditais button:hover,
+.otherEditais button.activeEdital { border-color: var(--sand-dark); background: var(--sand); color: var(--ink); }
+.otherEditais button > svg { width: 1rem; color: var(--terracotta); }
+.otherEditais button span { display: grid; gap: 0.2rem; }
+.otherEditais button strong { font-size: 0.76rem; line-height: 1.3; }
+.otherEditais button small { color: var(--muted); font-size: 0.68rem; }
+
+.documentPanel {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: auto minmax(0, 1fr);
+  background: #cfd5d4;
+}
+
+.documentToolbar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #173f4d;
+  color: var(--cream);
+  padding: 0.55rem 1rem;
+  box-shadow: 0 0.4rem 1rem rgb(5 27 34 / 18%);
+}
+
+.pageControls,
+.zoomControls { display: flex; align-items: center; gap: 0.45rem; }
+.documentToolbar button,
+.documentToolbar a {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 16%);
+  border-radius: 0.3rem;
+  background: rgb(255 255 255 / 7%);
+  color: var(--cream);
+}
+
+.documentToolbar button:hover,
+.documentToolbar a:hover { background: rgb(255 255 255 / 16%); }
+.documentToolbar button:disabled { cursor: not-allowed; opacity: 0.35; }
+.documentToolbar svg { width: 1rem; }
+.pageControls input { width: 3rem; border: 1px solid rgb(255 255 255 / 18%); border-radius: 0.25rem; background: #0d2f3b; color: white; padding: 0.4rem; text-align: center; }
+.pageControls > span,
+.zoomControls > span { min-width: 3.2rem; color: rgb(255 251 242 / 75%); font-size: 0.75rem; text-align: center; }
+
+.documentViewport {
+  min-height: 0;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.pageStage {
+  position: relative;
+  display: grid;
+  min-width: max-content;
+  place-items: start center;
+}
+
+.pdfCanvas {
+  display: block;
+  max-width: none;
+  background: white;
+  box-shadow: 0 1.2rem 3rem rgb(13 40 48 / 24%);
+}
+
+.pageLoader,
+.documentMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  color: var(--ink-soft);
+}
+
+.pageLoader {
+  position: absolute;
+  z-index: 1;
+  top: 1rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 92%);
+  padding: 0.55rem 0.85rem;
+  font-size: 0.75rem;
+  box-shadow: 0 0.4rem 1rem rgb(0 0 0 / 10%);
+}
+
+.pageLoader svg { width: 1rem; animation: spin 900ms linear infinite; }
+.documentMessage { min-height: 100%; flex-direction: column; padding: 2rem; text-align: center; }
+.documentMessage > svg { width: 2.8rem; height: 2.8rem; color: var(--terracotta); }
+.documentMessage strong { font-family: var(--font-display); font-size: 2rem; font-weight: 400; }
+.documentMessage span:last-child { max-width: 28rem; color: var(--muted); line-height: 1.5; }
+.spinner { width: 1.5rem; height: 1.5rem; border: 0.2rem solid rgb(19 60 74 / 16%); border-top-color: var(--terracotta); border-radius: 50%; animation: spin 900ms linear infinite; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  .topbar { grid-template-columns: 1fr auto; }
+  .brand { justify-self: end; }
+  .topbar > p { display: none; }
+  .workspace { height: auto; min-height: calc(100dvh - 4.5rem); grid-template-columns: 1fr; overflow: visible; }
+  .sidebar { max-height: none; overflow: visible; border-right: 0; border-bottom: 1px solid var(--line); padding: 1.25rem; }
+  .currentInfo h1 { max-width: 36rem; }
+  .searchResults { max-height: 14rem; }
+  .otherEditais > div { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .documentPanel { min-height: 75dvh; }
+  .documentViewport { min-height: 68dvh; padding: 1rem; }
+}
+
+@media (max-width: 560px) {
+  .topbar { min-height: 4rem; padding-inline: 1rem; }
+  .brand img { width: 7.5rem; height: 2.2rem; }
+  .backButton { font-size: 0.76rem; }
+  .backButton svg { width: 0.95rem; }
+  .otherEditais > div { grid-template-columns: 1fr; }
+  .documentToolbar { align-items: stretch; flex-direction: column; padding: 0.6rem; }
+  .pageControls,
+  .zoomControls { justify-content: center; }
+  .documentViewport { padding: 0.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pageLoader svg,
+  .spinner { animation: none; }
+}

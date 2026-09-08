@@ -22,4 +22,6 @@ export interface Edital {
   audience: string;
   featured?: boolean;
   officialUrl?: string;
+  pdfFile?: string;
+  pageCount?: number;
 }

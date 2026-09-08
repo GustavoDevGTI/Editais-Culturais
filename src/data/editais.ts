@@ -3,16 +3,18 @@ import type { Edital } from "../types/edital";
 // Conteúdo demonstrativo. Para publicar um novo edital, adicione um item nesta lista.
 export const editais: Edital[] = [
   {
-    id: "premio-cultura-viva",
-    title: "Prêmio Amargosa de Cultura Viva",
-    summary: "Reconhece iniciativas que mantêm vivas as expressões culturais do nosso território.",
+    id: "chamada-publica-pnab-002-2026",
+    title: "Chamada Pública de Incentivos Culturais PNAB",
+    summary: "Seleciona espaços, ambientes, coletivos e iniciativas artístico-culturais para receber subsídio de manutenção.",
     category: "Cultura popular",
-    status: "Aberto",
-    deadline: "18 de outubro de 2026",
-    publishedAt: "Publicado em 2 de setembro de 2026",
-    label: "Destaque",
-    audience: "Artistas, grupos, coletivos e iniciativas culturais de Amargosa.",
+    status: "Encerrado",
+    deadline: "15 dias corridos após a publicação",
+    publishedAt: "Publicado em 30 de julho de 2026",
+    label: "Edital nº 002/2026",
+    audience: "Espaços, ambientes, coletivos e iniciativas artístico-culturais de Amargosa.",
     featured: true,
+    pdfFile: "documents/chamada-publica-pnab-002-2026.pdf",
+    pageCount: 44,
   },
   {
     id: "bolsa-criacao-artistas",

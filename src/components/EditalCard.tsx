@@ -16,7 +16,7 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
       <button
         className={styles.cardHitArea}
         type="button"
-        aria-label={`Abrir detalhes de ${edital.title}`}
+        aria-label={`Ler o edital completo: ${edital.title}`}
         onClick={() => onOpen(edital)}
       />
       <div className={styles.cardTopline}>
