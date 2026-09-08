@@ -73,7 +73,6 @@ export function App() {
           editais={filteredEditais}
           query={query}
           status={status}
-          total={editais.length}
           onCategoriaChange={setCategoria}
           onClear={clearFilters}
           onOpen={(edital) => openEdital(edital.id)}

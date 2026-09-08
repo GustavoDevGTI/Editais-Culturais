@@ -11,7 +11,6 @@ interface EditaisSectionProps {
   editais: Edital[];
   query: string;
   status: Status | "Todos";
-  total: number;
   onCategoriaChange: (value: Categoria | "Todas") => void;
   onClear: () => void;
   onOpen: (edital: Edital) => void;
@@ -74,7 +73,6 @@ export function EditaisSection(props: EditaisSectionProps) {
         )}
 
         <div className={styles.listFooter}>
-          <p>Mostrando {props.editais.length} de {props.total} editais publicados</p>
           <button className="button button--outline" type="button" onClick={props.onClear}>Ver todos os editais <ArrowRight aria-hidden="true" /></button>
         </div>
       </div>
