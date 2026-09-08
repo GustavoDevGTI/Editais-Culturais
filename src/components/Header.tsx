@@ -1,4 +1,4 @@
-import { Heart, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import styles from "./Header.module.css";
 
@@ -23,10 +23,6 @@ export function Header() {
         <nav className={styles.desktopNav} aria-label="Navegação principal">
           {links.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
         </nav>
-        <a className={styles.savedLink} href="#editais">
-          <Heart aria-hidden="true" />
-          Meus salvos
-        </a>
         <button
           className={styles.menuButton}
           type="button"
