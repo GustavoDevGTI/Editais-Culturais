@@ -5,6 +5,7 @@ import type { PdfSearchResult } from "../utils/pdfSearch";
 import styles from "./EditalReader.module.css";
 
 const readerBaseScale = 1.4;
+const maxCanvasPixels = 12_000_000;
 
 interface PdfCanvasProps {
   document: PDFDocumentProxy;
@@ -75,10 +76,12 @@ export function PdfCanvas({ document, pageNumber, title, zoom, matches, activeMa
       const page = await document.getPage(pageNumber);
       if (cancelled || !canvasRef.current || !textLayerRef.current) return;
 
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.6);
       const naturalViewport = page.getViewport({ scale: 1 });
       const cssScale = renderWidth / naturalViewport.width;
       const cssViewport = page.getViewport({ scale: cssScale });
+      const requestedPixelRatio = Math.min(window.devicePixelRatio || 1, 1.6);
+      const safePixelRatio = Math.sqrt(maxCanvasPixels / (cssViewport.width * cssViewport.height));
+      const pixelRatio = Math.min(requestedPixelRatio, Math.max(0.75, safePixelRatio));
       const renderViewport = page.getViewport({ scale: cssScale * pixelRatio });
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d", { alpha: false });

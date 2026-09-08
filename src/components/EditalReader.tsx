@@ -1,5 +1,5 @@
 import { ArrowLeft, CalendarDays, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Download, FileText, Search, ZoomIn, ZoomOut } from "lucide-react";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import type { Edital } from "../types/edital";
 import { usePdfDocument } from "../hooks/usePdfDocument";
 import { searchPdfPages, type PdfSearchResult } from "../utils/pdfSearch";
@@ -7,6 +7,9 @@ import { PdfCanvas } from "./PdfCanvas";
 import styles from "./EditalReader.module.css";
 
 const emptySearchResults: PdfSearchResult[] = [];
+const minZoom = 0.5;
+const maxZoom = 4;
+const zoomStep = 0.25;
 
 interface EditalReaderProps {
   activeId: string;
@@ -25,9 +28,20 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const [listQuery, setListQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [zoom, setZoom] = useState(1);
+  const [singlePageMode, setSinglePageMode] = useState(() => window.matchMedia("(max-width: 560px)").matches);
+  const [draggingDocument, setDraggingDocument] = useState(false);
   const [activeMatchId, setActiveMatchId] = useState<string | null>(null);
   const documentViewportRef = useRef<HTMLDivElement>(null);
   const matchNavigationPageRef = useRef<number | null>(null);
+  const dragStateRef = useRef<{ pointerId: number; x: number; y: number; scrollLeft: number; scrollTop: number } | null>(null);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 560px)");
+    const updateMode = () => setSinglePageMode(media.matches);
+    updateMode();
+    media.addEventListener("change", updateMode);
+    return () => media.removeEventListener("change", updateMode);
+  }, []);
 
   useEffect(() => {
     setQuery("");
@@ -75,7 +89,11 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     setActiveMatchId(null);
     setPageNumber(boundedPage);
     window.requestAnimationFrame(() => {
-      window.document.getElementById(`pdf-page-${boundedPage}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (singlePageMode) {
+        documentViewportRef.current?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      } else {
+        window.document.getElementById(`pdf-page-${boundedPage}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
   };
 
@@ -129,7 +147,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
   const updateVisiblePage = () => {
     const viewport = documentViewportRef.current;
-    if (!viewport) return;
+    if (!viewport || singlePageMode) return;
 
     const viewportTop = viewport.getBoundingClientRect().top + 24;
     const pages = Array.from(viewport.querySelectorAll<HTMLElement>("[data-pdf-page]"));
@@ -148,6 +166,52 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
       setPageNumber(closest.page);
     }
   };
+
+  const changeZoom = (direction: -1 | 1) => {
+    setZoom((value) => Math.min(maxZoom, Math.max(minZoom, Number((value + direction * zoomStep).toFixed(2)))));
+  };
+
+  const startDocumentDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const viewport = documentViewportRef.current;
+    if (!viewport || zoom <= 1 || event.pointerType === "touch" || event.button !== 0) return;
+
+    dragStateRef.current = {
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      scrollLeft: viewport.scrollLeft,
+      scrollTop: viewport.scrollTop,
+    };
+    viewport.setPointerCapture(event.pointerId);
+    setDraggingDocument(true);
+    event.preventDefault();
+  };
+
+  const moveDocument = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const viewport = documentViewportRef.current;
+    const dragState = dragStateRef.current;
+    if (!viewport || !dragState || dragState.pointerId !== event.pointerId) return;
+
+    viewport.scrollLeft = dragState.scrollLeft - (event.clientX - dragState.x);
+    viewport.scrollTop = dragState.scrollTop - (event.clientY - dragState.y);
+    event.preventDefault();
+  };
+
+  const stopDocumentDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const viewport = documentViewportRef.current;
+    const dragState = dragStateRef.current;
+    if (!dragState || dragState.pointerId !== event.pointerId) return;
+
+    if (viewport?.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+    dragStateRef.current = null;
+    setDraggingDocument(false);
+  };
+
+  const displayedPages = pdfDocument
+    ? singlePageMode
+      ? [pageNumber]
+      : Array.from({ length: pdfDocument.numPages }, (_, index) => index + 1)
+    : [];
 
   return (
     <div className={styles.readerShell}>
@@ -276,28 +340,36 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                 <button type="button" onClick={() => changePage(pageNumber + 1)} disabled={pageNumber >= totalPages} aria-label="Próxima página"><ChevronRight /></button>
               </div>
               <div className={styles.zoomControls}>
-                <button type="button" onClick={() => setZoom((value) => Math.max(0.65, value - 0.1))} aria-label="Diminuir zoom"><ZoomOut /></button>
+                <button type="button" onClick={() => changeZoom(-1)} disabled={zoom <= minZoom} aria-label="Diminuir zoom"><ZoomOut /></button>
                 <span>{Math.round(zoom * 100)}%</span>
-                <button type="button" onClick={() => setZoom((value) => Math.min(1.5, value + 0.1))} aria-label="Aumentar zoom"><ZoomIn /></button>
+                <button type="button" onClick={() => changeZoom(1)} disabled={zoom >= maxZoom} aria-label="Aumentar zoom"><ZoomIn /></button>
                 <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
               </div>
             </div>
           )}
 
-          <div ref={documentViewportRef} className={styles.documentViewport} onScroll={updateVisiblePage}>
+          <div
+            ref={documentViewportRef}
+            className={`${styles.documentViewport} ${zoom > 1 ? styles.pannableDocument : ""} ${draggingDocument ? styles.draggingDocument : ""}`}
+            onPointerDown={startDocumentDrag}
+            onPointerMove={moveDocument}
+            onPointerUp={stopDocumentDrag}
+            onPointerCancel={stopDocumentDrag}
+            onScroll={updateVisiblePage}
+          >
             {loading && <div className={styles.documentMessage}><span className={styles.spinner} />Carregando o edital completo…</div>}
             {error && <div className={styles.documentMessage}><FileText aria-hidden="true" /><strong>{error}</strong><span>Tente baixar o arquivo e abri-lo no seu dispositivo.</span></div>}
             {!pdfUrl && <div className={styles.documentMessage}><FileText aria-hidden="true" /><strong>Documento ainda não disponível</strong><span>As informações deste edital já podem ser consultadas, mas o PDF será publicado em breve.</span></div>}
             {pdfDocument && (
               <div className={styles.pagesStack}>
-                {Array.from({ length: pdfDocument.numPages }, (_, index) => (
+                {displayedPages.map((displayedPage) => (
                   <PdfCanvas
-                    key={index + 1}
+                    key={displayedPage}
                     document={pdfDocument}
-                    pageNumber={index + 1}
+                    pageNumber={displayedPage}
                     title={activeEdital.title}
                     zoom={zoom}
-                    matches={matchesByPage.get(index + 1) ?? emptySearchResults}
+                    matches={matchesByPage.get(displayedPage) ?? emptySearchResults}
                     activeMatchId={activeMatchId}
                   />
                 ))}
