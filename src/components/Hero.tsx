@@ -1,11 +1,31 @@
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
 const slideCount = 2;
 
 export function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setPrefersReducedMotion(mediaQuery.matches);
+    updateMotionPreference();
+    mediaQuery.addEventListener("change", updateMotionPreference);
+    return () => mediaQuery.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    if (isPaused || prefersReducedMotion) return;
+
+    const timer = window.setTimeout(() => {
+      setActiveSlide((current) => (current + 1) % slideCount);
+    }, 6000);
+
+    return () => window.clearTimeout(timer);
+  }, [activeSlide, isPaused, prefersReducedMotion]);
 
   const showPrevious = () => {
     setActiveSlide((current) => (current - 1 + slideCount) % slideCount);
@@ -25,6 +45,12 @@ export function Hero() {
       id="inicio"
       aria-roledescription="carrossel"
       aria-label="Destaques culturais"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setIsPaused(false);
+      }}
     >
       <div className={styles.viewport}>
         <article className={`${styles.slide} ${styles.photoSlide} ${activeSlide === 0 ? styles.active : ""}`} aria-hidden={activeSlide !== 0}>
