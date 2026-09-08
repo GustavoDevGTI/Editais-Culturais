@@ -9,7 +9,7 @@
   z-index: 5;
   display: grid;
   min-height: 4.5rem;
-  grid-template-columns: 13rem 1fr 13rem;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 1.25rem;
   border-bottom: 1px solid rgb(19 60 74 / 16%);
@@ -37,17 +37,46 @@
 .backButton svg { width: 1.05rem; }
 .brand { justify-self: center; padding: 0; }
 .brand img { display: block; width: 10.5rem; height: 2.8rem; object-fit: contain; }
-.topbar > p { overflow: hidden; margin: 0; color: var(--muted); font-size: 0.76rem; text-align: right; text-overflow: ellipsis; white-space: nowrap; }
+
+.pageHeader {
+  display: flex;
+  width: min(calc(100% - 2rem), 78rem);
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin: 1.5rem auto 1rem;
+}
+
+.pageHeader h1 {
+  max-width: 46rem;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.15rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.pageMeta {
+  display: flex;
+  max-width: 20rem;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.9rem;
+}
+
+.pageMeta .status,
+.pageMeta .deadline { margin: 0; }
 
 .workspace {
   display: grid;
   width: min(calc(100% - 2rem), 78rem);
-  height: min(48rem, calc(100dvh - 7rem));
+  height: min(46rem, calc(100dvh - 9rem));
   min-height: 40rem;
   grid-template-columns: minmax(17.5rem, 19.5rem) minmax(0, 1fr);
   gap: 1rem;
   overflow: visible;
-  margin: 1.5rem auto 3rem;
+  margin: 0 auto 3rem;
 }
 
 .sidebar {
@@ -61,7 +90,6 @@
   padding: 0.1rem 0.45rem 0.1rem 0.1rem;
 }
 
-.currentInfo,
 .searchBlock,
 .allEditais {
   border: 1px solid rgb(19 60 74 / 14%);
@@ -84,15 +112,6 @@
 .statusSoon { background: #fff0ce; color: #8d5c00; }
 .statusClosed { background: #f9dfda; color: #a93428; }
 
-.currentInfo h1 {
-  margin: 0.35rem 0 0.65rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 2.2vw, 2.05rem);
-  font-weight: 400;
-  letter-spacing: -0.04em;
-  line-height: 1;
-}
-
 .deadline {
   display: flex;
   align-items: flex-start;
@@ -107,6 +126,14 @@
 
 .searchBlock {
   padding: 1rem;
+}
+
+.searchBlock h2 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0;
 }
 
 .documentSearch {
@@ -302,10 +329,10 @@
 @media (max-width: 900px) {
   .topbar { grid-template-columns: 1fr auto; }
   .brand { justify-self: end; }
-  .topbar > p { display: none; }
+  .pageHeader { width: min(calc(100% - 2rem), 48rem); align-items: flex-start; flex-direction: column; gap: 0.85rem; margin-block: 1.25rem 0.85rem; }
+  .pageMeta { max-width: none; justify-content: flex-start; }
   .workspace { width: min(calc(100% - 1rem), 48rem); height: auto; min-height: 0; grid-template-columns: 1fr; gap: 0.75rem; overflow: visible; margin: 0.75rem auto 2rem; }
   .sidebar { max-height: none; overflow: visible; padding: 0; }
-  .currentInfo h1 { max-width: 36rem; }
   .searchResults { max-height: 14rem; }
   .allEditais > div { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .documentPanel { min-height: 75dvh; }
@@ -317,6 +344,8 @@
   .brand img { width: 7.5rem; height: 2.2rem; }
   .backButton { font-size: 0.76rem; }
   .backButton svg { width: 0.95rem; }
+  .pageHeader { width: calc(100% - 1.5rem); }
+  .pageMeta { align-items: flex-start; flex-direction: column; gap: 0.55rem; }
   .allEditais > div { grid-template-columns: 1fr; }
   .documentToolbar { align-items: stretch; flex-direction: column; padding: 0.6rem; }
   .pageControls,

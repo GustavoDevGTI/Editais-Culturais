@@ -86,19 +86,23 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
         <button className={styles.brand} type="button" onClick={onBack} aria-label="Voltar à página inicial">
           <img src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`} alt="Prefeitura de Amargosa" />
         </button>
-        <p title={activeEdital.title}>{activeEdital.title}</p>
       </header>
+
+      <section className={styles.pageHeader} aria-labelledby="edital-title">
+        <div>
+          <p className="section-kicker">{activeEdital.label}</p>
+          <h1 id="edital-title">{activeEdital.title}</h1>
+        </div>
+        <div className={styles.pageMeta}>
+          <span className={`${styles.status} ${statusClass}`}>{activeEdital.status}</span>
+          <span className={styles.deadline}><CalendarDays aria-hidden="true" />{activeEdital.deadline}</span>
+        </div>
+      </section>
 
       <main className={styles.workspace}>
         <aside className={styles.sidebar} aria-label="Busca e navegação dos editais">
-          <div className={styles.currentInfo}>
-            <span className={`${styles.status} ${statusClass}`}>{activeEdital.status}</span>
-            <p className="section-kicker">{activeEdital.label}</p>
-            <h1>{activeEdital.title}</h1>
-            <span className={styles.deadline}><CalendarDays aria-hidden="true" />{activeEdital.deadline}</span>
-          </div>
-
-          <div className={styles.searchBlock}>
+          <section className={styles.searchBlock}>
+            <h2>Buscar neste edital</h2>
             <label className={styles.documentSearch}>
               <Search aria-hidden="true" />
               <span className="sr-only">Buscar dentro do edital</span>
@@ -132,9 +136,9 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                 )) : <p>Nenhuma ocorrência encontrada.</p>}
               </div>
             )}
-          </div>
+          </section>
 
-          <div className={styles.allEditais}>
+          <section className={styles.allEditais}>
             <h2>Todos os editais</h2>
             <label className={styles.editalSearch}>
               <Search aria-hidden="true" />
@@ -163,7 +167,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
               ))}
               {visibleEditais.length === 0 && <p className={styles.noEditais}>Nenhum edital encontrado.</p>}
             </div>
-          </div>
+          </section>
         </aside>
 
         <section className={styles.documentPanel} aria-label={`Documento: ${activeEdital.title}`}>
