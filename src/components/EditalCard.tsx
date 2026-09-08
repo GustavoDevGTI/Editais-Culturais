@@ -10,9 +10,14 @@ interface EditalCardProps {
 
 export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
   const statusClass = edital.status === "Aberto" ? styles.open : edital.status === "Em breve" ? styles.soon : styles.closed;
+  const cardStatusClass = edital.status === "Aberto"
+    ? styles.cardOpen
+    : edital.status === "Em breve"
+      ? styles.cardSoon
+      : styles.cardClosed;
 
   return (
-    <article className={`${styles.card} ${edital.featured ? styles.featured : ""}`}>
+    <article className={`${styles.card} ${cardStatusClass}`}>
       <button
         className={styles.cardHitArea}
         type="button"

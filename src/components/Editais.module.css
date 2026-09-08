@@ -39,18 +39,20 @@
 .resultsMeta svg { width: 0.95rem; }
 .list { display: grid; gap: 0.85rem; }
 
-.card { position: relative; cursor: pointer; border: 1px solid var(--line); border-left: 0.45rem solid var(--green); border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; padding: 1.4rem 1.6rem 1.1rem; background: var(--white); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+.card { position: relative; cursor: pointer; border: 1px solid var(--line); border-left: 0.45rem solid; border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; padding: 1.4rem 1.6rem 1.1rem; background: var(--white); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
 .card:hover { transform: translateY(-0.2rem); border-color: var(--apricot); box-shadow: var(--shadow-card); }
 .card:focus-within { border-color: var(--terracotta); box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--terracotta) 24%, transparent), var(--shadow-card); }
+.card.cardOpen { border-left-color: var(--green); }
+.card.cardSoon { border-left-color: #d89a2b; }
+.card.cardClosed { border-left-color: #c94c3c; }
 .cardHitArea { position: absolute; inset: 0; z-index: 2; border: 0; border-radius: inherit; background: transparent; }
 .cardHitArea:focus { outline: 0; }
-.featured { border-left-color: var(--terracotta); }
 .cardTopline, .cardFooter { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .status { display: inline-flex; align-items: center; gap: 0.4rem; border-radius: 999px; padding: 0.35rem 0.65rem; font-size: 0.72rem; font-weight: 800; }
 .status i { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: currentColor; }
 .open { background: #e6f0e4; color: #34704b; }
 .soon { background: #fff0d6; color: #8b5b18; }
-.closed { background: #eeeae3; color: #6d6f69; }
+.closed { background: #f9dfda; color: #a93428; }
 .category { color: var(--muted); font-size: 0.75rem; font-weight: 700; }
 .cardBody { display: grid; grid-template-columns: 3rem 1fr; gap: 0.85rem; padding: 1.15rem 0; }
 .number { padding-top: 0.12rem; color: var(--sand-dark); font-family: var(--font-display); font-size: 2rem; font-style: italic; line-height: 1; }

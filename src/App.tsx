@@ -11,6 +11,12 @@ const EditalReader = lazy(() =>
   import("./components/EditalReader").then((module) => ({ default: module.EditalReader })),
 );
 
+const statusPriority: Record<Status, number> = {
+  Aberto: 0,
+  "Em breve": 1,
+  Encerrado: 2,
+};
+
 export function App() {
   const [query, setQuery] = useState("");
   const [categoria, setCategoria] = useState<Categoria | "Todas">("Todas");
@@ -20,16 +26,21 @@ export function App() {
   const filteredEditais = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");
 
-    return editais.filter((edital) => {
-      const searchableText = [edital.title, edital.summary, edital.category]
-        .join(" ")
-        .toLocaleLowerCase("pt-BR");
-      const matchesQuery = !normalizedQuery || searchableText.includes(normalizedQuery);
-      const matchesCategory = categoria === "Todas" || edital.category === categoria;
-      const matchesStatus = status === "Todos" || edital.status === status;
+    return editais
+      .filter((edital) => {
+        const searchableText = [edital.title, edital.summary, edital.category]
+          .join(" ")
+          .toLocaleLowerCase("pt-BR");
+        const matchesQuery = !normalizedQuery || searchableText.includes(normalizedQuery);
+        const matchesCategory = categoria === "Todas" || edital.category === categoria;
+        const matchesStatus = status === "Todos" || edital.status === status;
 
-      return matchesQuery && matchesCategory && matchesStatus;
-    });
+        return matchesQuery && matchesCategory && matchesStatus;
+      })
+      .sort((left, right) => (
+        statusPriority[left.status] - statusPriority[right.status]
+        || right.publishedDate.localeCompare(left.publishedDate)
+      ));
   }, [categoria, query, status]);
 
   const clearFilters = () => {
