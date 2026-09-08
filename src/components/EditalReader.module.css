@@ -61,6 +61,11 @@
   white-space: nowrap;
 }
 
+.pageHeading {
+  display: grid;
+  gap: 0.45rem;
+}
+
 .pageMeta {
   display: flex;
   max-width: none;

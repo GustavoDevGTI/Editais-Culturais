@@ -130,13 +130,13 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
       </header>
 
       <section className={styles.pageHeader} aria-labelledby="edital-title">
-        <div>
+        <div className={styles.pageHeading}>
           <p className="section-kicker">{activeEdital.label}</p>
+          <div className={styles.pageMeta}>
+            <span className={`${styles.status} ${statusClass}`}>{activeEdital.status}</span>
+            <span className={styles.deadline}><CalendarDays aria-hidden="true" />{activeEdital.deadline}</span>
+          </div>
           <h1 id="edital-title">{activeEdital.title}</h1>
-        </div>
-        <div className={styles.pageMeta}>
-          <span className={`${styles.status} ${statusClass}`}>{activeEdital.status}</span>
-          <span className={styles.deadline}><CalendarDays aria-hidden="true" />{activeEdital.deadline}</span>
         </div>
       </section>
 
