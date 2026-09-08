@@ -22,13 +22,13 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const [query, setQuery] = useState("");
   const [listQuery, setListQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
-  const [zoom, setZoom] = useState(0.9);
+  const [zoom, setZoom] = useState(1);
   const documentViewportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setQuery("");
     setPageNumber(1);
-    setZoom(0.9);
+    setZoom(1);
     window.document.title = `${activeEdital.title} | Editais Culturais`;
     return () => { window.document.title = "Editais Culturais | Amargosa"; };
   }, [activeEdital.id, activeEdital.title]);
@@ -176,9 +176,9 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                 <button type="button" onClick={() => changePage(pageNumber + 1)} disabled={pageNumber >= totalPages} aria-label="Próxima página"><ChevronRight /></button>
               </div>
               <div className={styles.zoomControls}>
-                <button type="button" onClick={() => setZoom((value) => Math.max(0.7, value - 0.15))} aria-label="Diminuir zoom"><ZoomOut /></button>
+                <button type="button" onClick={() => setZoom((value) => Math.max(0.65, value - 0.1))} aria-label="Diminuir zoom"><ZoomOut /></button>
                 <span>{Math.round(zoom * 100)}%</span>
-                <button type="button" onClick={() => setZoom((value) => Math.min(1.8, value + 0.15))} aria-label="Aumentar zoom"><ZoomIn /></button>
+                <button type="button" onClick={() => setZoom((value) => Math.min(1.5, value + 0.1))} aria-label="Aumentar zoom"><ZoomIn /></button>
                 <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
               </div>
             </div>

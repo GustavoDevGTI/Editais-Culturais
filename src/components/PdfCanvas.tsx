@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import type { PDFDocumentProxy, RenderTask } from "pdfjs-dist";
 import styles from "./EditalReader.module.css";
 
+const readerBaseScale = 1.4;
+
 interface PdfCanvasProps {
   document: PDFDocumentProxy;
   pageNumber: number;
@@ -49,8 +51,8 @@ export function PdfCanvas({ document, pageNumber, title, zoom }: PdfCanvasProps)
       if (cancelled || !canvasRef.current) return;
 
       const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.6);
-      const cssViewport = page.getViewport({ scale: zoom });
-      const renderViewport = page.getViewport({ scale: zoom * pixelRatio });
+      const cssViewport = page.getViewport({ scale: readerBaseScale * zoom });
+      const renderViewport = page.getViewport({ scale: readerBaseScale * zoom * pixelRatio });
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d", { alpha: false });
       if (!context) return;
@@ -84,7 +86,7 @@ export function PdfCanvas({ document, pageNumber, title, zoom }: PdfCanvasProps)
       className={styles.pageStage}
       data-pdf-page={pageNumber}
       aria-busy={rendering}
-      style={{ width: `${595 * zoom}px`, aspectRatio: "595 / 842" }}
+      style={{ width: `${595 * readerBaseScale * zoom}px`, aspectRatio: "595 / 842" }}
     >
       {rendering && <div className={styles.pageLoader}><LoaderCircle aria-hidden="true" /> Carregando página…</div>}
       <canvas ref={canvasRef} className={styles.pdfCanvas} aria-label={`${title}, página ${pageNumber}`} />
