@@ -1,5 +1,5 @@
 import { ArrowLeft, CalendarDays, ChevronLeft, ChevronRight, Download, FileText, Search, ZoomIn, ZoomOut } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Edital } from "../types/edital";
 import { usePdfDocument } from "../hooks/usePdfDocument";
 import { searchPdfPages } from "../utils/pdfSearch";
@@ -20,13 +20,15 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     : undefined;
   const { document: pdfDocument, error, indexing, loading, pageTexts } = usePdfDocument(pdfUrl);
   const [query, setQuery] = useState("");
+  const [listQuery, setListQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(0.9);
+  const documentViewportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setQuery("");
     setPageNumber(1);
-    setZoom(1);
+    setZoom(0.9);
     window.document.title = `${activeEdital.title} | Editais Culturais`;
     return () => { window.document.title = "Editais Culturais | Amargosa"; };
   }, [activeEdital.id, activeEdital.title]);
@@ -36,9 +38,43 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     [pageTexts, query],
   );
   const totalPages = pdfDocument?.numPages ?? activeEdital.pageCount ?? 0;
+  const normalizedListQuery = listQuery.trim().toLocaleLowerCase("pt-BR");
+  const visibleEditais = useMemo(
+    () => [...editais]
+      .sort((left, right) => right.publishedDate.localeCompare(left.publishedDate))
+      .filter((edital) => !normalizedListQuery || [edital.title, edital.category, edital.label]
+        .join(" ")
+        .toLocaleLowerCase("pt-BR")
+        .includes(normalizedListQuery)),
+    [editais, normalizedListQuery],
+  );
+  const statusClass = activeEdital.status === "Encerrado"
+    ? styles.statusClosed
+    : activeEdital.status === "Em breve"
+      ? styles.statusSoon
+      : styles.statusOpen;
 
   const changePage = (nextPage: number) => {
-    setPageNumber(Math.min(Math.max(nextPage, 1), totalPages || 1));
+    const boundedPage = Math.min(Math.max(nextPage, 1), totalPages || 1);
+    setPageNumber(boundedPage);
+    window.requestAnimationFrame(() => {
+      window.document.getElementById(`pdf-page-${boundedPage}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
+
+  const updateVisiblePage = () => {
+    const viewport = documentViewportRef.current;
+    if (!viewport) return;
+
+    const viewportTop = viewport.getBoundingClientRect().top + 24;
+    const pages = Array.from(viewport.querySelectorAll<HTMLElement>("[data-pdf-page]"));
+    const closest = pages.reduce<{ distance: number; page: number } | null>((current, page) => {
+      const distance = Math.abs(page.getBoundingClientRect().top - viewportTop);
+      const pageValue = Number(page.dataset.pdfPage);
+      return !current || distance < current.distance ? { distance, page: pageValue } : current;
+    }, null);
+
+    if (closest && closest.page !== pageNumber) setPageNumber(closest.page);
   };
 
   return (
@@ -56,10 +92,9 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
       <main className={styles.workspace}>
         <aside className={styles.sidebar} aria-label="Busca e navegação dos editais">
           <div className={styles.currentInfo}>
-            <span className={styles.status}>{activeEdital.status}</span>
+            <span className={`${styles.status} ${statusClass}`}>{activeEdital.status}</span>
             <p className="section-kicker">{activeEdital.label}</p>
             <h1>{activeEdital.title}</h1>
-            <p>{activeEdital.summary}</p>
             <span className={styles.deadline}><CalendarDays aria-hidden="true" />{activeEdital.deadline}</span>
           </div>
 
@@ -99,11 +134,20 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
             )}
           </div>
 
-          <div className={styles.otherEditais}>
-            <h2>Outros editais</h2>
-            <p>Troque o documento sem sair desta página.</p>
+          <div className={styles.allEditais}>
+            <h2>Todos os editais</h2>
+            <label className={styles.editalSearch}>
+              <Search aria-hidden="true" />
+              <span className="sr-only">Buscar na lista de editais</span>
+              <input
+                type="search"
+                value={listQuery}
+                onChange={(event) => setListQuery(event.target.value)}
+                placeholder="Buscar edital…"
+              />
+            </label>
             <div>
-              {editais.map((edital) => (
+              {visibleEditais.map((edital) => (
                 <button
                   key={edital.id}
                   type="button"
@@ -111,9 +155,13 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                   onClick={() => onSelect(edital.id)}
                 >
                   <FileText aria-hidden="true" />
-                  <span><strong>{edital.title}</strong><small>{edital.pdfFile ? `${edital.pageCount} páginas` : "Documento em breve"}</small></span>
+                  <span>
+                    <strong>{edital.title}</strong>
+                    <small>{edital.publishedAt.replace("Publicado em ", "")}{edital.pdfFile ? ` · ${edital.pageCount} páginas` : " · Documento em breve"}</small>
+                  </span>
                 </button>
               ))}
+              {visibleEditais.length === 0 && <p className={styles.noEditais}>Nenhum edital encontrado.</p>}
             </div>
           </div>
         </aside>
@@ -136,11 +184,23 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
             </div>
           )}
 
-          <div className={styles.documentViewport}>
+          <div ref={documentViewportRef} className={styles.documentViewport} onScroll={updateVisiblePage}>
             {loading && <div className={styles.documentMessage}><span className={styles.spinner} />Carregando o edital completo…</div>}
             {error && <div className={styles.documentMessage}><FileText aria-hidden="true" /><strong>{error}</strong><span>Tente baixar o arquivo e abri-lo no seu dispositivo.</span></div>}
             {!pdfUrl && <div className={styles.documentMessage}><FileText aria-hidden="true" /><strong>Documento ainda não disponível</strong><span>As informações deste edital já podem ser consultadas, mas o PDF será publicado em breve.</span></div>}
-            {pdfDocument && <PdfCanvas document={pdfDocument} pageNumber={pageNumber} title={activeEdital.title} zoom={zoom} />}
+            {pdfDocument && (
+              <div className={styles.pagesStack}>
+                {Array.from({ length: pdfDocument.numPages }, (_, index) => (
+                  <PdfCanvas
+                    key={index + 1}
+                    document={pdfDocument}
+                    pageNumber={index + 1}
+                    title={activeEdital.title}
+                    zoom={zoom}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </main>

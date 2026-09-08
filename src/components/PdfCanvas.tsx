@@ -11,21 +11,46 @@ interface PdfCanvasProps {
 }
 
 export function PdfCanvas({ document, pageNumber, title, zoom }: PdfCanvasProps) {
+  const pageRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [rendering, setRendering] = useState(true);
+  const [shouldRender, setShouldRender] = useState(false);
+  const [rendering, setRendering] = useState(false);
+
+  useEffect(() => {
+    const page = pageRef.current;
+    if (!page) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setShouldRender(entry.isIntersecting),
+      { rootMargin: "900px 0px" },
+    );
+
+    observer.observe(page);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
     let renderTask: RenderTask | null = null;
+
+    if (!shouldRender) {
+      const canvas = canvasRef.current;
+      if (canvas) {
+        canvas.width = 1;
+        canvas.height = 1;
+      }
+      setRendering(false);
+      return;
+    }
 
     async function renderPage() {
       setRendering(true);
       const page = await document.getPage(pageNumber);
       if (cancelled || !canvasRef.current) return;
 
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-      const cssViewport = page.getViewport({ scale: 1.2 * zoom });
-      const renderViewport = page.getViewport({ scale: 1.2 * zoom * pixelRatio });
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.6);
+      const cssViewport = page.getViewport({ scale: zoom });
+      const renderViewport = page.getViewport({ scale: zoom * pixelRatio });
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d", { alpha: false });
       if (!context) return;
@@ -36,8 +61,12 @@ export function PdfCanvas({ document, pageNumber, title, zoom }: PdfCanvasProps)
       canvas.style.height = `${Math.floor(cssViewport.height)}px`;
 
       renderTask = page.render({ canvas, canvasContext: context, viewport: renderViewport });
-      await renderTask.promise;
-      if (!cancelled) setRendering(false);
+      try {
+        await renderTask.promise;
+        if (!cancelled) setRendering(false);
+      } catch {
+        if (!cancelled) setRendering(false);
+      }
     }
 
     void renderPage();
@@ -46,12 +75,19 @@ export function PdfCanvas({ document, pageNumber, title, zoom }: PdfCanvasProps)
       cancelled = true;
       renderTask?.cancel();
     };
-  }, [document, pageNumber, zoom]);
+  }, [document, pageNumber, shouldRender, zoom]);
 
   return (
-    <div className={styles.pageStage} aria-busy={rendering}>
+    <article
+      ref={pageRef}
+      id={`pdf-page-${pageNumber}`}
+      className={styles.pageStage}
+      data-pdf-page={pageNumber}
+      aria-busy={rendering}
+      style={{ width: `${595 * zoom}px`, aspectRatio: "595 / 842" }}
+    >
       {rendering && <div className={styles.pageLoader}><LoaderCircle aria-hidden="true" /> Carregando página…</div>}
       <canvas ref={canvasRef} className={styles.pdfCanvas} aria-label={`${title}, página ${pageNumber}`} />
-    </div>
+    </article>
   );
 }

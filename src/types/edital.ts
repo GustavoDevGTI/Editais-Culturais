@@ -17,6 +17,7 @@ export interface Edital {
   category: Categoria;
   status: Status;
   deadline: string;
+  publishedDate: string;
   publishedAt: string;
   label: string;
   audience: string;
