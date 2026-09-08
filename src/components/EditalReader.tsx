@@ -1,10 +1,12 @@
 import { ArrowLeft, CalendarDays, ChevronLeft, ChevronRight, Download, FileText, Search, ZoomIn, ZoomOut } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Edital } from "../types/edital";
 import { usePdfDocument } from "../hooks/usePdfDocument";
-import { searchPdfPages } from "../utils/pdfSearch";
+import { searchPdfPages, type PdfSearchResult } from "../utils/pdfSearch";
 import { PdfCanvas } from "./PdfCanvas";
 import styles from "./EditalReader.module.css";
+
+const emptySearchResults: PdfSearchResult[] = [];
 
 interface EditalReaderProps {
   activeId: string;
@@ -18,15 +20,17 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const pdfUrl = activeEdital.pdfFile
     ? `${import.meta.env.BASE_URL}${activeEdital.pdfFile}`
     : undefined;
-  const { document: pdfDocument, error, indexing, loading, pageTexts } = usePdfDocument(pdfUrl);
+  const { document: pdfDocument, error, indexing, loading, pageTextItems } = usePdfDocument(pdfUrl);
   const [query, setQuery] = useState("");
   const [listQuery, setListQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [zoom, setZoom] = useState(1);
+  const [activeMatchId, setActiveMatchId] = useState<string | null>(null);
   const documentViewportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setQuery("");
+    setActiveMatchId(null);
     setPageNumber(1);
     setZoom(1);
     window.document.title = `${activeEdital.title} | Editais Culturais`;
@@ -34,9 +38,18 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   }, [activeEdital.id, activeEdital.title]);
 
   const results = useMemo(
-    () => searchPdfPages(pageTexts, query),
-    [pageTexts, query],
+    () => searchPdfPages(pageTextItems, query),
+    [pageTextItems, query],
   );
+  const matchesByPage = useMemo(() => {
+    const grouped = new Map<number, PdfSearchResult[]>();
+    results.forEach((result) => {
+      const pageMatches = grouped.get(result.pageNumber) ?? [];
+      pageMatches.push(result);
+      grouped.set(result.pageNumber, pageMatches);
+    });
+    return grouped;
+  }, [results]);
   const totalPages = pdfDocument?.numPages ?? activeEdital.pageCount ?? 0;
   const normalizedListQuery = listQuery.trim().toLocaleLowerCase("pt-BR");
   const visibleEditais = useMemo(
@@ -60,6 +73,33 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     window.requestAnimationFrame(() => {
       window.document.getElementById(`pdf-page-${boundedPage}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+  };
+
+  const selectMatch = (result: PdfSearchResult) => {
+    setPageNumber(result.pageNumber);
+    setActiveMatchId(result.id);
+    window.requestAnimationFrame(() => {
+      window.document.getElementById(`pdf-page-${result.pageNumber}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
+
+  const renderHighlightedText = (text: string) => {
+    const term = query.trim();
+    if (term.length < 2) return text;
+    const normalizedText = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR");
+    const normalizedTerm = term.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR");
+    const parts: ReactNode[] = [];
+    let cursor = 0;
+    let matchAt = normalizedText.indexOf(normalizedTerm);
+
+    while (matchAt >= 0) {
+      if (matchAt > cursor) parts.push(text.slice(cursor, matchAt));
+      parts.push(<mark key={`${matchAt}-${parts.length}`}>{text.slice(matchAt, matchAt + normalizedTerm.length)}</mark>);
+      cursor = matchAt + normalizedTerm.length;
+      matchAt = normalizedText.indexOf(normalizedTerm, cursor);
+    }
+    if (cursor < text.length) parts.push(text.slice(cursor));
+    return parts;
   };
 
   const updateVisiblePage = () => {
@@ -109,7 +149,10 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
               <input
                 type="search"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                  setActiveMatchId(null);
+                }}
                 placeholder="Buscar dentro do edital…"
                 disabled={!pdfUrl}
               />
@@ -127,11 +170,11 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                   <button
                     key={`${result.pageNumber}-${index}`}
                     type="button"
-                    className={pageNumber === result.pageNumber ? styles.activeResult : ""}
-                    onClick={() => changePage(result.pageNumber)}
+                    className={activeMatchId === result.id ? styles.activeResult : ""}
+                    onClick={() => selectMatch(result)}
                   >
                     <strong>Página {result.pageNumber}</strong>
-                    <span>{result.snippet}</span>
+                    <span>{renderHighlightedText(result.snippet)}</span>
                   </button>
                 )) : <p>Nenhuma ocorrência encontrada.</p>}
               </div>
@@ -201,6 +244,8 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                     pageNumber={index + 1}
                     title={activeEdital.title}
                     zoom={zoom}
+                    matches={matchesByPage.get(index + 1) ?? emptySearchResults}
+                    activeMatchId={activeMatchId}
                   />
                 ))}
               </div>

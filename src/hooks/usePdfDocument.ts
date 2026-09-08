@@ -6,7 +6,7 @@ GlobalWorkerOptions.workerSrc = workerUrl;
 
 export function usePdfDocument(url?: string) {
   const [document, setDocument] = useState<PDFDocumentProxy | null>(null);
-  const [pageTexts, setPageTexts] = useState<string[]>([]);
+  const [pageTextItems, setPageTextItems] = useState<string[][]>([]);
   const [loading, setLoading] = useState(false);
   const [indexing, setIndexing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -14,7 +14,7 @@ export function usePdfDocument(url?: string) {
   useEffect(() => {
     if (!url) {
       setDocument(null);
-      setPageTexts([]);
+      setPageTextItems([]);
       setLoading(false);
       setIndexing(false);
       setError(null);
@@ -27,7 +27,7 @@ export function usePdfDocument(url?: string) {
     setLoading(true);
     setIndexing(false);
     setError(null);
-    setPageTexts([]);
+    setPageTextItems([]);
 
     task.promise
       .then(async (pdf) => {
@@ -36,20 +36,18 @@ export function usePdfDocument(url?: string) {
         setLoading(false);
         setIndexing(true);
 
-        const texts = await Promise.all(
+        const textItems = await Promise.all(
           Array.from({ length: pdf.numPages }, async (_, index) => {
             const page = await pdf.getPage(index + 1);
             const content = await page.getTextContent();
             return content.items
               .map((item) => ("str" in item ? item.str : ""))
-              .join(" ")
-              .replace(/\s+/g, " ")
-              .trim();
+              .filter(Boolean);
           }),
         );
 
         if (!cancelled) {
-          setPageTexts(texts);
+          setPageTextItems(textItems);
           setIndexing(false);
         }
       })
@@ -67,5 +65,5 @@ export function usePdfDocument(url?: string) {
     };
   }, [url]);
 
-  return { document, error, indexing, loading, pageTexts };
+  return { document, error, indexing, loading, pageTextItems };
 }
