@@ -471,15 +471,16 @@
   .backButton svg { width: 0.95rem; }
   .pageHeader { width: calc(100% - 1.5rem); }
   .pageHeadingTop {
-    display: grid;
-    grid-template-columns: auto auto minmax(0, 1fr);
-    gap: 0.4rem;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.5rem;
   }
-  .pageLabel { white-space: nowrap; font-size: 0.56rem; letter-spacing: 0.1em; }
-  .pageMeta { display: contents; }
-  .status { white-space: nowrap; padding: 0.25rem 0.45rem; font-size: 0.62rem; }
-  .deadline { min-width: 0; gap: 0.3rem; font-size: 0.64rem; line-height: 1.2; }
-  .deadline svg { width: 0.82rem; flex: 0 0 auto; }
+  .pageLabel { flex: 0 0 auto; white-space: nowrap; font-size: 0.56rem; line-height: 1; letter-spacing: 0.1em; }
+  .pageMeta { display: flex; min-width: 0; align-items: center; gap: 0.5rem; }
+  .status { min-height: 1.5rem; align-items: center; white-space: nowrap; padding: 0.25rem 0.45rem; font-size: 0.62rem; line-height: 1; }
+  .deadline { min-width: 0; align-items: center; gap: 0.3rem; white-space: nowrap; font-size: 0.62rem; line-height: 1; }
+  .deadline svg { width: 0.82rem; height: 0.82rem; flex: 0 0 auto; }
   .allEditais > div { grid-template-columns: 1fr; }
   .documentToolbar {
     min-height: 3rem;
@@ -497,6 +498,15 @@
   .zoomControls > span { min-width: 2.3rem; font-size: 0.68rem; }
   .documentViewport { width: 100%; padding: 0.75rem; }
   .pagesStack { width: 100%; max-width: 100%; }
+}
+
+@media (max-width: 380px) {
+  .pageHeadingTop,
+  .pageMeta { gap: 0.3rem; }
+  .pageLabel { font-size: 0.5rem; letter-spacing: 0.06em; }
+  .status { min-height: 1.35rem; padding-inline: 0.35rem; font-size: 0.58rem; }
+  .deadline { gap: 0.2rem; font-size: 0.56rem; }
+  .deadline svg { width: 0.72rem; height: 0.72rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
