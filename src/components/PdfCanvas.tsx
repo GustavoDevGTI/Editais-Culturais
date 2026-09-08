@@ -168,7 +168,7 @@ export function PdfCanvas({ document, pageNumber, title, zoom, matches, activeMa
       className={styles.pageStage}
       data-pdf-page={pageNumber}
       aria-busy={rendering}
-      style={{ width: `min(100%, ${595 * readerBaseScale * zoom}px)`, aspectRatio: "595 / 842" }}
+      style={{ width: `min(${zoom * 100}%, ${595 * readerBaseScale * zoom}px)`, aspectRatio: "595 / 842" }}
     >
       {rendering && <div className={styles.pageLoader}><LoaderCircle aria-hidden="true" /> Carregando página…</div>}
       <canvas ref={canvasRef} className={styles.pdfCanvas} aria-label={`${title}, página ${pageNumber}`} />

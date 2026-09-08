@@ -338,8 +338,9 @@
 
 .documentViewport {
   min-height: 0;
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
+  overscroll-behavior-inline: contain;
   scroll-padding-top: 1.5rem;
   padding: 1.15rem 1.25rem 2rem;
 }
@@ -350,8 +351,8 @@
   position: relative;
   display: grid;
   min-width: 0;
-  max-width: 100%;
-  justify-self: center;
+  justify-self: start;
+  margin-inline: auto;
   place-items: start center;
   scroll-margin-top: 1.5rem;
   overflow: hidden;
