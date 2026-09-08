@@ -69,6 +69,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
   const changePage = (nextPage: number) => {
     const boundedPage = Math.min(Math.max(nextPage, 1), totalPages || 1);
+    setActiveMatchId(null);
     setPageNumber(boundedPage);
     window.requestAnimationFrame(() => {
       window.document.getElementById(`pdf-page-${boundedPage}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
