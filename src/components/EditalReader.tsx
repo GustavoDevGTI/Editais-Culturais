@@ -28,7 +28,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const [listQuery, setListQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [zoom, setZoom] = useState(1);
-  const [singlePageMode, setSinglePageMode] = useState(() => window.matchMedia("(max-width: 560px)").matches);
+  const [singlePageMode, setSinglePageMode] = useState(() => window.matchMedia("(max-width: 720px)").matches);
   const [draggingDocument, setDraggingDocument] = useState(false);
   const [activeMatchId, setActiveMatchId] = useState<string | null>(null);
   const documentViewportRef = useRef<HTMLDivElement>(null);
@@ -36,7 +36,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const dragStateRef = useRef<{ pointerId: number; x: number; y: number; scrollLeft: number; scrollTop: number } | null>(null);
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 560px)");
+    const media = window.matchMedia("(max-width: 720px)");
     const updateMode = () => setSinglePageMode(media.matches);
     updateMode();
     media.addEventListener("change", updateMode);
