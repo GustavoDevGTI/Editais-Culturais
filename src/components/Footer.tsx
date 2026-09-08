@@ -6,7 +6,7 @@ export function Footer() {
       <div className={`container ${styles.footerGrid}`}>
         <div className={styles.seal}>
           <img
-            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`}
+            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-icon.png`}
             alt="Símbolo da Prefeitura de Amargosa"
           />
         </div>
