@@ -81,6 +81,13 @@ export function Hero() {
             />
           </picture>
         </article>
+
+        <button className={`${styles.mobileArrow} ${styles.mobileArrowPrevious}`} type="button" onClick={showPrevious} aria-label="Banner anterior">
+          <ChevronLeft aria-hidden="true" />
+        </button>
+        <button className={`${styles.mobileArrow} ${styles.mobileArrowNext}`} type="button" onClick={showNext} aria-label="Próximo banner">
+          <ChevronRight aria-hidden="true" />
+        </button>
       </div>
 
       <div className={`${styles.controls} ${activeSlide === 0 ? styles.photoControls : styles.artControls}`}>
