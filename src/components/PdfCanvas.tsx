@@ -120,7 +120,7 @@ export function PdfCanvas({ document, pageNumber, title, zoom, matches, activeMa
       renderTask?.cancel();
       textLayer?.cancel();
     };
-  }, [document, pageNumber, renderWidth, shouldRender, zoom]);
+  }, [document, pageNumber, renderWidth, shouldRender]);
 
   useEffect(() => {
     const textDivs = textDivsRef.current;

@@ -10,6 +10,22 @@ const emptySearchResults: PdfSearchResult[] = [];
 const minZoom = 0.5;
 const maxZoom = 4;
 const zoomStep = 0.25;
+const pageSwipeThreshold = 52;
+
+interface TouchPoint {
+  x: number;
+  y: number;
+}
+
+interface TouchGesture {
+  startX: number;
+  startY: number;
+  lastX: number;
+  lastY: number;
+  startDistance: number;
+  startZoom: number;
+  pinching: boolean;
+}
 
 interface EditalReaderProps {
   activeId: string;
@@ -34,6 +50,8 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const documentViewportRef = useRef<HTMLDivElement>(null);
   const matchNavigationPageRef = useRef<number | null>(null);
   const dragStateRef = useRef<{ pointerId: number; x: number; y: number; scrollLeft: number; scrollTop: number } | null>(null);
+  const touchPointsRef = useRef(new Map<number, TouchPoint>());
+  const touchGestureRef = useRef<TouchGesture | null>(null);
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 720px)");
@@ -171,9 +189,40 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     setZoom((value) => Math.min(maxZoom, Math.max(minZoom, Number((value + direction * zoomStep).toFixed(2)))));
   };
 
+  const distanceBetweenTouches = () => {
+    const [first, second] = Array.from(touchPointsRef.current.values());
+    return first && second ? Math.hypot(second.x - first.x, second.y - first.y) : 0;
+  };
+
   const startDocumentDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     const viewport = documentViewportRef.current;
-    if (!viewport || zoom <= 1 || event.pointerType === "touch" || event.button !== 0) return;
+    if (!viewport) return;
+
+    if (event.pointerType === "touch") {
+      touchPointsRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      viewport.setPointerCapture(event.pointerId);
+
+      if (touchPointsRef.current.size === 1) {
+        touchGestureRef.current = {
+          startX: event.clientX,
+          startY: event.clientY,
+          lastX: event.clientX,
+          lastY: event.clientY,
+          startDistance: 0,
+          startZoom: zoom,
+          pinching: false,
+        };
+      } else if (touchPointsRef.current.size === 2 && touchGestureRef.current) {
+        touchGestureRef.current.startDistance = distanceBetweenTouches();
+        touchGestureRef.current.startZoom = zoom;
+        touchGestureRef.current.pinching = true;
+      }
+
+      event.preventDefault();
+      return;
+    }
+
+    if (zoom <= 1 || event.button !== 0) return;
 
     dragStateRef.current = {
       pointerId: event.pointerId,
@@ -189,8 +238,33 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
   const moveDocument = (event: ReactPointerEvent<HTMLDivElement>) => {
     const viewport = documentViewportRef.current;
+    if (!viewport) return;
+
+    if (event.pointerType === "touch") {
+      if (!touchPointsRef.current.has(event.pointerId)) return;
+      touchPointsRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      const gesture = touchGestureRef.current;
+      if (!gesture) return;
+
+      if (touchPointsRef.current.size >= 2 && gesture.startDistance > 0) {
+        const nextZoom = Math.min(
+          maxZoom,
+          Math.max(minZoom, Number((gesture.startZoom * distanceBetweenTouches() / gesture.startDistance).toFixed(2))),
+        );
+        setZoom((current) => Math.abs(current - nextZoom) >= 0.02 ? nextZoom : current);
+      } else if (zoom > 1 && !gesture.pinching) {
+        viewport.scrollLeft -= event.clientX - gesture.lastX;
+        viewport.scrollTop -= event.clientY - gesture.lastY;
+      }
+
+      gesture.lastX = event.clientX;
+      gesture.lastY = event.clientY;
+      event.preventDefault();
+      return;
+    }
+
     const dragState = dragStateRef.current;
-    if (!viewport || !dragState || dragState.pointerId !== event.pointerId) return;
+    if (!dragState || dragState.pointerId !== event.pointerId) return;
 
     viewport.scrollLeft = dragState.scrollLeft - (event.clientX - dragState.x);
     viewport.scrollTop = dragState.scrollTop - (event.clientY - dragState.y);
@@ -199,10 +273,44 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
   const stopDocumentDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     const viewport = documentViewportRef.current;
+
+    if (event.pointerType === "touch") {
+      const gesture = touchGestureRef.current;
+      const endedPoint = touchPointsRef.current.get(event.pointerId) ?? { x: event.clientX, y: event.clientY };
+      touchPointsRef.current.delete(event.pointerId);
+
+      if (viewport?.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+      if (touchPointsRef.current.size === 0) {
+        if (gesture && !gesture.pinching && zoom <= 1) {
+          const deltaX = endedPoint.x - gesture.startX;
+          const deltaY = endedPoint.y - gesture.startY;
+          if (Math.abs(deltaY) >= pageSwipeThreshold && Math.abs(deltaY) > Math.abs(deltaX) * 1.15) {
+            changePage(deltaY < 0 ? pageNumber + 1 : pageNumber - 1);
+          }
+        }
+        touchGestureRef.current = null;
+      }
+      return;
+    }
+
     const dragState = dragStateRef.current;
     if (!dragState || dragState.pointerId !== event.pointerId) return;
 
     if (viewport?.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+    dragStateRef.current = null;
+    setDraggingDocument(false);
+  };
+
+  const cancelDocumentDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const viewport = documentViewportRef.current;
+    if (viewport?.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+
+    if (event.pointerType === "touch") {
+      touchPointsRef.current.delete(event.pointerId);
+      if (touchPointsRef.current.size === 0) touchGestureRef.current = null;
+      return;
+    }
+
     dragStateRef.current = null;
     setDraggingDocument(false);
   };
@@ -354,7 +462,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
             onPointerDown={startDocumentDrag}
             onPointerMove={moveDocument}
             onPointerUp={stopDocumentDrag}
-            onPointerCancel={stopDocumentDrag}
+            onPointerCancel={cancelDocumentDrag}
             onScroll={updateVisiblePage}
           >
             {loading && <div className={styles.documentMessage}><span className={styles.spinner} />Carregando o edital completo…</div>}
