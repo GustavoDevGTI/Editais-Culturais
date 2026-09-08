@@ -1,39 +1,57 @@
 import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react";
-import type { Edital } from "../types/edital";
+import type { Categoria, Edital, Status } from "../types/edital";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
+import { EditaisFilters } from "./EditaisFilters";
 import styles from "./AllEditaisPage.module.css";
 
 interface AllEditaisPageProps {
   editais: Edital[];
+  categoria: Categoria | "Todas";
+  query: string;
+  status: Status | "Todos";
   onBack: () => void;
+  onCategoriaChange: (value: Categoria | "Todas") => void;
+  onClear: () => void;
   onOpen: (id: string) => void;
+  onQueryChange: (value: string) => void;
+  onStatusChange: (value: Status | "Todos") => void;
 }
 
-export function AllEditaisPage({ editais, onBack, onOpen }: AllEditaisPageProps) {
+export function AllEditaisPage(props: AllEditaisPageProps) {
   return (
     <div className="site-shell">
       <a className="skip-link" href="#lista-completa">Pular para os editais</a>
       <Header />
       <main className={styles.page} id="lista-completa">
         <div className="container">
-          <button className={styles.back} type="button" onClick={onBack}><ArrowLeft aria-hidden="true" /> Voltar à página inicial</button>
+          <button className={styles.back} type="button" onClick={props.onBack}><ArrowLeft aria-hidden="true" /> Voltar à página inicial</button>
           <div className={styles.heading}>
             <div>
               <p className="section-kicker">Oportunidades culturais</p>
               <h1>Todos os editais</h1>
             </div>
-            <p>{editais.length} {editais.length === 1 ? "edital publicado" : "editais publicados"}</p>
+            <p>{props.editais.length} {props.editais.length === 1 ? "edital encontrado" : "editais encontrados"}</p>
           </div>
 
+          <EditaisFilters
+            categoria={props.categoria}
+            query={props.query}
+            status={props.status}
+            onCategoriaChange={props.onCategoriaChange}
+            onClear={props.onClear}
+            onQueryChange={props.onQueryChange}
+            onStatusChange={props.onStatusChange}
+          />
+
           <div className={styles.list}>
-            {editais.map((edital) => {
+            {props.editais.map((edital) => {
               const statusClass = edital.status === "Aberto" ? styles.open : edital.status === "Em breve" ? styles.soon : styles.closed;
               const cardClass = edital.status === "Aberto" ? styles.cardOpen : edital.status === "Em breve" ? styles.cardSoon : styles.cardClosed;
 
               return (
                 <article className={`${styles.card} ${cardClass}`} key={edital.id}>
-                  <button type="button" onClick={() => onOpen(edital.id)} aria-label={`Abrir edital: ${edital.title}`}>
+                  <button type="button" onClick={() => props.onOpen(edital.id)} aria-label={`Abrir edital: ${edital.title}`}>
                     <span className={styles.topline}>
                       <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
                       <span className={styles.category}>{edital.category}</span>
@@ -49,6 +67,13 @@ export function AllEditaisPage({ editais, onBack, onOpen }: AllEditaisPageProps)
               );
             })}
           </div>
+
+          {props.editais.length === 0 && (
+            <div className={styles.empty}>
+              <p>Nenhum edital encontrado com esses filtros.</p>
+              <button className="button button--outline" type="button" onClick={props.onClear}>Limpar busca e filtros</button>
+            </div>
+          )}
         </div>
       </main>
       <Footer />

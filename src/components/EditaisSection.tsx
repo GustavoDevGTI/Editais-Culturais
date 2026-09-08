@@ -1,9 +1,7 @@
-import { ArrowRight, Check, Clock3, Filter, Search, X } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, Clock3, Search } from "lucide-react";
 import type { Categoria, Edital, Status } from "../types/edital";
-import { statuses } from "../types/edital";
-import { CategorySelect } from "./CategorySelect";
 import { EditalCard } from "./EditalCard";
+import { EditaisFilters } from "./EditaisFilters";
 import styles from "./Editais.module.css";
 
 interface EditaisSectionProps {
@@ -20,10 +18,6 @@ interface EditaisSectionProps {
 }
 
 export function EditaisSection(props: EditaisSectionProps) {
-  const [showFilters, setShowFilters] = useState(false);
-  const hasFilters = props.query || props.categoria !== "Todas" || props.status !== "Todos";
-  const statusFilterCount = props.status === "Todos" ? 0 : 1;
-
   return (
     <section className={styles.section} id="editais">
       <div className="container">
@@ -31,29 +25,15 @@ export function EditaisSection(props: EditaisSectionProps) {
           <div><p className="section-kicker">Oportunidades em destaque</p><h2>Editais para fazer a cultura acontecer.</h2></div>
         </div>
 
-        <div className={styles.filters} role="search" aria-label="Buscar e filtrar editais">
-          <label className={styles.search}>
-            <Search aria-hidden="true" />
-            <span className="sr-only">Buscar editais</span>
-            <input value={props.query} onChange={(event) => props.onQueryChange(event.target.value)} placeholder="Busque por palavra-chave..." />
-          </label>
-          <CategorySelect value={props.categoria} onChange={props.onCategoriaChange} />
-          <button className={styles.filterToggle} type="button" aria-expanded={showFilters} onClick={() => setShowFilters((current) => !current)}>
-            <Filter aria-hidden="true" /> Filtros <span>{statusFilterCount}</span>
-          </button>
-          {hasFilters && <button className={styles.clear} type="button" onClick={props.onClear}><X aria-hidden="true" /> Limpar</button>}
-        </div>
-
-        {showFilters && (
-          <div className={styles.statusFilters} aria-label="Filtrar por situação">
-            <span>Mostrar:</span>
-            {(["Todos", ...statuses] as const).map((status) => (
-              <button key={status} className={props.status === status ? styles.active : ""} type="button" onClick={() => props.onStatusChange(status)}>
-                {status}{props.status === status && <Check aria-hidden="true" />}
-              </button>
-            ))}
-          </div>
-        )}
+        <EditaisFilters
+          categoria={props.categoria}
+          query={props.query}
+          status={props.status}
+          onCategoriaChange={props.onCategoriaChange}
+          onClear={props.onClear}
+          onQueryChange={props.onQueryChange}
+          onStatusChange={props.onStatusChange}
+        />
 
         <div className={styles.resultsMeta}>
           <p><strong>{props.editais.length}</strong> {props.editais.length === 1 ? "oportunidade encontrada" : "oportunidades encontradas"}</p>

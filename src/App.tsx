@@ -26,7 +26,7 @@ export function App() {
 
   const orderedEditais = useMemo(() => [...editais].sort((left, right) => (
     statusPriority[left.status] - statusPriority[right.status]
-    || right.publishedDate.localeCompare(left.publishedDate)
+    || left.title.localeCompare(right.title, "pt-BR", { sensitivity: "base" })
   )), []);
 
   const filteredEditais = useMemo(() => {
@@ -65,7 +65,20 @@ export function App() {
   }
 
   if (showAllEditais) {
-    return <AllEditaisPage editais={orderedEditais} onBack={closeAllEditais} onOpen={openEdital} />;
+    return (
+      <AllEditaisPage
+        categoria={categoria}
+        editais={filteredEditais}
+        query={query}
+        status={status}
+        onBack={closeAllEditais}
+        onCategoriaChange={setCategoria}
+        onClear={clearFilters}
+        onOpen={openEdital}
+        onQueryChange={setQuery}
+        onStatusChange={setStatus}
+      />
+    );
   }
 
   return (

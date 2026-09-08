@@ -8,7 +8,7 @@
 .heading h1 { margin: 0; font-family: var(--font-display); font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 400; letter-spacing: -0.05em; line-height: 0.95; }
 .heading > p { margin: 0 0 0.35rem; color: var(--muted); font-size: 0.78rem; }
 
-.list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1.25rem; }
 .card { border: 1px solid var(--line); border-left: 0.38rem solid; border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; background: var(--white); transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
 .card:hover { transform: translateY(-0.15rem); border-color: var(--apricot); box-shadow: var(--shadow-card); }
 .card:focus-within { border-color: var(--terracotta); box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--terracotta) 20%, transparent); }
@@ -32,6 +32,8 @@
 .footer > span { display: inline-flex; align-items: center; gap: 0.35rem; }
 .footer svg { width: 0.85rem; }
 .openAction { color: var(--ink); font-weight: 800; }
+.empty { margin-top: 1.25rem; border: 1px dashed var(--sand-dark); padding: 2.5rem 1.25rem; color: var(--muted); text-align: center; }
+.empty p { margin: 0 0 1rem; }
 
 @media (max-width: 700px) {
   .page { min-height: calc(100dvh - 4.5rem); padding: 1.5rem 0 3.5rem; }
