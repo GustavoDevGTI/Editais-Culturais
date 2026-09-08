@@ -66,6 +66,15 @@
   gap: 0.45rem;
 }
 
+.pageHeadingTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 1rem;
+}
+
+.pageLabel { margin: 0; }
+
 .pageMeta {
   display: flex;
   max-width: none;
@@ -459,7 +468,8 @@
   .backButton { font-size: 0.76rem; }
   .backButton svg { width: 0.95rem; }
   .pageHeader { width: calc(100% - 1.5rem); }
-  .pageMeta { align-items: flex-start; flex-direction: column; gap: 0.55rem; }
+  .pageHeadingTop { gap: 0.5rem 0.75rem; }
+  .pageMeta { flex-wrap: wrap; gap: 0.55rem 0.75rem; }
   .allEditais > div { grid-template-columns: 1fr; }
   .documentToolbar {
     min-height: 3rem;
