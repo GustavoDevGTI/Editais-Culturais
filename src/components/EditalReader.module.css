@@ -1,6 +1,6 @@
 .readerShell {
   min-height: 100dvh;
-  background: #edf0ee;
+  background: var(--paper);
   color: var(--ink);
 }
 
@@ -41,15 +41,22 @@
 
 .workspace {
   display: grid;
-  height: calc(100dvh - 4.5rem);
+  width: min(calc(100% - 2rem), 78rem);
+  height: min(48rem, calc(100dvh - 7rem));
+  min-height: 40rem;
   grid-template-columns: minmax(17.5rem, 19.5rem) minmax(0, 1fr);
   overflow: hidden;
+  margin: 1.5rem auto 3rem;
+  border: 1px solid rgb(19 60 74 / 14%);
+  border-radius: 0.6rem;
+  box-shadow: 0 1.4rem 3.5rem rgb(16 48 58 / 12%);
 }
 
 .sidebar {
   position: relative;
   z-index: 2;
   overflow-y: auto;
+  min-height: 0;
   border-right: 1px solid rgb(19 60 74 / 14%);
   background: var(--white);
   padding: 1.4rem;
@@ -190,6 +197,7 @@
   display: grid;
   min-width: 0;
   grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
   background: #cfd5d4;
 }
 
@@ -231,16 +239,18 @@
 
 .documentViewport {
   min-height: 0;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   scroll-padding-top: 1.5rem;
-  padding: 1.5rem 2rem 2.5rem;
+  padding: 1.15rem 1.25rem 2rem;
 }
 
-.pagesStack { display: grid; gap: 1.5rem; justify-items: center; padding-bottom: 0.5rem; }
+.pagesStack { display: grid; width: 100%; min-width: 0; gap: 1.25rem; justify-items: center; padding-bottom: 0.5rem; }
 
 .pageStage {
   position: relative;
   display: grid;
+  min-width: 0;
   max-width: 100%;
   place-items: start center;
   scroll-margin-top: 1.5rem;
@@ -289,13 +299,13 @@
   .topbar { grid-template-columns: 1fr auto; }
   .brand { justify-self: end; }
   .topbar > p { display: none; }
-  .workspace { height: auto; min-height: calc(100dvh - 4.5rem); grid-template-columns: 1fr; overflow: visible; }
+  .workspace { width: min(calc(100% - 1rem), 48rem); height: auto; min-height: 0; grid-template-columns: 1fr; overflow: hidden; margin: 0.75rem auto 2rem; }
   .sidebar { max-height: none; overflow: visible; border-right: 0; border-bottom: 1px solid var(--line); padding: 1.25rem; }
   .currentInfo h1 { max-width: 36rem; }
   .searchResults { max-height: 14rem; }
   .allEditais > div { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .documentPanel { min-height: 75dvh; }
-  .documentViewport { height: 72dvh; min-height: 32rem; padding: 1rem; }
+  .documentViewport { height: 72dvh; min-height: 32rem; padding: 0.85rem; }
 }
 
 @media (max-width: 560px) {
