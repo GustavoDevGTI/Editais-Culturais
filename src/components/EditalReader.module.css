@@ -470,9 +470,10 @@
 }
 
 @media (max-width: 560px) {
-  .topbar { min-height: 4rem; padding-inline: 1rem; }
+  .topbar { min-height: 4rem; grid-template-columns: 1fr auto 1fr; padding-inline: 1rem; }
+  .brand { grid-column: 2; grid-row: 1; justify-self: center; }
   .brand img { width: 7.5rem; height: 2.2rem; }
-  .backButton { font-size: 0.76rem; }
+  .backButton { grid-column: 3; grid-row: 1; justify-self: end; font-size: 0.76rem; }
   .backButton svg { width: 0.95rem; }
   .pageHeader { width: calc(100% - 1.5rem); }
   .pageHeadingTop {
@@ -506,6 +507,8 @@
 }
 
 @media (max-width: 380px) {
+  .backButton { width: 2.25rem; height: 2.25rem; justify-content: center; gap: 0; overflow: hidden; font-size: 0; }
+  .backButton svg { flex: 0 0 auto; }
   .pageHeadingTop,
   .pageMeta { gap: 0.3rem; }
   .pageLabel { font-size: 0.5rem; letter-spacing: 0.06em; }
