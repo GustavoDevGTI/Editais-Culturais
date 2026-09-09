@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
 const routePattern = /^#\/editais\/([^/?#]+)/;
+type EditalOrigin = "home" | "all";
+
+function readEditalOrigin(): EditalOrigin {
+  return window.history.state?.editalOrigin === "home" ? "home" : "all";
+}
 
 function readRoute() {
   const match = window.location.hash.match(routePattern);
@@ -18,11 +23,17 @@ export function useEditalRoute() {
   }, []);
 
   const openEdital = (id: string) => {
+    const currentRoute = readRoute();
+    const editalOrigin: EditalOrigin = currentRoute.editalId
+      ? readEditalOrigin()
+      : currentRoute.showAllEditais ? "all" : "home";
+
     window.location.hash = `/editais/${encodeURIComponent(id)}`;
+    window.history.replaceState({ ...window.history.state, editalOrigin }, "");
   };
 
   const closeEdital = () => {
-    window.location.hash = "/editais";
+    window.location.hash = readEditalOrigin() === "home" ? "editais" : "/editais";
   };
 
   const openAllEditais = () => {
