@@ -67,10 +67,6 @@ export function AboutPage({ onBack }: AboutPageProps) {
               <p className="section-kicker">Núcleo técnico de desenvolvimento</p>
               <h2>Tecnologia a serviço da cultura e da transparência.</h2>
               <p>O núcleo técnico transforma a informação pública em uma experiência digital clara, responsiva e acessível. A equipe cuida da evolução da plataforma e dá suporte à organização e à publicação dos conteúdos.</p>
-              <div className={styles.commitment}>
-                <CheckCircle2 aria-hidden="true" />
-                <span>Desenvolvimento e manutenção realizados pela Gestão de Tecnologia da Informação da Prefeitura de Amargosa.</span>
-              </div>
             </div>
 
             <div className={styles.teamCards}>
@@ -86,6 +82,11 @@ export function AboutPage({ onBack }: AboutPageProps) {
                 <h3>Gustavo Almeida Borges</h3>
                 <strong>Desenvolvedor Full Stack</strong>
               </article>
+            </div>
+
+            <div className={styles.commitment}>
+              <CheckCircle2 aria-hidden="true" />
+              <span>Desenvolvimento e manutenção realizados pela Gestão de Tecnologia da Informação da Prefeitura de Amargosa.</span>
             </div>
           </div>
         </section>
