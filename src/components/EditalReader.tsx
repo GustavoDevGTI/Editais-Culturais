@@ -10,7 +10,7 @@ import styles from "./EditalReader.module.css";
 const emptySearchResults: PdfSearchResult[] = [];
 const minZoom = 0.5;
 const maxZoom = 4;
-const zoomStep = 0.25;
+const zoomStep = 0.1;
 const pageSwipeThreshold = 52;
 
 interface TouchPoint {
