@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./Header.module.css";
 
 const links = [
-  { label: "Editais", href: "#editais" },
+  { label: "Editais", href: "#/editais" },
   { label: "Sobre o portal", href: "#sobre" },
 ];
 
