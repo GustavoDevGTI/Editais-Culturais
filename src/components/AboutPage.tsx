@@ -7,8 +7,8 @@ interface AboutPageProps {
 }
 
 const tourismTeam = [
-  { name: "Carlos Antônio Muñoz", role: "Superintendente" },
-  { name: "Euraciara Borges", role: "Supervisora" },
+  { label: "Superintendência de Cultura e Turismo", name: "Carlos Antônio Muñoz", role: "Superintendente" },
+  { label: "Supervisão de Turismo", name: "Euraciara Borges", role: "Supervisora de Turismo" },
 ];
 
 export function AboutPage({ onBack }: AboutPageProps) {
@@ -53,6 +53,7 @@ export function AboutPage({ onBack }: AboutPageProps) {
               {tourismTeam.map((member) => (
                 <article key={member.name}>
                   <span className={styles.teamIcon}><UsersRound aria-hidden="true" /></span>
+                  <p>{member.label}</p>
                   <h3>{member.name}</h3>
                   <strong>{member.role}</strong>
                 </article>
