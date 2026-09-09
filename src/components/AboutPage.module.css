@@ -9,35 +9,29 @@
 .heroText p + p { margin-top: 1rem; }
 
 .institutional { padding: 5rem 0; background: var(--sand); }
-.institutionalCard { border: 1px solid var(--line); border-radius: 1rem; background: var(--white); padding: clamp(2rem, 4vw, 3.5rem); box-shadow: var(--shadow-card); }
+.nucleusCard { border: 1px solid var(--line); border-top: 0.32rem solid var(--terracotta); border-radius: 1rem; background: var(--white); padding: clamp(2rem, 4vw, 3.5rem); box-shadow: var(--shadow-card); }
 .sectionIntro { max-width: 55rem; margin: 0 auto; text-align: center; }
 .sectionIntro h2,
 .technology h2 { margin: 0; font-size: clamp(2.7rem, 5vw, 4.3rem); }
 .sectionText { margin-top: 1.6rem; color: var(--ink-soft); line-height: 1.75; }
 .sectionText p { margin: 0; }
 .sectionText p + p { margin-top: 1rem; }
-.teamStack { display: grid; max-width: 48rem; gap: 0.75rem; margin: 3rem auto 0; }
-.teamStack article { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); align-items: center; gap: 1rem; min-height: 5.6rem; border: 1px solid var(--ink); border-radius: 999px; background: var(--ink); padding: 0.7rem 1.5rem 0.7rem 0.7rem; }
-.teamStack i { display: grid; width: 3.4rem; height: 3.4rem; place-items: center; border-radius: 50%; background: rgb(240 173 105 / 16%); color: var(--apricot); font-family: var(--font-display); font-size: 1.15rem; font-style: normal; }
-.teamStack span { display: block; margin-bottom: 0.25rem; color: color-mix(in srgb, var(--cream) 68%, transparent); font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
-.teamStack strong { display: block; color: var(--cream); font-size: 0.95rem; line-height: 1.35; }
 
 .technology { padding: 5rem 0; background: var(--sand); }
-.technologyCard { border: 1px solid var(--line); border-top: 0.32rem solid var(--terracotta); border-radius: 1rem; background: var(--white); padding: clamp(2rem, 4vw, 3.5rem); box-shadow: var(--shadow-card); }
-.technologyGrid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(26rem, 1.1fr); align-items: center; gap: clamp(2.5rem, 7vw, 6rem); }
-.technologyIntro > p:not(.section-kicker) { max-width: 34rem; margin: 1.5rem 0 0; color: var(--ink-soft); line-height: 1.75; }
-.commitment { display: flex; max-width: 35rem; align-items: flex-start; gap: 0.8rem; margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1.25rem; color: var(--terracotta); font-size: 0.8rem; font-weight: 700; line-height: 1.55; }
+.sectionIntro > p:not(.section-kicker) { max-width: 52rem; margin: 1.6rem auto 0; color: var(--ink-soft); line-height: 1.75; }
+.commitment { display: flex; max-width: 40rem; align-items: flex-start; justify-content: center; gap: 0.8rem; margin: 2rem auto 0; border-top: 1px solid var(--line); padding-top: 1.25rem; color: var(--terracotta); font-size: 0.8rem; font-weight: 700; line-height: 1.55; text-align: left; }
 .commitment svg { width: 1.15rem; margin-top: 0.08rem; }
-.technicalTeam { display: grid; gap: 0.85rem; }
-.technicalTeam article { position: relative; border: 1px solid var(--ink); border-left: 0.3rem solid var(--terracotta); border-radius: 0.55rem; background: var(--ink); padding: 1.5rem 1.6rem; }
+.teamCards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 60rem; gap: 0.85rem; margin: 3rem auto 0; }
+.teamCards article { position: relative; min-height: 8.5rem; border: 1px solid var(--ink); border-left: 0.3rem solid var(--terracotta); border-radius: 0.55rem; background: var(--ink); padding: 1.5rem 1.6rem; }
 .teamIcon { position: absolute; top: 1.35rem; right: 1.4rem; display: grid; width: 2.6rem; height: 2.6rem; place-items: center; border-radius: 50%; background: rgb(240 173 105 / 16%); color: var(--apricot); }
 .teamIcon svg { width: 1.15rem; }
-.technicalTeam p { margin: 0 3.5rem 1.35rem 0; color: var(--terracotta); font-size: 0.63rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
-.technicalTeam h3 { margin: 0; color: var(--cream); font-size: 1.15rem; letter-spacing: -0.025em; }
-.technicalTeam strong { display: block; margin-top: 0.4rem; color: color-mix(in srgb, var(--cream) 68%, transparent); font-size: 0.78rem; font-weight: 600; }
+.teamCards p { margin: 0 3.5rem 1.35rem 0; color: var(--terracotta); font-size: 0.63rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+.teamCards h3 { max-width: calc(100% - 3.5rem); margin: 1.8rem 0 0; color: var(--cream); font-size: 1.15rem; letter-spacing: -0.025em; }
+.teamCards p + h3 { margin-top: 0; }
+.teamCards strong { display: block; margin-top: 0.4rem; color: color-mix(in srgb, var(--cream) 68%, transparent); font-size: 0.78rem; font-weight: 600; }
 
 @media (max-width: 900px) {
-  .technologyGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .teamCards { max-width: 48rem; }
 }
 
 @media (max-width: 620px) {
@@ -47,12 +41,8 @@
   .heroText { font-size: 0.92rem; }
   .institutional,
   .technology { padding: 3.5rem 0; }
-  .institutionalCard,
-  .technologyCard { border-radius: 0.75rem; }
-  .teamStack { margin-top: 2rem; }
-  .teamStack article { grid-template-columns: 3rem minmax(0, 1fr); gap: 0.8rem; border-radius: 1.1rem; padding: 0.65rem 1rem 0.65rem 0.65rem; }
-  .teamStack i { width: 3rem; height: 3rem; }
-  .technologyGrid { grid-template-columns: minmax(0, 1fr); }
-  .technicalTeam article { padding: 1.3rem; }
+  .nucleusCard { border-radius: 0.75rem; }
+  .teamCards { grid-template-columns: 1fr; margin-top: 2rem; }
+  .teamCards article { min-height: 7.8rem; padding: 1.3rem; }
   .teamIcon { top: 1.15rem; right: 1.15rem; }
 }

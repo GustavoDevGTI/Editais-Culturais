@@ -8,9 +8,8 @@ interface AboutPageProps {
 }
 
 const tourismTeam = [
-  { label: "Órgão responsável", name: "Superintendência de Cultura e Turismo" },
-  { label: "Superintendente", name: "Carlos Antônio Muñoz" },
-  { label: "Supervisora de Turismo", name: "Euraciara Borges" },
+  { name: "Carlos Antônio Muñoz", role: "Superintendente" },
+  { name: "Euraciara Borges", role: "Supervisora" },
 ];
 
 export function AboutPage({ onBack }: AboutPageProps) {
@@ -37,7 +36,7 @@ export function AboutPage({ onBack }: AboutPageProps) {
         </section>
 
         <section className={styles.institutional}>
-          <div className={`container ${styles.institutionalCard}`}>
+          <div className={`container ${styles.nucleusCard}`}>
             <div className={styles.sectionIntro}>
               <p className="section-kicker">Estrutura institucional</p>
               <h2>Cultura e Turismo com gestão dedicada.</h2>
@@ -47,14 +46,12 @@ export function AboutPage({ onBack }: AboutPageProps) {
               </div>
             </div>
 
-            <div className={styles.teamStack}>
-              {tourismTeam.map((member, index) => (
-                <article key={member.label}>
-                  <i aria-hidden="true">{String(index + 1).padStart(2, "0")}</i>
-                  <div>
-                    <span>{member.label}</span>
-                    <strong>{member.name}</strong>
-                  </div>
+            <div className={styles.teamCards}>
+              {tourismTeam.map((member) => (
+                <article key={member.name}>
+                  <span className={styles.teamIcon}><UsersRound aria-hidden="true" /></span>
+                  <h3>{member.name}</h3>
+                  <strong>{member.role}</strong>
                 </article>
               ))}
             </div>
@@ -62,32 +59,30 @@ export function AboutPage({ onBack }: AboutPageProps) {
         </section>
 
         <section className={styles.technology}>
-          <div className={`container ${styles.technologyCard}`}>
-            <div className={styles.technologyGrid}>
-              <div className={styles.technologyIntro}>
-                <p className="section-kicker">Núcleo técnico de desenvolvimento</p>
-                <h2>Tecnologia a serviço da cultura e da transparência.</h2>
-                <p>O núcleo técnico transforma a informação pública em uma experiência digital clara, responsiva e acessível. A equipe cuida da evolução da plataforma e dá suporte à organização e à publicação dos conteúdos.</p>
-                <div className={styles.commitment}>
-                  <CheckCircle2 aria-hidden="true" />
-                  <span>Desenvolvimento e manutenção realizados pela Gestão de Tecnologia da Informação da Prefeitura de Amargosa.</span>
-                </div>
+          <div className={`container ${styles.nucleusCard}`}>
+            <div className={styles.sectionIntro}>
+              <p className="section-kicker">Núcleo técnico de desenvolvimento</p>
+              <h2>Tecnologia a serviço da cultura e da transparência.</h2>
+              <p>O núcleo técnico transforma a informação pública em uma experiência digital clara, responsiva e acessível. A equipe cuida da evolução da plataforma e dá suporte à organização e à publicação dos conteúdos.</p>
+              <div className={styles.commitment}>
+                <CheckCircle2 aria-hidden="true" />
+                <span>Desenvolvimento e manutenção realizados pela Gestão de Tecnologia da Informação da Prefeitura de Amargosa.</span>
               </div>
+            </div>
 
-              <div className={styles.technicalTeam}>
-                <article>
-                  <span className={styles.teamIcon}><UsersRound aria-hidden="true" /></span>
-                  <p>Gestão de Tecnologia da Informação · GTI</p>
-                  <h3>Jurandy Silva dos Santos Júnior</h3>
-                  <strong>Gestor</strong>
-                </article>
-                <article>
-                  <span className={styles.teamIcon}><Code2 aria-hidden="true" /></span>
-                  <p>Corpo técnico · GTI</p>
-                  <h3>Gustavo Almeida Borges</h3>
-                  <strong>Desenvolvedor Full Stack</strong>
-                </article>
-              </div>
+            <div className={styles.teamCards}>
+              <article>
+                <span className={styles.teamIcon}><UsersRound aria-hidden="true" /></span>
+                <p>Gestão de Tecnologia da Informação · GTI</p>
+                <h3>Jurandy Silva dos Santos Júnior</h3>
+                <strong>Gestor</strong>
+              </article>
+              <article>
+                <span className={styles.teamIcon}><Code2 aria-hidden="true" /></span>
+                <p>Corpo técnico · GTI</p>
+                <h3>Gustavo Almeida Borges</h3>
+                <strong>Desenvolvedor Full Stack</strong>
+              </article>
             </div>
           </div>
         </section>
