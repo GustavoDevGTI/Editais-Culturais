@@ -1,7 +1,6 @@
 import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react";
 import type { Categoria, Edital, Status } from "../types/edital";
 import { Footer } from "./Footer";
-import { Header } from "./Header";
 import { EditaisFilters } from "./EditaisFilters";
 import styles from "./AllEditaisPage.module.css";
 
@@ -22,10 +21,14 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
   return (
     <div className="site-shell">
       <a className="skip-link" href="#lista-completa">Pular para os editais</a>
-      <Header />
+      <header className={styles.topbar}>
+        <button className={styles.back} type="button" onClick={props.onBack}><ArrowLeft aria-hidden="true" /> Voltar à página inicial</button>
+        <button className={styles.brand} type="button" onClick={props.onBack} aria-label="Voltar à página inicial">
+          <img src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`} alt="Prefeitura de Amargosa" />
+        </button>
+      </header>
       <main className={styles.page} id="lista-completa">
         <div className="container">
-          <button className={styles.back} type="button" onClick={props.onBack}><ArrowLeft aria-hidden="true" /> Voltar à página inicial</button>
           <div className={styles.heading}>
             <div>
               <p className="section-kicker">Oportunidades culturais</p>
