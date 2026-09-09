@@ -11,7 +11,7 @@
 .heroText p { margin: 0; }
 .heroText p + p { margin-top: 1rem; }
 
-.institutional { padding: 5rem 0 2.5rem; background: var(--sand); }
+.institutional { padding: 5rem 0 2.5rem; background: var(--paper); }
 .nucleusCard { border: 1px solid var(--line); border-top: 0.32rem solid var(--terracotta); border-radius: 1rem; background: var(--white); padding: clamp(2rem, 4vw, 3.5rem); box-shadow: var(--shadow-card); }
 .sectionIntro { max-width: 55rem; margin: 0 auto; text-align: center; }
 .institutionalKicker { color: var(--terracotta) !important; }
@@ -21,7 +21,7 @@
 .sectionText p { margin: 0; }
 .sectionText p + p { margin-top: 1rem; }
 
-.technology { padding: 2.5rem 0 5rem; background: var(--sand); }
+.technology { padding: 2.5rem 0 5rem; background: var(--paper); }
 .sectionIntro > p:not(.section-kicker) { max-width: 52rem; margin: 1.6rem auto 0; color: var(--ink-soft); line-height: 1.75; }
 .commitment { display: flex; max-width: 40rem; align-items: flex-start; justify-content: center; gap: 0.8rem; margin: 2rem auto 0; border-top: 1px solid var(--line); padding-top: 1.25rem; color: var(--terracotta); font-size: 0.8rem; font-weight: 700; line-height: 1.55; text-align: left; }
 .commitment svg { width: 1.15rem; margin-top: 0.08rem; }
