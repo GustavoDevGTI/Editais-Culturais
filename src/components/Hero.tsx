@@ -4,7 +4,11 @@ import styles from "./Hero.module.css";
 
 const slideCount = 2;
 
-export function Hero() {
+interface HeroProps {
+  onExplore: () => void;
+}
+
+export function Hero({ onExplore }: HeroProps) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -63,9 +67,9 @@ export function Hero() {
           <div className={styles.content}>
             <h1>A próxima ideia pode começar <em>aqui.</em></h1>
             <p>Um ponto de encontro para descobrir editais, bolsas e oportunidades que movimentam a cultura de Amargosa.</p>
-            <a className="button button--primary" href="#editais" tabIndex={activeSlide === 0 ? 0 : -1}>
+            <button className="button button--primary" type="button" onClick={onExplore} tabIndex={activeSlide === 0 ? 0 : -1}>
               Explorar editais <ArrowRight aria-hidden="true" />
-            </a>
+            </button>
           </div>
         </article>
 

@@ -83,7 +83,7 @@ export function App() {
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
       <Header />
       <main id="conteudo">
-        <Hero />
+        <Hero onExplore={openAllEditais} />
         <EditaisSection
           categoria={categoria}
           editais={filteredEditais}
