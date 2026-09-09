@@ -387,7 +387,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                 {!indexing && query.trim().length > 1 && `${results.length} ${results.length === 1 ? "resultado" : "resultados"}`}
                 {!indexing && query.trim().length === 1 && "Digite mais uma letra para buscar"}
               </div>
-              {!indexing && results.length > 0 && (
+              {!indexing && activeMatchId && (
                 <div className={styles.matchControls} aria-label="Navegar pelas ocorrências">
                   <button type="button" onClick={() => navigateMatch(-1)} aria-label="Ocorrência anterior"><ChevronUp /></button>
                   <button type="button" onClick={() => navigateMatch(1)} aria-label="Próxima ocorrência"><ChevronDown /></button>

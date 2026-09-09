@@ -183,20 +183,20 @@
 .documentSearch input::placeholder { color: var(--muted); }
 
 .searchStatusRow {
-  display: flex;
+  display: grid;
   min-height: 2.35rem;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   gap: 0.75rem;
 }
 
-.searchSummary { padding-top: 0.45rem; color: var(--muted); font-size: 0.72rem; }
+.searchSummary { grid-column: 1; color: var(--muted); font-size: 0.72rem; }
 
 .matchControls {
   display: flex;
+  grid-column: 2;
   flex: 0 0 auto;
   gap: 0.3rem;
-  padding-top: 0.35rem;
 }
 
 .matchControls button {
