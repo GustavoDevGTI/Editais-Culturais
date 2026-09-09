@@ -6,15 +6,8 @@ export function Footer() {
       <div className={`container ${styles.footerGrid}`}>
         <div className={styles.footerLogo}>
           <img
-            className={styles.footerLogoWhite}
-            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`}
+            src={`${import.meta.env.BASE_URL}images/logo-rodape.png`}
             alt="Prefeitura de Amargosa — Cidade Jardim de Todos"
-          />
-          <img
-            className={styles.footerLogoIcon}
-            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-icon.png`}
-            alt=""
-            aria-hidden="true"
           />
         </div>
         <div>
