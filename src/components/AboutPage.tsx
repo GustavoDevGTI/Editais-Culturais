@@ -41,7 +41,7 @@ export function AboutPage({ onBack }: AboutPageProps) {
               <p className="section-kicker">Estrutura institucional</p>
               <h2>Cultura e Turismo com gestão dedicada.</h2>
               <div className={styles.sectionText}>
-                <p>Amargosa conta com uma estrutura dedicada ao fortalecimento e à promoção das políticas públicas de Cultura e Turismo, valorizando as potencialidades do município e impulsionando o desenvolvimento do setor.</p>
+                <p>A Superintendência de Cultura e Turismo de Amargosa atua no fortalecimento e na promoção das políticas públicas do setor, valorizando as potencialidades do município e impulsionando seu desenvolvimento.</p>
                 <p>A atuação integrada entre poder público e participação social ajuda a planejar ações, fortalecer a identidade cultural e ampliar oportunidades econômicas e sociais.</p>
               </div>
             </div>
