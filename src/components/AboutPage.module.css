@@ -1,7 +1,10 @@
-.hero { padding: 2.25rem 0 5rem; background: var(--paper); }
-.back { display: inline-flex; align-items: center; gap: 0.55rem; margin-bottom: 3.5rem; border: 0; background: transparent; padding: 0.55rem 0; color: var(--ink); font-size: 0.82rem; font-weight: 800; }
+.topbar { position: relative; z-index: 5; display: grid; min-height: 4.5rem; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.25rem; border-bottom: 1px solid rgb(19 60 74 / 16%); background: var(--paper); padding: 0.65rem clamp(1rem, 2.5vw, 2.5rem); }
+.hero { padding: 4rem 0 5rem; background: var(--paper); }
+.back { display: inline-flex; align-items: center; justify-self: start; gap: 0.55rem; border: 0; background: transparent; padding: 0.6rem 0; color: var(--ink); font-size: 0.84rem; font-weight: 800; }
 .back:hover { color: var(--terracotta); }
 .back svg { width: 1.05rem; }
+.brand { justify-self: center; border: 0; background: transparent; padding: 0; }
+.brand img { display: block; width: 10.5rem; height: 2.8rem; object-fit: contain; }
 .heroContent { text-align: center; }
 .heroContent h1 { margin: 0 auto; font-family: var(--font-display); font-size: clamp(3.4rem, 7vw, 5.8rem); font-weight: 400; letter-spacing: -0.055em; line-height: 0.96; }
 .heroText { max-width: 52rem; margin: 2rem auto 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.8; text-align: center; }
@@ -36,8 +39,12 @@
 }
 
 @media (max-width: 620px) {
-  .hero { padding: 1.25rem 0 3.5rem; }
-  .back { margin-bottom: 2.2rem; }
+  .topbar { min-height: 4rem; grid-template-columns: 1fr auto; padding-inline: 1rem; }
+  .brand { justify-self: end; }
+  .brand img { width: 7.5rem; height: 2.2rem; }
+  .back { font-size: 0.76rem; }
+  .back svg { width: 0.95rem; }
+  .hero { padding: 3rem 0 3.5rem; }
   .heroContent h1 { font-size: clamp(3.2rem, 15vw, 4.3rem); }
   .heroText { font-size: 0.92rem; }
   .institutional { padding: 3.5rem 0 1.75rem; }

@@ -1,6 +1,5 @@
 import { ArrowLeft, CheckCircle2, Code2, UsersRound } from "lucide-react";
 import { Footer } from "./Footer";
-import { Header } from "./Header";
 import styles from "./AboutPage.module.css";
 
 interface AboutPageProps {
@@ -16,14 +15,18 @@ export function AboutPage({ onBack }: AboutPageProps) {
   return (
     <div className="site-shell">
       <a className="skip-link" href="#conteudo-sobre">Pular para o conteúdo</a>
-      <Header />
+      <header className={styles.topbar}>
+        <button className={styles.back} type="button" onClick={onBack}>
+          <ArrowLeft aria-hidden="true" /> Voltar à página inicial
+        </button>
+        <button className={styles.brand} type="button" onClick={onBack} aria-label="Voltar à página inicial">
+          <img src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`} alt="Prefeitura de Amargosa" />
+        </button>
+      </header>
 
       <main id="conteudo-sobre">
         <section className={styles.hero}>
           <div className="container">
-            <button className={styles.back} type="button" onClick={onBack}>
-              <ArrowLeft aria-hidden="true" /> Voltar à página inicial
-            </button>
             <div className={styles.heroContent}>
               <p className="section-kicker">Sobre o portal</p>
               <h1>Cultura com transparência.</h1>
