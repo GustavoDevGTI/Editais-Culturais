@@ -103,7 +103,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
   const changePage = (nextPage: number) => {
     const boundedPage = Math.min(Math.max(nextPage, 1), totalPages || 1);
-    matchNavigationPageRef.current = null;
+    matchNavigationPageRef.current = singlePageMode ? null : boundedPage;
     setActiveMatchId(null);
     setPageNumber(boundedPage);
     window.requestAnimationFrame(() => {
@@ -175,12 +175,18 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
       return !current || distance < current.distance ? { distance, page: pageValue } : current;
     }, null);
 
-    if (closest && closest.page !== pageNumber) {
-      if (matchNavigationPageRef.current === closest.page) {
-        matchNavigationPageRef.current = null;
-      } else if (matchNavigationPageRef.current === null) {
-        setActiveMatchId(null);
-      }
+    if (!closest) return;
+
+    const navigationTarget = matchNavigationPageRef.current;
+    if (navigationTarget !== null) {
+      if (closest.page !== navigationTarget) return;
+      matchNavigationPageRef.current = null;
+      if (closest.page !== pageNumber) setPageNumber(closest.page);
+      return;
+    }
+
+    if (closest.page !== pageNumber) {
+      setActiveMatchId(null);
       setPageNumber(closest.page);
     }
   };
