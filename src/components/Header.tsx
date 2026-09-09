@@ -4,7 +4,7 @@ import styles from "./Header.module.css";
 
 const links = [
   { label: "Editais", href: "#/editais" },
-  { label: "Sobre o portal", href: "#sobre" },
+  { label: "Sobre o portal", href: "#/sobre" },
 ];
 
 export function Header() {

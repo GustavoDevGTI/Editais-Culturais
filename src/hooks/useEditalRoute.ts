@@ -9,8 +9,12 @@ function readEditalOrigin(): EditalOrigin {
 
 function readRoute() {
   const match = window.location.hash.match(routePattern);
-  if (match) return { editalId: decodeURIComponent(match[1]), showAllEditais: false };
-  return { editalId: null, showAllEditais: /^#\/editais\/?$/.test(window.location.hash) };
+  if (match) return { editalId: decodeURIComponent(match[1]), showAbout: false, showAllEditais: false };
+  return {
+    editalId: null,
+    showAbout: /^#\/sobre\/?$/.test(window.location.hash),
+    showAllEditais: /^#\/editais\/?$/.test(window.location.hash),
+  };
 }
 
 export function useEditalRoute() {
@@ -44,5 +48,18 @@ export function useEditalRoute() {
     window.location.hash = "editais";
   };
 
-  return { closeAllEditais, closeEdital, editalId: route.editalId, openAllEditais, openEdital, showAllEditais: route.showAllEditais };
+  const closeAbout = () => {
+    window.location.hash = "inicio";
+  };
+
+  return {
+    closeAbout,
+    closeAllEditais,
+    closeEdital,
+    editalId: route.editalId,
+    openAllEditais,
+    openEdital,
+    showAbout: route.showAbout,
+    showAllEditais: route.showAllEditais,
+  };
 }
