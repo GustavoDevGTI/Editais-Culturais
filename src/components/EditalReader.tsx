@@ -87,15 +87,18 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   }, [results]);
   const totalPages = pdfDocument?.numPages ?? activeEdital.pageCount ?? 0;
   const normalizedListQuery = listQuery.trim().toLocaleLowerCase("pt-BR");
-  const visibleEditais = useMemo(
-    () => [...editais]
-      .sort(compareEditais)
-      .filter((edital) => !normalizedListQuery || [edital.title, edital.category, edital.label]
-        .join(" ")
-        .toLocaleLowerCase("pt-BR")
-        .includes(normalizedListQuery)),
-    [editais, normalizedListQuery],
-  );
+  const visibleEditais = useMemo(() => {
+    const orderedEditais = [...editais].sort(compareEditais);
+    const matchingEditais = orderedEditais.filter((edital) => !normalizedListQuery || [edital.title, edital.category, edital.label]
+      .join(" ")
+      .toLocaleLowerCase("pt-BR")
+      .includes(normalizedListQuery));
+    const selectedEdital = orderedEditais.find((edital) => edital.id === activeEdital.id);
+
+    return selectedEdital
+      ? [selectedEdital, ...matchingEditais.filter((edital) => edital.id !== selectedEdital.id)]
+      : matchingEditais;
+  }, [activeEdital.id, editais, normalizedListQuery]);
   const statusClass = activeEdital.status === "Encerrado"
     ? styles.statusClosed
     : activeEdital.status === "Em breve"
@@ -420,21 +423,6 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
           </section>
 
           <section className={styles.allEditais}>
-            <div className={styles.featuredEdital}>
-              <h2>Edital em destaque</h2>
-              <button
-                type="button"
-                className={styles.featuredEditalButton}
-                aria-current="page"
-                onClick={() => onSelect(activeEdital.id)}
-              >
-                <FileText aria-hidden="true" />
-                <span>
-                  <strong>{activeEdital.title}</strong>
-                  <small><b className={statusClass}>{activeEdital.status}</b>{activeEdital.pdfFile ? ` · ${activeEdital.pageCount} páginas` : " · Documento em breve"}</small>
-                </span>
-              </button>
-            </div>
             <h2>Todos os editais</h2>
             <label className={styles.editalSearch}>
               <Search aria-hidden="true" />

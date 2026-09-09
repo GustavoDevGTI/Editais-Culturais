@@ -253,22 +253,6 @@
   overflow: hidden;
 }
 
-.featuredEdital {
-  margin-bottom: 1rem;
-  border-bottom: 1px solid rgb(19 60 74 / 12%);
-  padding-bottom: 1rem;
-}
-
-.allEditais .featuredEditalButton {
-  border-color: color-mix(in srgb, var(--terracotta) 50%, var(--sand-dark));
-  background: color-mix(in srgb, var(--sand) 68%, var(--white));
-  color: var(--ink);
-  box-shadow: inset 0.2rem 0 var(--terracotta);
-}
-
-.allEditais .featuredEditalButton:hover { border-color: var(--terracotta); background: var(--sand); }
-.featuredEditalButton small b { background: transparent; font-size: inherit; }
-
 .editaisList {
   display: grid;
   min-height: 0;
