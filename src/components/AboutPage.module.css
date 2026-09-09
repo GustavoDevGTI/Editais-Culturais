@@ -22,7 +22,7 @@
 .teamStack span { display: block; margin-bottom: 0.25rem; color: var(--muted); font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 .teamStack strong { display: block; color: var(--green-dark); font-size: 0.95rem; line-height: 1.35; }
 
-.technology { padding: 5rem 0; background: var(--paper); }
+.technology { padding: 5rem 0; background: var(--sand); }
 .technologyCard { border: 1px solid var(--line); border-top: 0.32rem solid var(--terracotta); border-radius: 1rem; background: var(--white); padding: clamp(2rem, 4vw, 3.5rem); box-shadow: var(--shadow-card); }
 .technologyGrid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(26rem, 1.1fr); align-items: center; gap: clamp(2.5rem, 7vw, 6rem); }
 .technologyIntro > p:not(.section-kicker) { max-width: 34rem; margin: 1.5rem 0 0; color: var(--ink-soft); line-height: 1.75; }
