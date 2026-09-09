@@ -4,10 +4,17 @@ export function Footer() {
   return (
     <footer className={styles.footer} id="sobre">
       <div className={`container ${styles.footerGrid}`}>
-        <div className={styles.seal}>
+        <div className={styles.footerLogo}>
           <img
-            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-icon.png`}
-            alt="Símbolo da Prefeitura de Amargosa"
+            className={styles.footerLogoWhite}
+            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`}
+            alt="Prefeitura de Amargosa — Cidade Jardim de Todos"
+          />
+          <img
+            className={styles.footerLogoColor}
+            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`}
+            alt=""
+            aria-hidden="true"
           />
         </div>
         <div>

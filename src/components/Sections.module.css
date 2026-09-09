@@ -9,11 +9,13 @@
 .steps p { margin: 0; color: var(--muted); font-size: 0.86rem; }
 
 .footer { padding: 2.75rem 0; background: var(--ink); color: var(--cream); }
-.footerGrid { display: grid; grid-template-columns: 6rem minmax(0, 1fr) 15rem; align-items: center; gap: 2.25rem; }
+.footerGrid { display: grid; grid-template-columns: 12rem minmax(0, 1fr) 15rem; align-items: center; gap: 2.25rem; }
 .footer h2 { max-width: 44rem; margin: 0.4rem 0 0.65rem; font-size: clamp(2.1rem, 3.5vw, 2.8rem); }
 .footerGrid > div > p:last-child { max-width: 44rem; margin-bottom: 0; color: color-mix(in srgb, var(--cream) 66%, transparent); line-height: 1.55; }
-.seal { display: grid; width: 4.75rem; height: 4.1rem; place-items: center; }
-.seal img { display: block; width: 4.75rem; height: auto; }
+.footerLogo { position: relative; width: 12rem; aspect-ratio: 1729 / 422; }
+.footerLogo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
+.footerLogoWhite { filter: brightness(0) invert(1); }
+.footerLogoColor { clip-path: inset(0 68.2% 0 0); }
 .footer blockquote { margin: 0; color: var(--apricot); }
 .footer blockquote p { margin: 0; font-family: var(--font-display); font-size: 1.35rem; font-style: italic; line-height: 1.18; }
 .footer blockquote cite { display: block; margin-top: 0.8rem; color: color-mix(in srgb, var(--cream) 72%, transparent); font-family: var(--font-sans); font-size: 0.68rem; font-style: normal; font-weight: 700; letter-spacing: 0.04em; line-height: 1.45; }
@@ -22,7 +24,6 @@
   .howGrid, .footerGrid { grid-template-columns: 1fr; gap: 1.5rem; }
   .how { padding: 4.5rem 0; }
   .footer { padding: 2.75rem 0; }
-  .seal { width: 4rem; height: 3.5rem; }
-  .seal img { width: 4rem; }
+  .footerLogo { width: 11rem; }
   .footer blockquote { max-width: 22rem; }
 }
