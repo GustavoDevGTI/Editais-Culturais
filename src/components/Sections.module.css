@@ -14,7 +14,9 @@
 .footerGrid > div > p:last-child { max-width: 44rem; margin-bottom: 0; color: color-mix(in srgb, var(--cream) 66%, transparent); line-height: 1.55; }
 .seal { display: grid; width: 4.75rem; height: 4.1rem; place-items: center; }
 .seal img { display: block; width: 4.75rem; height: auto; }
-.footer blockquote { margin: 0; color: var(--apricot); font-family: var(--font-display); font-size: 1.35rem; font-style: italic; line-height: 1.18; }
+.footer blockquote { margin: 0; color: var(--apricot); }
+.footer blockquote p { margin: 0; font-family: var(--font-display); font-size: 1.35rem; font-style: italic; line-height: 1.18; }
+.footer blockquote cite { display: block; margin-top: 0.8rem; color: color-mix(in srgb, var(--cream) 72%, transparent); font-family: var(--font-sans); font-size: 0.68rem; font-style: normal; font-weight: 700; letter-spacing: 0.04em; line-height: 1.45; }
 
 @media (max-width: 800px) {
   .howGrid, .footerGrid { grid-template-columns: 1fr; gap: 1.5rem; }
