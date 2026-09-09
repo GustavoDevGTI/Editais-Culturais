@@ -11,8 +11,8 @@ export function Footer() {
             alt="Prefeitura de Amargosa — Cidade Jardim de Todos"
           />
           <img
-            className={styles.footerLogoColor}
-            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`}
+            className={styles.footerLogoIcon}
+            src={`${import.meta.env.BASE_URL}images/logo-prefeitura-icon.png`}
             alt=""
             aria-hidden="true"
           />
