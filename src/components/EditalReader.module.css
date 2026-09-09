@@ -73,10 +73,17 @@
   gap: 0.55rem 1rem;
 }
 
-.pageLabel { margin: 0; }
+.pageLabel {
+  display: inline-flex;
+  height: 1.9rem;
+  align-items: center;
+  margin: 0 !important;
+  line-height: 1;
+}
 
 .pageMeta {
   display: flex;
+  height: 1.9rem;
   max-width: none;
   align-items: center;
   justify-content: flex-start;
@@ -119,11 +126,14 @@
 
 .status {
   display: inline-flex;
-  margin-bottom: 0.7rem;
+  height: 1.9rem;
+  align-items: center;
+  margin: 0;
   border-radius: 999px;
-  padding: 0.35rem 0.7rem;
+  padding: 0 0.7rem;
   font-size: 0.72rem;
   font-weight: 800;
+  line-height: 1;
 }
 
 .statusOpen { background: var(--green-soft); color: var(--green-dark); }
@@ -132,15 +142,16 @@
 
 .deadline {
   display: flex;
-  align-items: flex-start;
+  height: 1.9rem;
+  align-items: center;
   gap: 0.5rem;
-  margin-top: 0.85rem;
+  margin: 0;
   color: var(--ink-soft);
   font-size: 0.76rem;
-  line-height: 1.4;
+  line-height: 1;
 }
 
-.deadline svg { width: 1rem; color: var(--terracotta); }
+.deadline svg { width: 1rem; height: 1rem; flex: 0 0 auto; color: var(--terracotta); }
 
 .searchBlock {
   padding: 1rem;
@@ -482,10 +493,10 @@
     align-items: center;
     gap: 0.5rem;
   }
-  .pageLabel { flex: 0 0 auto; white-space: nowrap; font-size: 0.56rem; line-height: 1; letter-spacing: 0.1em; }
-  .pageMeta { display: flex; min-width: 0; align-items: center; gap: 0.5rem; }
-  .status { min-height: 1.5rem; align-items: center; white-space: nowrap; padding: 0.25rem 0.45rem; font-size: 0.62rem; line-height: 1; }
-  .deadline { min-width: 0; align-items: center; gap: 0.3rem; white-space: nowrap; font-size: 0.62rem; line-height: 1; }
+  .pageLabel { height: 1.5rem; flex: 0 0 auto; white-space: nowrap; font-size: 0.56rem; line-height: 1; letter-spacing: 0.1em; }
+  .pageMeta { display: flex; height: 1.5rem; min-width: 0; align-items: center; gap: 0.5rem; }
+  .status { width: auto; height: 1.5rem; min-height: 0; align-items: center; white-space: nowrap; padding: 0 0.45rem; font-size: 0.62rem; line-height: 1; }
+  .deadline { height: 1.5rem; min-width: 0; align-items: center; gap: 0.3rem; white-space: nowrap; font-size: 0.62rem; line-height: 1; }
   .deadline svg { width: 0.82rem; height: 0.82rem; flex: 0 0 auto; }
   .allEditais > div { grid-template-columns: 1fr; }
   .documentToolbar {
@@ -511,7 +522,11 @@
   .pageHeadingTop,
   .pageMeta { gap: 0.3rem; }
   .pageLabel { font-size: 0.5rem; letter-spacing: 0.06em; }
-  .status { min-height: 1.35rem; padding-inline: 0.35rem; font-size: 0.58rem; }
+  .pageLabel,
+  .pageMeta,
+  .status,
+  .deadline { height: 1.35rem; }
+  .status { min-height: 0; padding-inline: 0.35rem; font-size: 0.58rem; }
   .deadline { gap: 0.2rem; font-size: 0.56rem; }
   .deadline svg { width: 0.72rem; height: 0.72rem; }
 }
