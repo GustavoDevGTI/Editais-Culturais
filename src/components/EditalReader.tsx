@@ -361,9 +361,15 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                   setActiveMatchId(null);
                 }}
                 onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    navigateMatch(1);
+                    return;
+                  }
                   if (event.key === "ArrowUp") {
                     event.preventDefault();
                     navigateMatch(-1);
+                    return;
                   }
                   if (event.key === "ArrowDown") {
                     event.preventDefault();
