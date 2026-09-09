@@ -38,7 +38,7 @@ export function AboutPage({ onBack }: AboutPageProps) {
         <section className={styles.institutional}>
           <div className={`container ${styles.nucleusCard}`}>
             <div className={styles.sectionIntro}>
-              <p className="section-kicker">Estrutura institucional</p>
+              <p className={`section-kicker ${styles.institutionalKicker}`}>Estrutura institucional</p>
               <h2>Cultura e Turismo com gestão dedicada.</h2>
               <div className={styles.sectionText}>
                 <p>A Superintendência de Cultura e Turismo de Amargosa atua no fortalecimento e na promoção das políticas públicas do setor, valorizando as potencialidades do município e impulsionando seu desenvolvimento.</p>

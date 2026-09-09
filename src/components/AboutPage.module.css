@@ -11,6 +11,7 @@
 .institutional { padding: 5rem 0; background: var(--sand); }
 .nucleusCard { border: 1px solid var(--line); border-top: 0.32rem solid var(--terracotta); border-radius: 1rem; background: var(--white); padding: clamp(2rem, 4vw, 3.5rem); box-shadow: var(--shadow-card); }
 .sectionIntro { max-width: 55rem; margin: 0 auto; text-align: center; }
+.institutionalKicker { color: var(--terracotta) !important; }
 .sectionIntro h2,
 .technology h2 { margin: 0; font-size: clamp(2.7rem, 5vw, 4.3rem); }
 .sectionText { margin-top: 1.6rem; color: var(--ink-soft); line-height: 1.75; }
