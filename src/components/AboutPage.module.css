@@ -8,7 +8,7 @@
 .heroText p { margin: 0; }
 .heroText p + p { margin-top: 1rem; }
 
-.institutional { padding: 5rem 0; background: var(--sand); }
+.institutional { padding: 5rem 0 2.5rem; background: var(--sand); }
 .nucleusCard { border: 1px solid var(--line); border-top: 0.32rem solid var(--terracotta); border-radius: 1rem; background: var(--white); padding: clamp(2rem, 4vw, 3.5rem); box-shadow: var(--shadow-card); }
 .sectionIntro { max-width: 55rem; margin: 0 auto; text-align: center; }
 .institutionalKicker { color: var(--terracotta) !important; }
@@ -18,7 +18,7 @@
 .sectionText p { margin: 0; }
 .sectionText p + p { margin-top: 1rem; }
 
-.technology { padding: 5rem 0; background: var(--sand); }
+.technology { padding: 2.5rem 0 5rem; background: var(--sand); }
 .sectionIntro > p:not(.section-kicker) { max-width: 52rem; margin: 1.6rem auto 0; color: var(--ink-soft); line-height: 1.75; }
 .commitment { display: flex; max-width: 40rem; align-items: flex-start; justify-content: center; gap: 0.8rem; margin: 2rem auto 0; border-top: 1px solid var(--line); padding-top: 1.25rem; color: var(--terracotta); font-size: 0.8rem; font-weight: 700; line-height: 1.55; text-align: left; }
 .commitment svg { width: 1.15rem; margin-top: 0.08rem; }
@@ -40,8 +40,8 @@
   .back { margin-bottom: 2.2rem; }
   .heroContent h1 { font-size: clamp(3.2rem, 15vw, 4.3rem); }
   .heroText { font-size: 0.92rem; }
-  .institutional,
-  .technology { padding: 3.5rem 0; }
+  .institutional { padding: 3.5rem 0 1.75rem; }
+  .technology { padding: 1.75rem 0 3.5rem; }
   .nucleusCard { border-radius: 0.75rem; }
   .teamCards { grid-template-columns: 1fr; margin-top: 2rem; }
   .teamCards article { min-height: 7.8rem; padding: 1.3rem; }
