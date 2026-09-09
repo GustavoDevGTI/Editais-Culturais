@@ -7,16 +7,11 @@ import { Hero } from "./components/Hero";
 import { editais } from "./data/editais";
 import { useEditalRoute } from "./hooks/useEditalRoute";
 import type { Categoria, Status } from "./types/edital";
+import { compareEditais } from "./utils/editais";
 
 const EditalReader = lazy(() =>
   import("./components/EditalReader").then((module) => ({ default: module.EditalReader })),
 );
-
-const statusPriority: Record<Status, number> = {
-  Aberto: 0,
-  "Em breve": 1,
-  Encerrado: 2,
-};
 
 export function App() {
   const [query, setQuery] = useState("");
@@ -24,10 +19,7 @@ export function App() {
   const [status, setStatus] = useState<Status | "Todos">("Todos");
   const { closeAllEditais, closeEdital, editalId, openAllEditais, openEdital, showAllEditais } = useEditalRoute();
 
-  const orderedEditais = useMemo(() => [...editais].sort((left, right) => (
-    statusPriority[left.status] - statusPriority[right.status]
-    || left.title.localeCompare(right.title, "pt-BR", { sensitivity: "base" })
-  )), []);
+  const orderedEditais = useMemo(() => [...editais].sort(compareEditais), []);
 
   const filteredEditais = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");

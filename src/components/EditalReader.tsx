@@ -2,6 +2,7 @@ import { ArrowLeft, CalendarDays, ChevronDown, ChevronLeft, ChevronRight, Chevro
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import type { Edital } from "../types/edital";
 import { usePdfDocument } from "../hooks/usePdfDocument";
+import { compareEditais } from "../utils/editais";
 import { searchPdfPages, type PdfSearchResult } from "../utils/pdfSearch";
 import { PdfCanvas } from "./PdfCanvas";
 import styles from "./EditalReader.module.css";
@@ -88,7 +89,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const normalizedListQuery = listQuery.trim().toLocaleLowerCase("pt-BR");
   const visibleEditais = useMemo(
     () => [...editais]
-      .sort((left, right) => right.publishedDate.localeCompare(left.publishedDate))
+      .sort(compareEditais)
       .filter((edital) => !normalizedListQuery || [edital.title, edital.category, edital.label]
         .join(" ")
         .toLocaleLowerCase("pt-BR")
@@ -419,6 +420,21 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
           </section>
 
           <section className={styles.allEditais}>
+            <div className={styles.featuredEdital}>
+              <h2>Edital em destaque</h2>
+              <button
+                type="button"
+                className={styles.featuredEditalButton}
+                aria-current="page"
+                onClick={() => onSelect(activeEdital.id)}
+              >
+                <FileText aria-hidden="true" />
+                <span>
+                  <strong>{activeEdital.title}</strong>
+                  <small><b className={statusClass}>{activeEdital.status}</b>{activeEdital.pdfFile ? ` · ${activeEdital.pageCount} páginas` : " · Documento em breve"}</small>
+                </span>
+              </button>
+            </div>
             <h2>Todos os editais</h2>
             <label className={styles.editalSearch}>
               <Search aria-hidden="true" />
@@ -430,12 +446,13 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                 placeholder="Buscar edital…"
               />
             </label>
-            <div>
+            <div className={styles.editaisList}>
               {visibleEditais.map((edital) => (
                 <button
                   key={edital.id}
                   type="button"
                   className={edital.id === activeEdital.id ? styles.activeEdital : ""}
+                  aria-current={edital.id === activeEdital.id ? "page" : undefined}
                   onClick={() => onSelect(edital.id)}
                 >
                   <FileText aria-hidden="true" />
