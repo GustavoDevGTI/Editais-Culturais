@@ -66,11 +66,11 @@
 .cardFooter { justify-content: flex-end; border-top: 1px solid var(--line-soft); padding-top: 0.9rem; }
 .cardFooter > span { display: flex; align-items: center; gap: 0.45rem; color: var(--muted); font-size: 0.75rem; }
 .cardFooter svg { width: 1rem; }
-.cardActions { display: flex; align-items: center; justify-content: flex-end; gap: 1.1rem; margin-left: auto; pointer-events: none; }
+.cardActions { display: flex; width: 100%; align-items: center; justify-content: flex-start; gap: 1.1rem; pointer-events: none; }
 .externalAccess { position: relative; z-index: 3; display: inline-flex; align-items: center; color: var(--terracotta-dark); text-align: right; pointer-events: auto; }
 .externalAccess strong { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; }
 .externalAccess:hover strong { text-decoration: underline; text-underline-offset: 0.2rem; }
-.cardAction { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--terracotta-dark); font-size: 0.75rem; font-weight: 800; }
+.cardAction { display: inline-flex; align-items: center; gap: 0.45rem; margin-left: auto; color: var(--terracotta-dark); font-size: 0.75rem; font-weight: 800; }
 .empty { border: 1px dashed var(--sand-dark); padding: 3.5rem 1.25rem; text-align: center; color: var(--muted); }
 .empty > svg { color: var(--terracotta); }
 .empty h3 { margin: 0.8rem 0 0.3rem; color: var(--ink); }
@@ -106,6 +106,6 @@
   .cardBody { grid-template-columns: 2.2rem 1fr; }
   .number { font-size: 1.5rem; }
   .card h3 { font-size: 1.18rem; }
-  .cardActions { width: 100%; flex-wrap: wrap; justify-content: flex-end; margin-left: 0; }
+  .cardActions { flex-wrap: wrap; }
   .listFooter { align-items: flex-start; }
 }

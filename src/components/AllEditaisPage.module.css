@@ -51,8 +51,8 @@
 .footer { justify-content: flex-end; margin-top: 0.15rem; border-top: 1px solid var(--line-soft); padding-top: 0.75rem; color: var(--muted); font-size: 0.7rem; }
 .footer > span { display: inline-flex; align-items: center; gap: 0.35rem; }
 .footer svg { width: 0.85rem; }
-.openAction { color: var(--terracotta-dark); font-weight: 800; }
-.cardActions { position: relative; z-index: 3; display: inline-flex; align-items: center; justify-content: flex-end; gap: 1rem; margin-left: auto; pointer-events: none; }
+.openAction { margin-left: auto; color: var(--terracotta-dark); font-weight: 800; }
+.cardActions { position: relative; z-index: 3; display: inline-flex; width: 100%; align-items: center; justify-content: flex-start; gap: 1rem; pointer-events: none; }
 .externalAccess { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--terracotta-dark); pointer-events: auto; }
 .externalAccess strong { font-size: 0.76rem; }
 .externalAccess svg { width: 0.9rem; }
@@ -73,6 +73,6 @@
   .list { grid-template-columns: 1fr; gap: 0.65rem; }
   .cardContent { padding: 0.9rem; }
   .cardContent > strong { min-height: 0; font-size: 1rem; }
-  .cardActions { width: 100%; flex-wrap: wrap; justify-content: flex-end; margin-left: 0; }
+  .cardActions { flex-wrap: wrap; }
   .openAction { white-space: nowrap; }
 }
