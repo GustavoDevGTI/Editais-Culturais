@@ -25,7 +25,10 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
         onClick={() => onOpen(edital)}
       />
       <div className={styles.cardTopline}>
-        <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
+        <div className={styles.statusMeta}>
+          <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
+          <span className={styles.toplineDeadline}><CalendarDays aria-hidden="true" />{edital.deadline}</span>
+        </div>
         <span className={styles.category}>{edital.category}</span>
       </div>
       <div className={styles.cardBody}>
@@ -37,7 +40,6 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
         </div>
       </div>
       <div className={styles.cardFooter}>
-        <span><CalendarDays aria-hidden="true" />{edital.deadline}</span>
         <div className={styles.cardActions}>
           {edital.externalAccess && (
             <a

@@ -48,6 +48,10 @@
 .cardHitArea { position: absolute; inset: 0; z-index: 2; border: 0; border-radius: inherit; background: transparent; }
 .cardHitArea:focus { outline: 0; }
 .cardTopline, .cardFooter { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.cardTopline { align-items: flex-start; flex-wrap: wrap; }
+.statusMeta { display: flex; min-width: 0; flex: 1; flex-wrap: wrap; align-items: center; gap: 0.55rem 0.75rem; }
+.toplineDeadline { display: inline-flex; min-width: 0; align-items: center; gap: 0.4rem; color: var(--muted); font-size: 0.72rem; line-height: 1.35; }
+.toplineDeadline svg { width: 0.95rem; height: 0.95rem; flex: 0 0 auto; color: var(--terracotta); }
 .status { display: inline-flex; align-items: center; gap: 0.4rem; border-radius: 999px; padding: 0.35rem 0.65rem; font-size: 0.72rem; font-weight: 800; }
 .status i { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: currentColor; }
 .open { background: #e6f0e4; color: #34704b; }
@@ -59,7 +63,7 @@
 .label { margin: 0 0 0.4rem !important; color: var(--terracotta) !important; font-size: 0.64rem !important; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
 .card h3 { margin: 0 0 0.45rem; font-size: 1.4rem; letter-spacing: -0.035em; }
 .cardBody p { margin: 0; color: var(--muted); font-size: 0.86rem; line-height: 1.55; }
-.cardFooter { justify-content: space-between; border-top: 1px solid var(--line-soft); padding-top: 0.9rem; }
+.cardFooter { justify-content: flex-end; border-top: 1px solid var(--line-soft); padding-top: 0.9rem; }
 .cardFooter > span { display: flex; align-items: center; gap: 0.45rem; color: var(--muted); font-size: 0.75rem; }
 .cardFooter svg { width: 1rem; }
 .cardActions { display: flex; align-items: center; justify-content: flex-end; gap: 1.1rem; margin-left: auto; pointer-events: none; }
@@ -102,7 +106,6 @@
   .cardBody { grid-template-columns: 2.2rem 1fr; }
   .number { font-size: 1.5rem; }
   .card h3 { font-size: 1.18rem; }
-  .cardFooter { align-items: flex-start; flex-direction: column; }
-  .cardActions { width: 100%; justify-content: flex-end; margin-left: 0; }
+  .cardActions { width: 100%; flex-wrap: wrap; justify-content: flex-end; margin-left: 0; }
   .listFooter { align-items: flex-start; }
 }

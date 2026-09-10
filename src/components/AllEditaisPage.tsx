@@ -57,13 +57,15 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
                   <button className={styles.cardHitArea} type="button" onClick={() => props.onOpen(edital.id)} aria-label={`Abrir edital: ${edital.title}`} />
                   <div className={styles.cardContent}>
                     <span className={styles.topline}>
-                      <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
+                      <span className={styles.statusMeta}>
+                        <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
+                        <span className={styles.toplineDeadline}><CalendarDays aria-hidden="true" />{edital.deadline}</span>
+                      </span>
                       <span className={styles.category}>{edital.category}</span>
                     </span>
                     <span className={styles.label}>{edital.label}</span>
                     <strong>{edital.title}</strong>
                     <span className={styles.footer}>
-                      <span><CalendarDays aria-hidden="true" />{edital.deadline}</span>
                       <span className={styles.cardActions}>
                         {edital.externalAccess && (
                           <a
