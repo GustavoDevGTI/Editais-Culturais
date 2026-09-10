@@ -81,7 +81,6 @@
 
 .externalNotice > div { display: grid; gap: 0.12rem; }
 .externalNotice strong { font-size: 0.76rem; }
-.externalNotice span { color: var(--muted); font-size: 0.66rem; }
 .externalNotice a { display: inline-flex; align-items: center; gap: 0.45rem; border-radius: 0.35rem; background: var(--terracotta); padding: 0.65rem 0.8rem; color: var(--white); font-size: 0.72rem; font-weight: 800; white-space: nowrap; }
 .externalNotice a:hover { background: var(--terracotta-dark); }
 .externalNotice svg { width: 0.9rem; }

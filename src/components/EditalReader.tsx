@@ -356,7 +356,6 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
             <div className={styles.externalNotice}>
               <div>
                 <strong>Inscrições em plataforma externa</strong>
-                <span>Destino: {activeEdital.externalAccess.destination}</span>
               </div>
               <a href={activeEdital.externalAccess.url} target="_blank" rel="noopener noreferrer">
                 {activeEdital.externalAccess.label}<ExternalLink aria-hidden="true" />

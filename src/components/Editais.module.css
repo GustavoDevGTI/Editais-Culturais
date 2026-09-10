@@ -62,10 +62,10 @@
 .cardFooter { justify-content: space-between; border-top: 1px solid var(--line-soft); padding-top: 0.9rem; }
 .cardFooter > span { display: flex; align-items: center; gap: 0.45rem; color: var(--muted); font-size: 0.75rem; }
 .cardFooter svg { width: 1rem; }
-.externalAccess { position: relative; z-index: 3; display: grid; justify-items: end; gap: 0.18rem; color: var(--terracotta-dark); text-align: right; }
+.externalAccess { position: relative; z-index: 3; display: inline-flex; align-items: center; margin-left: auto; color: var(--terracotta-dark); text-align: right; }
 .externalAccess strong { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; }
-.externalAccess small { color: var(--muted); font-size: 0.62rem; font-weight: 600; }
 .externalAccess:hover strong { text-decoration: underline; text-underline-offset: 0.2rem; }
+.cardFooter > .cardAction { margin-left: auto; color: var(--terracotta-dark); font-weight: 800; }
 .empty { border: 1px dashed var(--sand-dark); padding: 3.5rem 1.25rem; text-align: center; color: var(--muted); }
 .empty > svg { color: var(--terracotta); }
 .empty h3 { margin: 0.8rem 0 0.3rem; color: var(--ink); }
@@ -102,6 +102,7 @@
   .number { font-size: 1.5rem; }
   .card h3 { font-size: 1.18rem; }
   .cardFooter { align-items: flex-start; flex-direction: column; }
-  .externalAccess { width: 100%; justify-items: start; border-top: 1px dashed var(--line); padding-top: 0.75rem; text-align: left; }
+  .externalAccess,
+  .cardFooter > .cardAction { margin-left: 0; }
   .listFooter { align-items: flex-start; }
 }

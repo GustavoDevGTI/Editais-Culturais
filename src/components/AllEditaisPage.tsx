@@ -63,7 +63,7 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
                     <strong>{edital.title}</strong>
                     <span className={styles.footer}>
                       <span><CalendarDays aria-hidden="true" />{edital.deadline}</span>
-                      <span className={styles.openAction}>Abrir edital <ArrowRight aria-hidden="true" /></span>
+                      {!edital.externalAccess && <span className={styles.openAction}>Abrir edital <ArrowRight aria-hidden="true" /></span>}
                     </span>
                   </button>
                   {edital.externalAccess && (
@@ -72,10 +72,9 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
                       href={edital.externalAccess.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`${edital.externalAccess.label}. Destino: ${edital.externalAccess.destination}`}
+                      aria-label={`${edital.externalAccess.label}. Abre em uma nova aba.`}
                     >
                       <span><strong>{edital.externalAccess.label}</strong><ExternalLink aria-hidden="true" /></span>
-                      <small>Destino externo: {edital.externalAccess.destination}</small>
                     </a>
                   )}
                 </article>

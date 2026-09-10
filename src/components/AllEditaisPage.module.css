@@ -46,12 +46,11 @@
 .footer { margin-top: 0.15rem; border-top: 1px solid var(--line-soft); padding-top: 0.75rem; color: var(--muted); font-size: 0.7rem; }
 .footer > span { display: inline-flex; align-items: center; gap: 0.35rem; }
 .footer svg { width: 0.85rem; }
-.openAction { color: var(--ink); font-weight: 800; }
-.externalAccess { display: grid; gap: 0.18rem; border-top: 1px dashed var(--line); background: color-mix(in srgb, var(--sand) 58%, var(--white)); padding: 0.8rem 1.1rem 0.9rem; color: var(--terracotta-dark); }
+.openAction { color: var(--terracotta-dark); font-weight: 800; }
+.externalAccess { display: flex; align-items: center; justify-content: flex-end; border-top: 1px solid var(--line-soft); padding: 0.75rem 1.1rem 0.9rem; color: var(--terracotta-dark); }
 .externalAccess > span { display: flex; align-items: center; gap: 0.4rem; }
 .externalAccess strong { font-size: 0.76rem; }
 .externalAccess svg { width: 0.9rem; }
-.externalAccess small { color: var(--muted); font-size: 0.62rem; font-weight: 600; }
 .externalAccess:hover strong { text-decoration: underline; text-underline-offset: 0.2rem; }
 .empty { margin-top: 1.25rem; border: 1px dashed var(--sand-dark); padding: 2.5rem 1.25rem; color: var(--muted); text-align: center; }
 .empty p { margin: 0 0 1rem; }

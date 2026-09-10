@@ -19,7 +19,6 @@ export const editais: Edital[] = [
     externalAccess: {
       url: "https://servicos.amargosa.ba.gov.br/b.php?pg=o%2Fbusca_servicos&search=bras%C3%A3o",
       label: "Inscrever-se no Portal de Serviços",
-      destination: "servicos.amargosa.ba.gov.br",
     },
   },
   {

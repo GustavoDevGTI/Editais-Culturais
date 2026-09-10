@@ -13,7 +13,6 @@ export type Status = (typeof statuses)[number];
 export interface EditalExternalAccess {
   url: string;
   label: string;
-  destination: string;
 }
 
 export interface Edital {

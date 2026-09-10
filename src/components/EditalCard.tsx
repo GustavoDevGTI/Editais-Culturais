@@ -1,4 +1,4 @@
-import { CalendarDays, ExternalLink } from "lucide-react";
+import { ArrowRight, CalendarDays, ExternalLink } from "lucide-react";
 import type { Edital } from "../types/edital";
 import styles from "./Editais.module.css";
 
@@ -45,11 +45,13 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(event) => event.stopPropagation()}
-            aria-label={`${edital.externalAccess.label}. Destino: ${edital.externalAccess.destination}`}
+            aria-label={`${edital.externalAccess.label}. Abre em uma nova aba.`}
           >
             <strong>{edital.externalAccess.label}<ExternalLink aria-hidden="true" /></strong>
-            <small>Destino: {edital.externalAccess.destination}</small>
           </a>
+        )}
+        {!edital.externalAccess && (
+          <span className={styles.cardAction}>Abrir edital <ArrowRight aria-hidden="true" /></span>
         )}
       </div>
     </article>
