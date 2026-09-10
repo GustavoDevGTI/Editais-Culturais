@@ -54,12 +54,6 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
 
               return (
                 <article className={`${styles.card} ${cardClass}`} key={edital.id}>
-                  {edital.banner && (
-                    <picture className={styles.cardBanner}>
-                      <source media="(max-width: 720px)" srcSet={`${import.meta.env.BASE_URL}${edital.banner.mobile}`} />
-                      <img src={`${import.meta.env.BASE_URL}${edital.banner.desktop}`} alt={edital.banner.alt} />
-                    </picture>
-                  )}
                   <button type="button" onClick={() => props.onOpen(edital.id)} aria-label={`Abrir edital: ${edital.title}`}>
                     <span className={styles.topline}>
                       <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>

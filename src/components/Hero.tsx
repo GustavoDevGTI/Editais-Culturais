@@ -2,7 +2,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
-const slideCount = 2;
+const slideCount = 3;
 
 interface HeroProps {
   onExplore: () => void;
@@ -42,6 +42,8 @@ export function Hero({ onExplore }: HeroProps) {
   const photoImage = `${import.meta.env.BASE_URL}images/amargosa-hero.jpg`;
   const artworkDesktop = `${import.meta.env.BASE_URL}images/banner-cultura-desktop.png`;
   const artworkMobile = `${import.meta.env.BASE_URL}images/banner-cultura-mobile.png`;
+  const brasaoDesktop = `${import.meta.env.BASE_URL}images/concurso-brasao-desktop.jpeg`;
+  const brasaoMobile = `${import.meta.env.BASE_URL}images/concurso-brasao-mobile.jpeg`;
 
   return (
     <section
@@ -73,7 +75,7 @@ export function Hero({ onExplore }: HeroProps) {
           </div>
         </article>
 
-        <article className={`${styles.slide} ${styles.artSlide} ${activeSlide === 1 ? styles.active : ""}`} aria-hidden={activeSlide !== 1}>
+        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.artSlide} ${activeSlide === 1 ? styles.active : ""}`} aria-hidden={activeSlide !== 1}>
           <picture>
             <source media="(max-width: 820px)" srcSet={artworkMobile} />
             <img
@@ -86,6 +88,27 @@ export function Hero({ onExplore }: HeroProps) {
           </picture>
         </article>
 
+        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.brasaoSlide} ${activeSlide === 2 ? styles.active : ""}`} aria-hidden={activeSlide !== 2}>
+          <a
+            href="https://servicos.amargosa.ba.gov.br/b.php?pg=o%2Fbusca_servicos&search=bras%C3%A3o"
+            target="_blank"
+            rel="noopener noreferrer"
+            tabIndex={activeSlide === 2 ? 0 : -1}
+            aria-label="Inscrever-se no concurso para escolha do Brasão Municipal. Abre o Portal de Serviços de Amargosa em uma nova aba."
+          >
+            <picture>
+              <source media="(max-width: 820px)" srcSet={brasaoMobile} />
+              <img
+                className={styles.banner}
+                src={brasaoDesktop}
+                alt="Concurso para escolha do Brasão Municipal de Amargosa, com prêmio de R$ 10 mil. Inscreva-se aqui."
+                width="1280"
+                height="320"
+              />
+            </picture>
+          </a>
+        </article>
+
         <button className={`${styles.mobileArrow} ${styles.mobileArrowPrevious}`} type="button" onClick={showPrevious} aria-label="Banner anterior">
           <ChevronLeft aria-hidden="true" />
         </button>
@@ -94,7 +117,7 @@ export function Hero({ onExplore }: HeroProps) {
         </button>
       </div>
 
-      <div className={`${styles.controls} ${activeSlide === 0 ? styles.photoControls : styles.artControls}`}>
+      <div className={`${styles.controls} ${activeSlide === 1 ? styles.artControls : styles.photoControls}`}>
         <div className={styles.controlPanel}>
           <button type="button" onClick={showPrevious} aria-label="Banner anterior">
             <ChevronLeft aria-hidden="true" />

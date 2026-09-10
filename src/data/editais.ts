@@ -16,11 +16,6 @@ export const editais: Edital[] = [
     featured: true,
     pdfFile: "documents/chamada-publica-pnab-002-2026.pdf",
     pageCount: 44,
-    banner: {
-      desktop: "images/concurso-brasao-desktop.jpeg",
-      mobile: "images/concurso-brasao-mobile.jpeg",
-      alt: "Concurso para escolha do Brasão Municipal de Amargosa, com prêmio de R$ 10 mil.",
-    },
     externalAccess: {
       url: "https://servicos.amargosa.ba.gov.br/b.php?pg=o%2Fbusca_servicos&search=bras%C3%A3o",
       label: "Inscrever-se no Portal de Serviços",

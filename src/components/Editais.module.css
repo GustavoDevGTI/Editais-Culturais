@@ -39,7 +39,7 @@
 .resultsMeta svg { width: 0.95rem; }
 .list { display: grid; gap: 0.85rem; }
 
-.card { position: relative; overflow: hidden; cursor: pointer; border: 1px solid var(--line); border-left: 0.45rem solid; border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; padding: 1.4rem 1.6rem 1.1rem; background: var(--white); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+.card { position: relative; cursor: pointer; border: 1px solid var(--line); border-left: 0.45rem solid; border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; padding: 1.4rem 1.6rem 1.1rem; background: var(--white); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
 .card:hover { transform: translateY(-0.2rem); border-color: var(--apricot); box-shadow: var(--shadow-card); }
 .card:focus-within { border-color: var(--terracotta); box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--terracotta) 24%, transparent), var(--shadow-card); }
 .card.cardOpen { border-left-color: var(--green); }
@@ -47,8 +47,6 @@
 .card.cardClosed { border-left-color: #c94c3c; }
 .cardHitArea { position: absolute; inset: 0; z-index: 2; border: 0; border-radius: inherit; background: transparent; }
 .cardHitArea:focus { outline: 0; }
-.cardBanner { display: block; overflow: hidden; margin: -1.4rem -1.6rem 1.2rem; border-bottom: 1px solid var(--line); background: #174b47; }
-.cardBanner img { display: block; width: 100%; aspect-ratio: 4 / 1; object-fit: cover; }
 .cardTopline, .cardFooter { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .status { display: inline-flex; align-items: center; gap: 0.4rem; border-radius: 999px; padding: 0.35rem 0.65rem; font-size: 0.72rem; font-weight: 800; }
 .status i { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: currentColor; }
@@ -100,8 +98,6 @@
   .resultsMeta { align-items: center; flex-direction: row; gap: 0; margin: 0.75rem 0 0.55rem; font-size: 0.72rem; }
   .resultsMeta p:last-child { display: none; }
   .card { padding: 1.2rem 1rem 1rem; }
-  .cardBanner { margin: -1.2rem -1rem 1rem; }
-  .cardBanner img { aspect-ratio: 2 / 1; }
   .cardBody { grid-template-columns: 2.2rem 1fr; }
   .number { font-size: 1.5rem; }
   .card h3 { font-size: 1.18rem; }
