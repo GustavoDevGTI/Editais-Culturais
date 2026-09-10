@@ -24,14 +24,15 @@
 .heading > p { margin: 0 0 0.35rem; color: var(--muted); font-size: 0.78rem; }
 
 .list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1.25rem; }
-.card { border: 1px solid var(--line); border-left: 0.38rem solid; border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; background: var(--white); transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+.card { position: relative; border: 1px solid var(--line); border-left: 0.38rem solid; border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; background: var(--white); transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
 .card:hover { transform: translateY(-0.15rem); border-color: var(--apricot); box-shadow: var(--shadow-card); }
 .card:focus-within { border-color: var(--terracotta); box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--terracotta) 20%, transparent); }
 .cardOpen { border-left-color: var(--green); }
 .cardSoon { border-left-color: #d89a2b; }
 .cardClosed { border-left-color: #c94c3c; }
-.card > button { display: grid; width: 100%; height: 100%; gap: 0.65rem; border: 0; background: transparent; padding: 1rem 1.1rem; color: var(--ink); text-align: left; }
-.card > button:focus { outline: 0; }
+.cardHitArea { position: absolute; inset: 0; z-index: 2; border: 0; border-radius: inherit; background: transparent; }
+.cardHitArea:focus { outline: 0; }
+.cardContent { display: grid; width: 100%; height: 100%; gap: 0.65rem; padding: 1rem 1.1rem; color: var(--ink); text-align: left; }
 
 .topline,
 .footer { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
@@ -42,13 +43,13 @@
 .closed { background: #f9dfda; color: #a93428; }
 .category { color: var(--muted); font-size: 0.7rem; font-weight: 700; }
 .label { color: var(--terracotta); font-size: 0.6rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
-.card strong { min-height: 2.5rem; font-size: 1.1rem; letter-spacing: -0.025em; line-height: 1.2; }
+.cardContent > strong { min-height: 2.5rem; font-size: 1.1rem; letter-spacing: -0.025em; line-height: 1.2; }
 .footer { margin-top: 0.15rem; border-top: 1px solid var(--line-soft); padding-top: 0.75rem; color: var(--muted); font-size: 0.7rem; }
 .footer > span { display: inline-flex; align-items: center; gap: 0.35rem; }
 .footer svg { width: 0.85rem; }
 .openAction { color: var(--terracotta-dark); font-weight: 800; }
-.externalAccess { display: flex; align-items: center; justify-content: flex-end; border-top: 1px solid var(--line-soft); padding: 0.75rem 1.1rem 0.9rem; color: var(--terracotta-dark); }
-.externalAccess > span { display: flex; align-items: center; gap: 0.4rem; }
+.cardActions { position: relative; z-index: 3; display: inline-flex; align-items: center; justify-content: flex-end; gap: 1rem; margin-left: auto; pointer-events: none; }
+.externalAccess { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--terracotta-dark); pointer-events: auto; }
 .externalAccess strong { font-size: 0.76rem; }
 .externalAccess svg { width: 0.9rem; }
 .externalAccess:hover strong { text-decoration: underline; text-underline-offset: 0.2rem; }
@@ -66,9 +67,10 @@
   .heading h1 { font-size: 2.9rem; }
   .heading > p { margin: 0; }
   .list { grid-template-columns: 1fr; gap: 0.65rem; }
-  .card > button { padding: 0.9rem; }
-  .externalAccess { padding-inline: 0.9rem; }
-  .card strong { min-height: 0; font-size: 1rem; }
+  .cardContent { padding: 0.9rem; }
+  .cardContent > strong { min-height: 0; font-size: 1rem; }
   .footer { align-items: flex-start; }
+  .footer { flex-direction: column; }
+  .cardActions { width: 100%; justify-content: flex-end; margin-left: 0; }
   .openAction { white-space: nowrap; }
 }

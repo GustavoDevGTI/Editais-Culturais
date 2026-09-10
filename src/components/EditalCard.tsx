@@ -38,21 +38,21 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
       </div>
       <div className={styles.cardFooter}>
         <span><CalendarDays aria-hidden="true" />{edital.deadline}</span>
-        {edital.externalAccess && (
-          <a
-            className={styles.externalAccess}
-            href={edital.externalAccess.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(event) => event.stopPropagation()}
-            aria-label={`${edital.externalAccess.label}. Abre em uma nova aba.`}
-          >
-            <strong>{edital.externalAccess.label}<ExternalLink aria-hidden="true" /></strong>
-          </a>
-        )}
-        {!edital.externalAccess && (
+        <div className={styles.cardActions}>
+          {edital.externalAccess && (
+            <a
+              className={styles.externalAccess}
+              href={edital.externalAccess.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(event) => event.stopPropagation()}
+              aria-label={`${edital.externalAccess.label}. Abre em uma nova aba.`}
+            >
+              <strong>Inscrever-se<ExternalLink aria-hidden="true" /></strong>
+            </a>
+          )}
           <span className={styles.cardAction}>Abrir edital <ArrowRight aria-hidden="true" /></span>
-        )}
+        </div>
       </div>
     </article>
   );

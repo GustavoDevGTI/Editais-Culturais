@@ -54,7 +54,8 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
 
               return (
                 <article className={`${styles.card} ${cardClass}`} key={edital.id}>
-                  <button type="button" onClick={() => props.onOpen(edital.id)} aria-label={`Abrir edital: ${edital.title}`}>
+                  <button className={styles.cardHitArea} type="button" onClick={() => props.onOpen(edital.id)} aria-label={`Abrir edital: ${edital.title}`} />
+                  <div className={styles.cardContent}>
                     <span className={styles.topline}>
                       <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
                       <span className={styles.category}>{edital.category}</span>
@@ -63,20 +64,22 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
                     <strong>{edital.title}</strong>
                     <span className={styles.footer}>
                       <span><CalendarDays aria-hidden="true" />{edital.deadline}</span>
-                      {!edital.externalAccess && <span className={styles.openAction}>Abrir edital <ArrowRight aria-hidden="true" /></span>}
+                      <span className={styles.cardActions}>
+                        {edital.externalAccess && (
+                          <a
+                            className={styles.externalAccess}
+                            href={edital.externalAccess.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${edital.externalAccess.label}. Abre em uma nova aba.`}
+                          >
+                            <strong>Inscrever-se</strong><ExternalLink aria-hidden="true" />
+                          </a>
+                        )}
+                        <span className={styles.openAction}>Abrir edital <ArrowRight aria-hidden="true" /></span>
+                      </span>
                     </span>
-                  </button>
-                  {edital.externalAccess && (
-                    <a
-                      className={styles.externalAccess}
-                      href={edital.externalAccess.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${edital.externalAccess.label}. Abre em uma nova aba.`}
-                    >
-                      <span><strong>{edital.externalAccess.label}</strong><ExternalLink aria-hidden="true" /></span>
-                    </a>
-                  )}
+                  </div>
                 </article>
               );
             })}
