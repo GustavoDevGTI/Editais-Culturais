@@ -3,6 +3,31 @@ import type { Edital } from "../types/edital";
 // Conteúdo demonstrativo. Para publicar um novo edital, adicione um item nesta lista.
 export const editais: Edital[] = [
   {
+    id: "concurso-brasao-municipal",
+    title: "Concurso para escolha do Brasão Municipal",
+    summary: "Concurso para escolha da proposta que representará o novo Brasão Municipal de Amargosa, com prêmio de R$ 10 mil.",
+    category: "Patrimônio",
+    status: "Aberto",
+    deadline: "Consulte o prazo no portal de inscrições",
+    publishedDate: "2026-09-10",
+    publishedAt: "Publicado em 10 de setembro de 2026",
+    label: "Concurso público",
+    audience: "Pessoas interessadas em participar do concurso para escolha do Brasão Municipal.",
+    featured: true,
+    pdfFile: "documents/chamada-publica-pnab-002-2026.pdf",
+    pageCount: 44,
+    banner: {
+      desktop: "images/concurso-brasao-desktop.jpeg",
+      mobile: "images/concurso-brasao-mobile.jpeg",
+      alt: "Concurso para escolha do Brasão Municipal de Amargosa, com prêmio de R$ 10 mil.",
+    },
+    externalAccess: {
+      url: "https://servicos.amargosa.ba.gov.br/b.php?pg=o%2Fbusca_servicos&search=bras%C3%A3o",
+      label: "Inscrever-se no Portal de Serviços",
+      destination: "servicos.amargosa.ba.gov.br",
+    },
+  },
+  {
     id: "chamada-publica-pnab-002-2026",
     title: "Chamada Pública de Incentivos Culturais PNAB",
     summary: "Seleciona espaços, ambientes, coletivos e iniciativas artístico-culturais para receber subsídio de manutenção.",

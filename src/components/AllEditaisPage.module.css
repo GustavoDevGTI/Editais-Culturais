@@ -24,7 +24,7 @@
 .heading > p { margin: 0 0 0.35rem; color: var(--muted); font-size: 0.78rem; }
 
 .list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1.25rem; }
-.card { border: 1px solid var(--line); border-left: 0.38rem solid; border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; background: var(--white); transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+.card { overflow: hidden; border: 1px solid var(--line); border-left: 0.38rem solid; border-radius: 0.2rem 0.5rem 0.5rem 0.2rem; background: var(--white); transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
 .card:hover { transform: translateY(-0.15rem); border-color: var(--apricot); box-shadow: var(--shadow-card); }
 .card:focus-within { border-color: var(--terracotta); box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--terracotta) 20%, transparent); }
 .cardOpen { border-left-color: var(--green); }
@@ -32,6 +32,8 @@
 .cardClosed { border-left-color: #c94c3c; }
 .card > button { display: grid; width: 100%; height: 100%; gap: 0.65rem; border: 0; background: transparent; padding: 1rem 1.1rem; color: var(--ink); text-align: left; }
 .card > button:focus { outline: 0; }
+.cardBanner { display: block; overflow: hidden; border-bottom: 1px solid var(--line); background: #174b47; }
+.cardBanner img { display: block; width: 100%; aspect-ratio: 4 / 1; object-fit: cover; }
 
 .topline,
 .footer { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
@@ -47,6 +49,12 @@
 .footer > span { display: inline-flex; align-items: center; gap: 0.35rem; }
 .footer svg { width: 0.85rem; }
 .openAction { color: var(--ink); font-weight: 800; }
+.externalAccess { display: grid; gap: 0.18rem; border-top: 1px dashed var(--line); background: color-mix(in srgb, var(--sand) 58%, var(--white)); padding: 0.8rem 1.1rem 0.9rem; color: var(--terracotta-dark); }
+.externalAccess > span { display: flex; align-items: center; gap: 0.4rem; }
+.externalAccess strong { font-size: 0.76rem; }
+.externalAccess svg { width: 0.9rem; }
+.externalAccess small { color: var(--muted); font-size: 0.62rem; font-weight: 600; }
+.externalAccess:hover strong { text-decoration: underline; text-underline-offset: 0.2rem; }
 .empty { margin-top: 1.25rem; border: 1px dashed var(--sand-dark); padding: 2.5rem 1.25rem; color: var(--muted); text-align: center; }
 .empty p { margin: 0 0 1rem; }
 
@@ -62,6 +70,8 @@
   .heading > p { margin: 0; }
   .list { grid-template-columns: 1fr; gap: 0.65rem; }
   .card > button { padding: 0.9rem; }
+  .cardBanner img { aspect-ratio: 2 / 1; }
+  .externalAccess { padding-inline: 0.9rem; }
   .card strong { min-height: 0; font-size: 1rem; }
   .footer { align-items: flex-start; }
   .openAction { white-space: nowrap; }

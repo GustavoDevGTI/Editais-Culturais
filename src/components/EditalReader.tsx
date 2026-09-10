@@ -1,4 +1,4 @@
-import { ArrowLeft, CalendarDays, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Download, FileText, Search, ZoomIn, ZoomOut } from "lucide-react";
+import { ArrowLeft, CalendarDays, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Download, ExternalLink, FileText, Search, ZoomIn, ZoomOut } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import type { Edital } from "../types/edital";
 import { usePdfDocument } from "../hooks/usePdfDocument";
@@ -352,6 +352,17 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
             </div>
           </div>
           <h1 id="edital-title">{activeEdital.title}</h1>
+          {activeEdital.externalAccess && (
+            <div className={styles.externalNotice}>
+              <div>
+                <strong>Inscrições em plataforma externa</strong>
+                <span>Destino: {activeEdital.externalAccess.destination}</span>
+              </div>
+              <a href={activeEdital.externalAccess.url} target="_blank" rel="noopener noreferrer">
+                {activeEdital.externalAccess.label}<ExternalLink aria-hidden="true" />
+              </a>
+            </div>
+          )}
         </div>
       </section>
 

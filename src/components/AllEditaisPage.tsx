@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, ExternalLink } from "lucide-react";
 import type { Categoria, Edital, Status } from "../types/edital";
 import { Footer } from "./Footer";
 import { EditaisFilters } from "./EditaisFilters";
@@ -54,6 +54,12 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
 
               return (
                 <article className={`${styles.card} ${cardClass}`} key={edital.id}>
+                  {edital.banner && (
+                    <picture className={styles.cardBanner}>
+                      <source media="(max-width: 720px)" srcSet={`${import.meta.env.BASE_URL}${edital.banner.mobile}`} />
+                      <img src={`${import.meta.env.BASE_URL}${edital.banner.desktop}`} alt={edital.banner.alt} />
+                    </picture>
+                  )}
                   <button type="button" onClick={() => props.onOpen(edital.id)} aria-label={`Abrir edital: ${edital.title}`}>
                     <span className={styles.topline}>
                       <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
@@ -66,6 +72,18 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
                       <span className={styles.openAction}>Abrir edital <ArrowRight aria-hidden="true" /></span>
                     </span>
                   </button>
+                  {edital.externalAccess && (
+                    <a
+                      className={styles.externalAccess}
+                      href={edital.externalAccess.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${edital.externalAccess.label}. Destino: ${edital.externalAccess.destination}`}
+                    >
+                      <span><strong>{edital.externalAccess.label}</strong><ExternalLink aria-hidden="true" /></span>
+                      <small>Destino externo: {edital.externalAccess.destination}</small>
+                    </a>
+                  )}
                 </article>
               );
             })}

@@ -10,6 +10,18 @@ export const statuses = ["Aberto", "Em breve", "Encerrado"] as const;
 export type Categoria = (typeof categorias)[number];
 export type Status = (typeof statuses)[number];
 
+export interface EditalBanner {
+  desktop: string;
+  mobile: string;
+  alt: string;
+}
+
+export interface EditalExternalAccess {
+  url: string;
+  label: string;
+  destination: string;
+}
+
 export interface Edital {
   id: string;
   title: string;
@@ -25,4 +37,6 @@ export interface Edital {
   officialUrl?: string;
   pdfFile?: string;
   pageCount?: number;
+  banner?: EditalBanner;
+  externalAccess?: EditalExternalAccess;
 }
