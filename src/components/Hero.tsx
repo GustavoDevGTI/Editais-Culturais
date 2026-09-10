@@ -42,8 +42,8 @@ export function Hero({ onExplore }: HeroProps) {
   const photoImage = `${import.meta.env.BASE_URL}images/amargosa-hero.jpg`;
   const artworkDesktop = `${import.meta.env.BASE_URL}images/banner-cultura-desktop.png`;
   const artworkMobile = `${import.meta.env.BASE_URL}images/banner-cultura-mobile.png`;
-  const brasaoDesktop = `${import.meta.env.BASE_URL}images/concurso-brasao-desktop.jpeg`;
-  const brasaoMobile = `${import.meta.env.BASE_URL}images/concurso-brasao-mobile.jpeg`;
+  const brasaoDesktop = `${import.meta.env.BASE_URL}images/concurso-brasao-desktop-hq.png`;
+  const brasaoMobile = `${import.meta.env.BASE_URL}images/concurso-brasao-mobile-hq.png`;
 
   return (
     <section
@@ -102,8 +102,8 @@ export function Hero({ onExplore }: HeroProps) {
                 className={styles.banner}
                 src={brasaoDesktop}
                 alt="Concurso para escolha do Brasão Municipal de Amargosa, com prêmio de R$ 10 mil. Inscreva-se aqui."
-                width="1280"
-                height="320"
+                width="3840"
+                height="960"
               />
             </picture>
           </a>
