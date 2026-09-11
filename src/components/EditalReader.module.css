@@ -41,6 +41,7 @@
 .backButton svg { width: 1.05rem; }
 .brand { justify-self: center; padding: 0; }
 .brand img { display: block; width: 10.5rem; height: 2.8rem; object-fit: contain; }
+.accessibility { justify-self: end; }
 
 .pageHeader {
   display: grid;
@@ -482,8 +483,7 @@
 
 @media (max-width: 1100px) {
   .readerShell { display: block; height: auto; min-height: 100dvh; overflow: visible; }
-  .topbar { grid-template-columns: 1fr auto; }
-  .brand { justify-self: end; }
+  .topbar { grid-template-columns: minmax(0, 1fr) auto auto; }
   .pageHeader { width: min(calc(100% - 2rem), 48rem); grid-template-columns: 1fr; align-items: start; gap: 0.85rem; margin-block: 1.25rem 0.85rem; }
   .pageHeader h1 { white-space: normal; }
   .pageMeta { max-width: none; justify-content: flex-start; }
@@ -500,10 +500,10 @@
 }
 
 @media (max-width: 720px) {
-  .topbar { min-height: 4rem; grid-template-columns: 1fr auto; padding-inline: 1rem; }
-  .brand { grid-column: auto; grid-row: auto; justify-self: end; }
-  .brand img { width: 7.5rem; height: 2.2rem; }
-  .backButton { grid-column: auto; grid-row: auto; justify-self: start; font-size: 0.76rem; }
+  .topbar { min-height: 4rem; grid-template-columns: minmax(0, 1fr) auto auto; gap: 0.55rem; padding-inline: 1rem; }
+  .brand { grid-column: auto; grid-row: auto; }
+  .brand img { width: 7.2rem; height: 2.2rem; }
+  .backButton { grid-column: auto; grid-row: auto; justify-self: start; font-size: 0.72rem; }
   .backButton svg { width: 0.95rem; }
   .pageHeader { width: calc(100% - 1.5rem); }
   .pageHeadingTop {

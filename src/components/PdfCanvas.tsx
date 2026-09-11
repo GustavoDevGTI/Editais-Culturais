@@ -10,13 +10,12 @@ const maxCanvasPixels = 12_000_000;
 interface PdfCanvasProps {
   document: PDFDocumentProxy;
   pageNumber: number;
-  title: string;
   zoom: number;
   matches: PdfSearchResult[];
   activeMatchId: string | null;
 }
 
-export function PdfCanvas({ document, pageNumber, title, zoom, matches, activeMatchId }: PdfCanvasProps) {
+export function PdfCanvas({ document, pageNumber, zoom, matches, activeMatchId }: PdfCanvasProps) {
   const pageRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textLayerRef = useRef<HTMLDivElement>(null);
@@ -170,11 +169,11 @@ export function PdfCanvas({ document, pageNumber, title, zoom, matches, activeMa
       id={`pdf-page-${pageNumber}`}
       className={styles.pageStage}
       data-pdf-page={pageNumber}
-      aria-busy={rendering}
+      aria-hidden="true"
       style={{ width: `min(${zoom * 100}%, ${595 * readerBaseScale * zoom}px)`, aspectRatio: "595 / 842" }}
     >
       {rendering && <div className={styles.pageLoader}><LoaderCircle aria-hidden="true" /> Carregando página…</div>}
-      <canvas ref={canvasRef} className={styles.pdfCanvas} aria-label={`${title}, página ${pageNumber}`} />
+      <canvas ref={canvasRef} className={styles.pdfCanvas} />
       <div ref={textLayerRef} className={styles.textLayer} aria-hidden="true" />
     </article>
   );

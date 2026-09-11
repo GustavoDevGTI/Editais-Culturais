@@ -1,0 +1,41 @@
+.topbar { position: relative; z-index: 5; display: grid; min-height: 4.5rem; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.25rem; border-bottom: 1px solid rgb(19 60 74 / 16%); background: var(--paper); padding: 0.65rem clamp(1rem, 2.5vw, 2.5rem); }
+.back { display: inline-flex; align-items: center; justify-self: start; gap: 0.55rem; border: 0; background: transparent; padding: 0.6rem 0; color: var(--ink); font-size: 0.84rem; font-weight: 800; }
+.back:hover { color: var(--terracotta); }
+.back svg { width: 1.05rem; }
+.brand { justify-self: center; border: 0; background: transparent; padding: 0; }
+.brand img { display: block; width: 10.5rem; height: 2.8rem; object-fit: contain; }
+.accessibility { justify-self: end; }
+.page { min-height: calc(100dvh - 4.5rem); padding: 3.5rem 0 5rem; background: var(--paper); }
+.hero { max-width: 52rem; }
+.hero h1 { margin: 0; font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); font-weight: 400; letter-spacing: -0.05em; line-height: 0.96; }
+.hero > p:last-child { max-width: 46rem; margin: 1.25rem 0 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.75; }
+.section { margin-top: 3rem; }
+.section h2 { margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3rem); }
+.siteMap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.65rem; margin: 0; padding: 0; list-style: none; }
+.siteMap a { display: flex; min-height: 4rem; align-items: center; border: 1px solid var(--line); border-left: 0.25rem solid var(--terracotta); border-radius: 0.45rem; background: var(--white); padding: 0.9rem; font-size: 0.82rem; font-weight: 800; }
+.siteMap a:hover { border-color: var(--terracotta); color: var(--terracotta-dark); }
+.editaisList { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+.edital { border: 1px solid var(--line); border-left: 0.32rem solid var(--terracotta); border-radius: 0.5rem; background: var(--white); padding: 1.15rem 1.25rem; }
+.editalHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.editalLabel { margin: 0 0 0.35rem; color: var(--terracotta); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.edital h3 { margin: 0; font-size: 1.05rem; line-height: 1.35; }
+.status { flex: 0 0 auto; border-radius: 999px; background: var(--sand); padding: 0.35rem 0.65rem; color: var(--ink-soft); font-size: 0.7rem; font-weight: 800; }
+.summary { margin: 0.75rem 0; color: var(--ink-soft); font-size: 0.88rem; line-height: 1.6; }
+.meta { display: flex; flex-wrap: wrap; gap: 0.45rem 1rem; margin: 0; color: var(--muted); font-size: 0.75rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.9rem; border-top: 1px solid var(--line-soft); padding-top: 0.8rem; }
+.actions a { color: var(--terracotta-dark); font-size: 0.78rem; font-weight: 800; }
+.actions a:hover { text-decoration: underline; text-underline-offset: 0.2rem; }
+.resources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; margin: 0; padding: 0; list-style: none; }
+.resources li { border: 1px solid var(--line); border-radius: 0.45rem; background: var(--white); padding: 1rem; color: var(--ink-soft); font-size: 0.85rem; line-height: 1.55; }
+.resources strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+
+@media (max-width: 760px) {
+  .topbar { min-height: 4rem; grid-template-columns: minmax(0, 1fr) auto auto; gap: 0.55rem; padding-inline: 1rem; }
+  .brand img { width: 7.2rem; height: 2.2rem; }
+  .back { font-size: 0.72rem; }
+  .back svg { width: 0.9rem; }
+  .page { padding: 2.5rem 0 3.5rem; }
+  .hero h1 { font-size: clamp(2.8rem, 14vw, 4.2rem); }
+  .siteMap, .resources { grid-template-columns: 1fr; }
+  .editalHeader { align-items: flex-start; flex-direction: column-reverse; gap: 0.6rem; }
+}

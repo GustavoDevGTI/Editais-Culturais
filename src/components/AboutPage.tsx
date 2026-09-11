@@ -1,4 +1,5 @@
 import { ArrowLeft, CheckCircle2, Code2, UsersRound } from "lucide-react";
+import { AccessibilityMenu } from "./AccessibilityControls";
 import { Footer } from "./Footer";
 import styles from "./AboutPage.module.css";
 
@@ -22,6 +23,7 @@ export function AboutPage({ onBack }: AboutPageProps) {
         <button className={styles.brand} type="button" onClick={onBack} aria-label="Voltar à página inicial">
           <img src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`} alt="Prefeitura de Amargosa" />
         </button>
+        <div className={styles.accessibility}><AccessibilityMenu /></div>
       </header>
 
       <main id="conteudo-sobre">

@@ -5,6 +5,7 @@
 .back svg { width: 1.05rem; }
 .brand { justify-self: center; border: 0; background: transparent; padding: 0; }
 .brand img { display: block; width: 10.5rem; height: 2.8rem; object-fit: contain; }
+.accessibility { justify-self: end; }
 .heroContent { text-align: center; }
 .heroContent h1 { margin: 0 auto; font-family: var(--font-display); font-size: clamp(3.4rem, 7vw, 5.8rem); font-weight: 400; letter-spacing: -0.055em; line-height: 0.96; }
 .heroText { max-width: 52rem; margin: 2rem auto 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.8; text-align: center; }
@@ -39,10 +40,9 @@
 }
 
 @media (max-width: 620px) {
-  .topbar { min-height: 4rem; grid-template-columns: 1fr auto; padding-inline: 1rem; }
-  .brand { justify-self: end; }
-  .brand img { width: 7.5rem; height: 2.2rem; }
-  .back { font-size: 0.76rem; }
+  .topbar { min-height: 4rem; grid-template-columns: minmax(0, 1fr) auto auto; gap: 0.55rem; padding-inline: 1rem; }
+  .brand img { width: 7.2rem; height: 2.2rem; }
+  .back { font-size: 0.72rem; }
   .back svg { width: 0.95rem; }
   .hero { padding: 3rem 0 3.5rem; }
   .heroContent h1 { font-size: clamp(3.2rem, 15vw, 4.3rem); }

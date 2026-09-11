@@ -5,6 +5,7 @@ import { usePdfDocument } from "../hooks/usePdfDocument";
 import { compareEditais } from "../utils/editais";
 import { searchPdfPages, type PdfSearchResult } from "../utils/pdfSearch";
 import { PdfCanvas } from "./PdfCanvas";
+import { AccessibilityMenu } from "./AccessibilityControls";
 import styles from "./EditalReader.module.css";
 
 const emptySearchResults: PdfSearchResult[] = [];
@@ -330,9 +331,15 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
       ? [pageNumber]
       : Array.from({ length: pdfDocument.numPages }, (_, index) => index + 1)
     : [];
+  const accessiblePageTexts = useMemo(() => pageTextItems.map((items) => items
+    .filter((item) => item.trim().length > 0)
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim()), [pageTextItems]);
 
   return (
     <div className={styles.readerShell}>
+      <a className="skip-link" href="#documento-edital">Pular para o documento</a>
       <header className={styles.topbar}>
         <button className={styles.backButton} type="button" onClick={onBack}>
           <ArrowLeft aria-hidden="true" /> Voltar aos editais
@@ -340,6 +347,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
         <button className={styles.brand} type="button" onClick={onBack} aria-label="Voltar à página inicial">
           <img src={`${import.meta.env.BASE_URL}images/logo-prefeitura-amargosa.png`} alt="Prefeitura de Amargosa" />
         </button>
+        <div className={styles.accessibility}><AccessibilityMenu /></div>
       </header>
 
       <section className={styles.pageHeader} aria-labelledby="edital-title">
@@ -365,7 +373,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
         </div>
       </section>
 
-      <main className={styles.workspace}>
+      <main className={styles.workspace} id="documento-edital">
         <aside className={styles.sidebar} aria-label="Busca e navegação dos editais">
           <section className={styles.searchBlock}>
             <h2>Buscar neste edital</h2>
@@ -465,7 +473,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
           </section>
         </aside>
 
-        <section className={styles.documentPanel} aria-label={`Documento: ${activeEdital.title}`}>
+        <section className={styles.documentPanel} aria-label={`Documento: ${activeEdital.title}`} aria-busy={loading || indexing}>
           {pdfUrl && (
             <div className={styles.documentToolbar}>
               <div className={styles.pageControls}>
@@ -481,6 +489,18 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                 <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
               </div>
             </div>
+          )}
+
+          {accessiblePageTexts.length > 0 && (
+            <section className="sr-only" aria-labelledby="texto-acessivel-title">
+              <h2 id="texto-acessivel-title">Conteúdo textual do edital {activeEdital.title}</h2>
+              {accessiblePageTexts.map((text, index) => text && (
+                <section key={index} aria-labelledby={`texto-pagina-${index + 1}`}>
+                  <h3 id={`texto-pagina-${index + 1}`}>Página {index + 1}</h3>
+                  <p>{text}</p>
+                </section>
+              ))}
+            </section>
           )}
 
           <div
@@ -502,7 +522,6 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                     key={displayedPage}
                     document={pdfDocument}
                     pageNumber={displayedPage}
-                    title={activeEdital.title}
                     zoom={zoom}
                     matches={matchesByPage.get(displayedPage) ?? emptySearchResults}
                     activeMatchId={activeMatchId}

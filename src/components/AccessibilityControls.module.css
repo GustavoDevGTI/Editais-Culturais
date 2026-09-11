@@ -1,0 +1,33 @@
+.root { position: relative; z-index: 70; display: inline-flex; }
+.trigger { display: inline-flex; min-width: 2.65rem; height: 2.65rem; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 50%; background: var(--white); color: var(--ink); font-size: 0.78rem; font-weight: 800; }
+.trigger:hover, .trigger[aria-expanded="true"] { border-color: var(--terracotta); color: var(--terracotta-dark); }
+.popover { position: absolute; top: calc(100% + 0.65rem); right: 0; width: min(19rem, calc(100vw - 2rem)); border: 1px solid var(--line); border-top: 0.25rem solid var(--terracotta); border-radius: 0.65rem; background: var(--white); padding: 1rem; color: var(--ink); box-shadow: var(--shadow-card); }
+.popoverHeader { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.85rem; }
+.popoverHeader strong { font-size: 0.85rem; }
+.close { display: inline-grid; width: 2rem; height: 2rem; place-items: center; border: 0; border-radius: 50%; background: var(--sand); color: var(--ink); }
+.close svg { width: 1rem; }
+.settings { display: grid; gap: 0.75rem; }
+.settingRow { display: grid; gap: 0.4rem; }
+.settingLabel { color: var(--muted); font-size: 0.72rem; font-weight: 800; }
+.fontGroup { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.35rem; }
+.fontGroup button, .contrastButton, .resetButton { min-height: 2.45rem; border: 1px solid var(--line); border-radius: 0.4rem; background: var(--paper); color: var(--ink); font-weight: 800; }
+.fontGroup button:hover, .contrastButton:hover, .resetButton:hover { border-color: var(--terracotta); }
+.fontGroup button:disabled { cursor: not-allowed; opacity: 0.45; }
+.fontGroup button[aria-pressed="true"] { border-color: var(--terracotta); background: var(--apricot-soft); color: var(--terracotta-dark); }
+.contrastButton { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 0.65rem; padding-inline: 0.75rem; font-size: 0.75rem; }
+.contrastButton svg { width: 1rem; }
+.contrastButton[aria-pressed="true"] { border-color: var(--terracotta); background: var(--ink); color: var(--cream); }
+.resetButton { background: transparent; color: var(--terracotta-dark); font-size: 0.72rem; }
+.pageLink { display: block; margin-top: 0.85rem; border-top: 1px solid var(--line-soft); padding-top: 0.85rem; color: var(--terracotta-dark); font-size: 0.75rem; font-weight: 800; }
+.pageLink:hover { text-decoration: underline; text-underline-offset: 0.2rem; }
+.pageSettings { border: 1px solid var(--line); border-left: 0.3rem solid var(--terracotta); border-radius: 0.65rem; background: var(--white); padding: 1.25rem; box-shadow: var(--shadow-soft); }
+.pageSettings .settings { grid-template-columns: minmax(13rem, 1fr) minmax(12rem, 1fr) auto; align-items: end; gap: 1rem; }
+.pageSettings .resetButton { min-width: 8rem; padding-inline: 1rem; }
+.liveStatus { margin: 0; }
+
+@media (max-width: 700px) {
+  .trigger { min-width: 2.45rem; height: 2.45rem; }
+  .popover { position: fixed; top: 4.75rem; right: 1rem; left: 1rem; width: auto; }
+  .pageSettings .settings { grid-template-columns: 1fr; align-items: stretch; }
+  .pageSettings .resetButton { width: 100%; }
+}

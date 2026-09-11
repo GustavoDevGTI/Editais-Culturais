@@ -1,4 +1,5 @@
 import { lazy, Suspense, useMemo, useState } from "react";
+import { AccessibilityPage } from "./components/AccessibilityPage";
 import { AboutPage } from "./components/AboutPage";
 import { AllEditaisPage } from "./components/AllEditaisPage";
 import { EditaisSection } from "./components/EditaisSection";
@@ -18,7 +19,7 @@ export function App() {
   const [query, setQuery] = useState("");
   const [categoria, setCategoria] = useState<Categoria | "Todas">("Todas");
   const [status, setStatus] = useState<Status | "Todos">("Todos");
-  const { closeAbout, closeAllEditais, closeEdital, editalId, openAllEditais, openEdital, showAbout, showAllEditais } = useEditalRoute();
+  const { closeAccessibility, closeAbout, closeAllEditais, closeEdital, editalId, openAllEditais, openEdital, showAccessibility, showAbout, showAllEditais } = useEditalRoute();
 
   const orderedEditais = useMemo(() => [...editais].sort(compareEditais), []);
 
@@ -76,6 +77,10 @@ export function App() {
 
   if (showAbout) {
     return <AboutPage onBack={closeAbout} />;
+  }
+
+  if (showAccessibility) {
+    return <AccessibilityPage editais={orderedEditais} onBack={closeAccessibility} onOpen={openEdital} />;
   }
 
   return (

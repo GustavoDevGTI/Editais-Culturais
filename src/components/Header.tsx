@@ -1,10 +1,12 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { AccessibilityMenu } from "./AccessibilityControls";
 import styles from "./Header.module.css";
 
 const links = [
   { label: "Editais", href: "#/editais" },
   { label: "Sobre o portal", href: "#/sobre" },
+  { label: "Acessibilidade", href: "#/acessibilidade" },
 ];
 
 export function Header() {
@@ -20,19 +22,22 @@ export function Header() {
             alt="Prefeitura de Amargosa — Cidade Jardim de Todos"
           />
         </a>
-        <nav className={styles.desktopNav} aria-label="Navegação principal">
-          {links.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
-        </nav>
-        <button
-          className={styles.menuButton}
-          type="button"
-          aria-expanded={menuOpen}
-          aria-controls="menu-mobile"
-          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-          onClick={() => setMenuOpen((current) => !current)}
-        >
-          {menuOpen ? <X /> : <Menu />}
-        </button>
+        <div className={styles.headerActions}>
+          <nav className={styles.desktopNav} aria-label="Navegação principal">
+            {links.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
+          </nav>
+          <AccessibilityMenu />
+          <button
+            className={styles.menuButton}
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="menu-mobile"
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            onClick={() => setMenuOpen((current) => !current)}
+          >
+            {menuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
       </div>
       {menuOpen && (
         <nav id="menu-mobile" className={styles.mobileNav} aria-label="Navegação móvel">
