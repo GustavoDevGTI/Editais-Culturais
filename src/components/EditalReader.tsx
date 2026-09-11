@@ -46,6 +46,8 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const [listQuery, setListQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [zoom, setZoom] = useState(1);
+  const [zoomInput, setZoomInput] = useState("100");
+  const [editingZoom, setEditingZoom] = useState(false);
   const [documentMode, setDocumentMode] = useState<"pdf" | "html">("pdf");
   const [singlePageMode, setSinglePageMode] = useState(() => window.matchMedia("(max-width: 720px)").matches);
   const [draggingDocument, setDraggingDocument] = useState(false);
@@ -70,10 +72,16 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     matchNavigationPageRef.current = null;
     setPageNumber(1);
     setZoom(1);
+    setZoomInput("100");
+    setEditingZoom(false);
     setDocumentMode("pdf");
     window.document.title = `${activeEdital.title} | Editais Culturais`;
     return () => { window.document.title = "Editais Culturais | Amargosa"; };
   }, [activeEdital.id, activeEdital.title]);
+
+  useEffect(() => {
+    if (!editingZoom) setZoomInput(String(Math.round(zoom * 100)));
+  }, [editingZoom, zoom]);
 
   const results = useMemo(
     () => searchPdfPages(pageTextItems, query),
@@ -200,6 +208,20 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
   const changeZoom = (direction: -1 | 1) => {
     setZoom((value) => Math.min(maxZoom, Math.max(minZoom, Number((value + direction * zoomStep).toFixed(2)))));
+  };
+
+  const applyTypedZoom = (typedValue: string) => {
+    const typedPercentage = Number(typedValue);
+    if (!Number.isFinite(typedPercentage) || typedValue.trim() === "") {
+      setZoomInput(String(Math.round(zoom * 100)));
+      setEditingZoom(false);
+      return;
+    }
+
+    const boundedPercentage = Math.min(maxZoom * 100, Math.max(minZoom * 100, Math.round(typedPercentage)));
+    setZoom(Number((boundedPercentage / 100).toFixed(2)));
+    setZoomInput(String(boundedPercentage));
+    setEditingZoom(false);
   };
 
   const distanceBetweenTouches = () => {
@@ -510,7 +532,35 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                 {documentMode === "pdf" && (
                   <div className={styles.zoomControls}>
                     <button type="button" onClick={() => changeZoom(-1)} disabled={zoom <= minZoom} aria-label="Diminuir zoom"><ZoomOut /></button>
-                    <span>{Math.round(zoom * 100)}%</span>
+                    <label className={styles.zoomField} title={`Digite um valor entre ${minZoom * 100}% e ${maxZoom * 100}%`}>
+                      <span className="sr-only">Nível de zoom em porcentagem</span>
+                      <input
+                        type="number"
+                        inputMode="numeric"
+                        min={minZoom * 100}
+                        max={maxZoom * 100}
+                        step="1"
+                        value={zoomInput}
+                        onFocus={(event) => {
+                          setEditingZoom(true);
+                          event.currentTarget.select();
+                        }}
+                        onChange={(event) => setZoomInput(event.target.value)}
+                        onBlur={(event) => applyTypedZoom(event.currentTarget.value)}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") event.currentTarget.blur();
+                          if (event.key === "Escape") {
+                            event.preventDefault();
+                            const currentZoom = String(Math.round(zoom * 100));
+                            const input = event.currentTarget;
+                            setZoomInput(currentZoom);
+                            setEditingZoom(false);
+                            window.requestAnimationFrame(() => input.blur());
+                          }
+                        }}
+                      />
+                      <span aria-hidden="true">%</span>
+                    </label>
                     <button type="button" onClick={() => changeZoom(1)} disabled={zoom >= maxZoom} aria-label="Aumentar zoom"><ZoomIn /></button>
                     <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
                   </div>
