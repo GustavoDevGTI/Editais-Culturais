@@ -45,7 +45,7 @@
 
 .pageHeader {
   display: grid;
-  width: min(calc(100% - clamp(1.5rem, 4vw, 5rem)), 138rem);
+  width: min(calc(100% - clamp(3rem, 8vw, 10rem)), 128rem);
   grid-template-columns: minmax(0, 1fr);
   align-items: start;
   gap: 0.55rem;
@@ -115,10 +115,10 @@
 
 .workspace {
   display: grid;
-  width: min(calc(100% - clamp(1.5rem, 4vw, 5rem)), 138rem);
+  width: min(calc(100% - clamp(3rem, 8vw, 10rem)), 128rem);
   height: auto;
   min-height: 0;
-  grid-template-columns: clamp(18rem, 20vw, 23rem) minmax(0, 1fr);
+  grid-template-columns: clamp(18.5rem, 21vw, 24rem) minmax(0, 1fr);
   gap: clamp(0.75rem, 1.2vw, 1.5rem);
   overflow: hidden;
   margin: 0 auto 0.8rem;
@@ -616,10 +616,10 @@
 @media (max-width: 1100px) {
   .readerShell { display: block; height: auto; min-height: 100dvh; overflow: visible; }
   .topbar { grid-template-columns: minmax(0, 1fr) auto auto; }
-  .pageHeader { width: calc(100% - 2rem); grid-template-columns: 1fr; align-items: start; gap: 0.85rem; margin-block: 1.25rem 0.85rem; }
+  .pageHeader { width: calc(100% - 3rem); grid-template-columns: 1fr; align-items: start; gap: 0.85rem; margin-block: 1.25rem 0.85rem; }
   .pageHeader h1 { white-space: normal; }
   .pageMeta { max-width: none; justify-content: flex-start; }
-  .workspace { width: calc(100% - 1.25rem); height: auto; min-height: 0; grid-template-columns: 1fr; gap: 0.75rem; overflow: visible; margin: 0.75rem auto 2rem; }
+  .workspace { width: calc(100% - 2rem); height: auto; min-height: 0; grid-template-columns: 1fr; gap: 0.75rem; overflow: visible; margin: 0.75rem auto 2rem; }
   .sidebar { display: contents; }
   .searchBlock { grid-row: 1; }
   .documentPanel { grid-row: 2; }
