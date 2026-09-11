@@ -478,7 +478,15 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
         <section className={styles.documentPanel} aria-label={`Documento: ${activeEdital.title}`} aria-busy={loading || indexing}>
           {pdfUrl && (
             <div className={styles.documentToolbar}>
-              <div className={styles.toolbarPrimary}>
+              {documentMode === "pdf" && (
+                <div className={styles.pageControls}>
+                  <button type="button" onClick={() => changePage(pageNumber - 1)} disabled={pageNumber <= 1} aria-label="Página anterior"><ChevronLeft /></button>
+                  <label><span className="sr-only">Página atual</span><input type="number" min="1" max={totalPages} value={pageNumber} onChange={(event) => changePage(Number(event.target.value))} /></label>
+                  <span>de {totalPages || "—"}</span>
+                  <button type="button" onClick={() => changePage(pageNumber + 1)} disabled={pageNumber >= totalPages} aria-label="Próxima página"><ChevronRight /></button>
+                </div>
+              )}
+              <div className={styles.toolbarSecondary}>
                 <div className={styles.viewControls} role="group" aria-label="Formato de leitura do documento">
                   <button
                     type="button"
@@ -500,25 +508,17 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                   </button>
                 </div>
                 {documentMode === "pdf" && (
-                  <div className={styles.pageControls}>
-                    <button type="button" onClick={() => changePage(pageNumber - 1)} disabled={pageNumber <= 1} aria-label="Página anterior"><ChevronLeft /></button>
-                    <label><span className="sr-only">Página atual</span><input type="number" min="1" max={totalPages} value={pageNumber} onChange={(event) => changePage(Number(event.target.value))} /></label>
-                    <span>de {totalPages || "—"}</span>
-                    <button type="button" onClick={() => changePage(pageNumber + 1)} disabled={pageNumber >= totalPages} aria-label="Próxima página"><ChevronRight /></button>
+                  <div className={styles.zoomControls}>
+                    <button type="button" onClick={() => changeZoom(-1)} disabled={zoom <= minZoom} aria-label="Diminuir zoom"><ZoomOut /></button>
+                    <span>{Math.round(zoom * 100)}%</span>
+                    <button type="button" onClick={() => changeZoom(1)} disabled={zoom >= maxZoom} aria-label="Aumentar zoom"><ZoomIn /></button>
+                    <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
                   </div>
                 )}
-              </div>
-              {documentMode === "pdf" && (
-                <div className={styles.zoomControls}>
-                  <button type="button" onClick={() => changeZoom(-1)} disabled={zoom <= minZoom} aria-label="Diminuir zoom"><ZoomOut /></button>
-                  <span>{Math.round(zoom * 100)}%</span>
-                  <button type="button" onClick={() => changeZoom(1)} disabled={zoom >= maxZoom} aria-label="Aumentar zoom"><ZoomIn /></button>
+                {documentMode === "html" && (
                   <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
-                </div>
-              )}
-              {documentMode === "html" && (
-                <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
-              )}
+                )}
+              </div>
             </div>
           )}
 
