@@ -46,6 +46,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const [listQuery, setListQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [zoom, setZoom] = useState(1);
+  const [documentMode, setDocumentMode] = useState<"pdf" | "html">("pdf");
   const [singlePageMode, setSinglePageMode] = useState(() => window.matchMedia("(max-width: 720px)").matches);
   const [draggingDocument, setDraggingDocument] = useState(false);
   const [activeMatchId, setActiveMatchId] = useState<string | null>(null);
@@ -69,6 +70,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     matchNavigationPageRef.current = null;
     setPageNumber(1);
     setZoom(1);
+    setDocumentMode("pdf");
     window.document.title = `${activeEdital.title} | Editais Culturais`;
     return () => { window.document.title = "Editais Culturais | Amargosa"; };
   }, [activeEdital.id, activeEdital.title]);
@@ -476,22 +478,51 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
         <section className={styles.documentPanel} aria-label={`Documento: ${activeEdital.title}`} aria-busy={loading || indexing}>
           {pdfUrl && (
             <div className={styles.documentToolbar}>
-              <div className={styles.pageControls}>
-                <button type="button" onClick={() => changePage(pageNumber - 1)} disabled={pageNumber <= 1} aria-label="Página anterior"><ChevronLeft /></button>
-                <label><span className="sr-only">Página atual</span><input type="number" min="1" max={totalPages} value={pageNumber} onChange={(event) => changePage(Number(event.target.value))} /></label>
-                <span>de {totalPages || "—"}</span>
-                <button type="button" onClick={() => changePage(pageNumber + 1)} disabled={pageNumber >= totalPages} aria-label="Próxima página"><ChevronRight /></button>
+              <div className={styles.toolbarPrimary}>
+                <div className={styles.viewControls} role="group" aria-label="Formato de leitura do documento">
+                  <button
+                    type="button"
+                    className={documentMode === "pdf" ? styles.activeView : ""}
+                    aria-pressed={documentMode === "pdf"}
+                    onClick={() => setDocumentMode("pdf")}
+                  >
+                    PDF
+                  </button>
+                  <button
+                    type="button"
+                    className={documentMode === "html" ? styles.activeView : ""}
+                    aria-pressed={documentMode === "html"}
+                    aria-label={indexing ? "HTML, preparando texto do documento" : "Ler documento em HTML"}
+                    disabled={loading || indexing || accessiblePageTexts.length === 0}
+                    onClick={() => setDocumentMode("html")}
+                  >
+                    HTML
+                  </button>
+                </div>
+                {documentMode === "pdf" && (
+                  <div className={styles.pageControls}>
+                    <button type="button" onClick={() => changePage(pageNumber - 1)} disabled={pageNumber <= 1} aria-label="Página anterior"><ChevronLeft /></button>
+                    <label><span className="sr-only">Página atual</span><input type="number" min="1" max={totalPages} value={pageNumber} onChange={(event) => changePage(Number(event.target.value))} /></label>
+                    <span>de {totalPages || "—"}</span>
+                    <button type="button" onClick={() => changePage(pageNumber + 1)} disabled={pageNumber >= totalPages} aria-label="Próxima página"><ChevronRight /></button>
+                  </div>
+                )}
               </div>
-              <div className={styles.zoomControls}>
-                <button type="button" onClick={() => changeZoom(-1)} disabled={zoom <= minZoom} aria-label="Diminuir zoom"><ZoomOut /></button>
-                <span>{Math.round(zoom * 100)}%</span>
-                <button type="button" onClick={() => changeZoom(1)} disabled={zoom >= maxZoom} aria-label="Aumentar zoom"><ZoomIn /></button>
+              {documentMode === "pdf" && (
+                <div className={styles.zoomControls}>
+                  <button type="button" onClick={() => changeZoom(-1)} disabled={zoom <= minZoom} aria-label="Diminuir zoom"><ZoomOut /></button>
+                  <span>{Math.round(zoom * 100)}%</span>
+                  <button type="button" onClick={() => changeZoom(1)} disabled={zoom >= maxZoom} aria-label="Aumentar zoom"><ZoomIn /></button>
+                  <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
+                </div>
+              )}
+              {documentMode === "html" && (
                 <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
-              </div>
+              )}
             </div>
           )}
 
-          {accessiblePageTexts.length > 0 && (
+          {documentMode === "pdf" && accessiblePageTexts.length > 0 && (
             <section className="sr-only" aria-labelledby="texto-acessivel-title">
               <h2 id="texto-acessivel-title">Conteúdo textual do edital {activeEdital.title}</h2>
               {accessiblePageTexts.map((text, index) => text && (
@@ -505,17 +536,17 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
           <div
             ref={documentViewportRef}
-            className={`${styles.documentViewport} ${zoom > 1 ? styles.pannableDocument : ""} ${draggingDocument ? styles.draggingDocument : ""}`}
-            onPointerDown={startDocumentDrag}
-            onPointerMove={moveDocument}
-            onPointerUp={stopDocumentDrag}
-            onPointerCancel={cancelDocumentDrag}
-            onScroll={updateVisiblePage}
+            className={`${styles.documentViewport} ${documentMode === "html" ? styles.htmlViewport : ""} ${documentMode === "pdf" && zoom > 1 ? styles.pannableDocument : ""} ${documentMode === "pdf" && draggingDocument ? styles.draggingDocument : ""}`}
+            onPointerDown={documentMode === "pdf" ? startDocumentDrag : undefined}
+            onPointerMove={documentMode === "pdf" ? moveDocument : undefined}
+            onPointerUp={documentMode === "pdf" ? stopDocumentDrag : undefined}
+            onPointerCancel={documentMode === "pdf" ? cancelDocumentDrag : undefined}
+            onScroll={documentMode === "pdf" ? updateVisiblePage : undefined}
           >
-            {loading && <div className={styles.documentMessage}><span className={styles.spinner} />Carregando o edital completo…</div>}
-            {error && <div className={styles.documentMessage}><FileText aria-hidden="true" /><strong>{error}</strong><span>Tente baixar o arquivo e abri-lo no seu dispositivo.</span></div>}
-            {!pdfUrl && <div className={styles.documentMessage}><FileText aria-hidden="true" /><strong>Documento ainda não disponível</strong><span>As informações deste edital já podem ser consultadas, mas o PDF será publicado em breve.</span></div>}
-            {pdfDocument && (
+            {documentMode === "pdf" && loading && <div className={styles.documentMessage}><span className={styles.spinner} />Carregando o edital completo…</div>}
+            {documentMode === "pdf" && error && <div className={styles.documentMessage}><FileText aria-hidden="true" /><strong>{error}</strong><span>Tente baixar o arquivo e abri-lo no seu dispositivo.</span></div>}
+            {documentMode === "pdf" && !pdfUrl && <div className={styles.documentMessage}><FileText aria-hidden="true" /><strong>Documento ainda não disponível</strong><span>As informações deste edital já podem ser consultadas, mas o PDF será publicado em breve.</span></div>}
+            {documentMode === "pdf" && pdfDocument && (
               <div className={styles.pagesStack}>
                 {displayedPages.map((displayedPage) => (
                   <PdfCanvas
@@ -528,6 +559,21 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                   />
                 ))}
               </div>
+            )}
+            {documentMode === "html" && (
+              <article className={styles.htmlDocument} aria-labelledby="html-document-title">
+                <header>
+                  <span>Versão HTML acessível</span>
+                  <h2 id="html-document-title">{activeEdital.title}</h2>
+                  <p>Conteúdo textual extraído do documento e organizado por página.</p>
+                </header>
+                {accessiblePageTexts.map((text, index) => text && (
+                  <section key={index} aria-labelledby={`html-pagina-${index + 1}`}>
+                    <h3 id={`html-pagina-${index + 1}`}>Página {index + 1}</h3>
+                    <p>{text}</p>
+                  </section>
+                ))}
+              </article>
             )}
           </div>
         </section>
