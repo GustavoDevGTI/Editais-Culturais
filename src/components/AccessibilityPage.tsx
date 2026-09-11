@@ -61,7 +61,9 @@ export function AccessibilityPage({ editais, onBack, onOpen }: AccessibilityPage
                         <p className={styles.editalLabel}>{edital.label}</p>
                         <h3>{edital.title}</h3>
                       </div>
-                      <span className={styles.status}>{edital.status}</span>
+                      <span className={`${styles.status} ${
+                        edital.status === "Aberto" ? styles.open : edital.status === "Em breve" ? styles.soon : styles.closed
+                      }`}>{edital.status}</span>
                     </div>
                     <p className={styles.summary}>{edital.summary}</p>
                     <p className={styles.meta}><span>Categoria: {edital.category}</span><span>Prazo: {edital.deadline}</span></p>

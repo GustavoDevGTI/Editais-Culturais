@@ -19,7 +19,10 @@
 .editalHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .editalLabel { margin: 0 0 0.35rem; color: var(--terracotta); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
 .edital h3 { margin: 0; font-size: 1.05rem; line-height: 1.35; }
-.status { flex: 0 0 auto; border-radius: 999px; background: var(--sand); padding: 0.35rem 0.65rem; color: var(--ink-soft); font-size: 0.7rem; font-weight: 800; }
+.status { flex: 0 0 auto; border-radius: 999px; padding: 0.35rem 0.65rem; font-size: 0.7rem; font-weight: 800; }
+.open { background: #e6f0e4; color: #34704b; }
+.soon { background: #fff0d6; color: #8b5b18; }
+.closed { background: #f9dfda; color: #a93428; }
 .summary { margin: 0.75rem 0; color: var(--ink-soft); font-size: 0.88rem; line-height: 1.6; }
 .meta { display: flex; flex-wrap: wrap; gap: 0.45rem 1rem; margin: 0; color: var(--muted); font-size: 0.75rem; }
 .actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.9rem; border-top: 1px solid var(--line-soft); padding-top: 0.8rem; }
