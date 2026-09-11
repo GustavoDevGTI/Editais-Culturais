@@ -210,6 +210,10 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     setZoom((value) => Math.min(maxZoom, Math.max(minZoom, Number((value + direction * zoomStep).toFixed(2)))));
   };
 
+  const fineTuneZoom = (direction: -1 | 1) => {
+    setZoom((value) => Math.min(maxZoom, Math.max(minZoom, Number((value + direction * 0.01).toFixed(2)))));
+  };
+
   const applyTypedZoom = (typedValue: string) => {
     const typedPercentage = Number(typedValue);
     if (!Number.isFinite(typedPercentage) || typedValue.trim() === "") {
@@ -532,35 +536,41 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                 {documentMode === "pdf" && (
                   <div className={styles.zoomControls}>
                     <button type="button" onClick={() => changeZoom(-1)} disabled={zoom <= minZoom} aria-label="Diminuir zoom"><ZoomOut /></button>
-                    <label className={styles.zoomField} title={`Digite um valor entre ${minZoom * 100}% e ${maxZoom * 100}%`}>
-                      <span className="sr-only">Nível de zoom em porcentagem</span>
-                      <input
-                        type="number"
-                        inputMode="numeric"
-                        min={minZoom * 100}
-                        max={maxZoom * 100}
-                        step="1"
-                        value={zoomInput}
-                        onFocus={(event) => {
-                          setEditingZoom(true);
-                          event.currentTarget.select();
-                        }}
-                        onChange={(event) => setZoomInput(event.target.value)}
-                        onBlur={(event) => applyTypedZoom(event.currentTarget.value)}
-                        onKeyDown={(event) => {
-                          if (event.key === "Enter") event.currentTarget.blur();
-                          if (event.key === "Escape") {
-                            event.preventDefault();
-                            const currentZoom = String(Math.round(zoom * 100));
-                            const input = event.currentTarget;
-                            setZoomInput(currentZoom);
-                            setEditingZoom(false);
-                            window.requestAnimationFrame(() => input.blur());
-                          }
-                        }}
-                      />
-                      <span aria-hidden="true">%</span>
-                    </label>
+                    <div className={styles.zoomField} title={`Digite um valor entre ${minZoom * 100}% e ${maxZoom * 100}%`}>
+                      <label className={styles.zoomValue}>
+                        <span className="sr-only">Nível de zoom em porcentagem</span>
+                        <input
+                          type="number"
+                          inputMode="numeric"
+                          min={minZoom * 100}
+                          max={maxZoom * 100}
+                          step="1"
+                          value={zoomInput}
+                          onFocus={(event) => {
+                            setEditingZoom(true);
+                            event.currentTarget.select();
+                          }}
+                          onChange={(event) => setZoomInput(event.target.value)}
+                          onBlur={(event) => applyTypedZoom(event.currentTarget.value)}
+                          onKeyDown={(event) => {
+                            if (event.key === "Enter") event.currentTarget.blur();
+                            if (event.key === "Escape") {
+                              event.preventDefault();
+                              const currentZoom = String(Math.round(zoom * 100));
+                              const input = event.currentTarget;
+                              setZoomInput(currentZoom);
+                              setEditingZoom(false);
+                              window.requestAnimationFrame(() => input.blur());
+                            }
+                          }}
+                        />
+                        <span aria-hidden="true">%</span>
+                      </label>
+                      <span className={styles.zoomStepper}>
+                        <button type="button" onClick={() => fineTuneZoom(1)} disabled={zoom >= maxZoom} aria-label="Aumentar zoom em 1%"><ChevronUp /></button>
+                        <button type="button" onClick={() => fineTuneZoom(-1)} disabled={zoom <= minZoom} aria-label="Diminuir zoom em 1%"><ChevronDown /></button>
+                      </span>
+                    </div>
                     <button type="button" onClick={() => changeZoom(1)} disabled={zoom >= maxZoom} aria-label="Aumentar zoom"><ZoomIn /></button>
                     <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
                   </div>
