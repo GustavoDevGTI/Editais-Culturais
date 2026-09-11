@@ -1,0 +1,14 @@
+.git
+.github
+.openai
+node_modules
+dist
+tmp
+*.log
+*.tsbuildinfo
+.env
+.env.*
+Dockerfile*
+docker-compose*.yml
+README*.md
+
