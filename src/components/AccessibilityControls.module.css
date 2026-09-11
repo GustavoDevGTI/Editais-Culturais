@@ -1,6 +1,6 @@
 .root { position: relative; z-index: 70; display: inline-flex; }
-.trigger { display: inline-flex; min-width: 2.65rem; height: 2.65rem; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 50%; background: var(--white); color: var(--ink); font-size: 0.78rem; font-weight: 800; }
-.trigger:hover, .trigger[aria-expanded="true"] { border-color: var(--terracotta); color: var(--terracotta-dark); }
+.trigger { display: inline-flex; min-width: 2.65rem; height: 2.65rem; align-items: center; justify-content: center; border: 0; background: transparent; color: var(--ink); font-size: 0.78rem; font-weight: 800; }
+.trigger:hover, .trigger[aria-expanded="true"] { color: var(--ink); }
 .popover { position: absolute; top: calc(100% + 0.65rem); right: 0; width: min(19rem, calc(100vw - 2rem)); border: 1px solid var(--line); border-top: 0.25rem solid var(--terracotta); border-radius: 0.65rem; background: var(--white); padding: 1rem; color: var(--ink); box-shadow: var(--shadow-card); }
 .popoverHeader { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.85rem; }
 .popoverHeader strong { font-size: 0.85rem; }
