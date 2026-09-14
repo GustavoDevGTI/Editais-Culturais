@@ -1,4 +1,27 @@
-.section { padding: 3.25rem 0 6rem; background: var(--paper); }
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 3.25rem 0 6rem;
+  background: var(--paper);
+}
+
+.section::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image: url("/images/amargosa-cultural-pattern.png");
+  background-position: center 1rem;
+  background-repeat: repeat;
+  background-size: 78rem auto;
+  content: "";
+  mix-blend-mode: multiply;
+  opacity: 0.26;
+  pointer-events: none;
+}
+
+.section > * { position: relative; z-index: 1; }
+:global(html[data-contrast="high"]) .section::before { display: none; }
 
 .heading { display: block; }
 .heading h2 { max-width: none; font-size: clamp(2.5rem, 4.25vw, 3.65rem); white-space: nowrap; }
@@ -79,6 +102,7 @@
 
 @media (max-width: 760px) {
   .section { padding: 2.75rem 0 4.5rem; }
+  .section::before { background-position: center 0.5rem; background-size: 62rem auto; opacity: 0.22; }
   .heading h2 { white-space: normal; }
   .filters {
     display: grid;
