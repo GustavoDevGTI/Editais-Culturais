@@ -237,7 +237,7 @@
 
 .searchResults {
   display: grid;
-  max-height: 17rem;
+  max-height: min(10rem, 18dvh);
   gap: 0.45rem;
   overflow-y: auto;
   padding-right: 0.25rem;
@@ -268,8 +268,11 @@
 .searchResults > p { margin: 0; color: var(--muted); font-size: 0.8rem; }
 
 .documentSet {
+  display: flex;
   min-height: 0;
-  flex: 0 1 auto;
+  flex: 0 0 auto;
+  flex-direction: column;
+  overflow: hidden;
   padding: 1rem;
 }
 
@@ -278,7 +281,7 @@
 
 .documentSetList {
   display: grid;
-  max-height: min(16rem, 30dvh);
+  max-height: min(12rem, 24dvh);
   gap: 0.35rem;
   overflow-y: auto;
   padding-right: 0.2rem;
@@ -307,7 +310,7 @@
 
 .allEditais {
   display: flex;
-  min-height: 0;
+  min-height: 7rem;
   flex: 1 1 auto;
   flex-direction: column;
   overflow: hidden;
@@ -664,6 +667,9 @@
   .searchBlock,
   .documentSet,
   .allEditais { padding: 0.85rem; }
+  .searchResults { max-height: min(7rem, 14dvh); }
+  .documentSetList { max-height: min(9rem, 18dvh); }
+  .allEditais { min-height: 6rem; }
   .documentToolbar { min-height: 3.2rem; padding-block: 0.4rem; }
 }
 
@@ -679,7 +685,7 @@
   .documentSet { grid-row: 2; }
   .documentPanel { grid-row: 3; }
   .allEditais { grid-row: 4; }
-  .searchResults { max-height: 14rem; }
+  .searchResults { max-height: 12rem; }
   .documentSetList { max-height: 18rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .allEditais { overflow: visible; }
   .editaisList { max-height: 20rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
