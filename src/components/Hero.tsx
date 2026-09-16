@@ -2,7 +2,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
-const slideCount = 3;
+const slideCount = 4;
 
 interface HeroProps {
   onExplore: () => void;
@@ -44,6 +44,8 @@ export function Hero({ onExplore }: HeroProps) {
   const artworkMobile = `${import.meta.env.BASE_URL}images/banner-cultura-mobile.png`;
   const brasaoDesktop = `${import.meta.env.BASE_URL}images/concurso-brasao-desktop-final.png`;
   const brasaoMobile = `${import.meta.env.BASE_URL}images/concurso-brasao-mobile-hq.png`;
+  const pnabDesktop = `${import.meta.env.BASE_URL}images/banner-pnab-desktop.jpg`;
+  const pnabMobile = `${import.meta.env.BASE_URL}images/banner-pnab-mobile.jpg`;
 
   return (
     <section
@@ -109,6 +111,27 @@ export function Hero({ onExplore }: HeroProps) {
           </a>
         </article>
 
+        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.pnabSlide} ${activeSlide === 3 ? styles.active : ""}`} aria-hidden={activeSlide !== 3}>
+          <button
+            className={styles.bannerAction}
+            type="button"
+            onClick={onExplore}
+            tabIndex={activeSlide === 3 ? 0 : -1}
+            aria-label="Acessar os editais da Política Nacional Aldir Blanc"
+          >
+            <picture>
+              <source media="(max-width: 820px)" srcSet={pnabMobile} />
+              <img
+                className={styles.banner}
+                src={pnabDesktop}
+                alt="Política Nacional Aldir Blanc. Acesse os editais aqui."
+                width="1600"
+                height="359"
+              />
+            </picture>
+          </button>
+        </article>
+
         <button className={`${styles.mobileArrow} ${styles.mobileArrowPrevious}`} type="button" onClick={showPrevious} aria-label="Banner anterior">
           <ChevronLeft aria-hidden="true" />
         </button>
@@ -117,7 +140,7 @@ export function Hero({ onExplore }: HeroProps) {
         </button>
       </div>
 
-      <div className={`${styles.controls} ${activeSlide === 1 ? styles.artControls : styles.photoControls}`}>
+      <div className={`${styles.controls} ${activeSlide === 1 || activeSlide === 3 ? styles.artControls : styles.photoControls}`}>
         <div className={styles.controlPanel}>
           <button type="button" onClick={showPrevious} aria-label="Banner anterior">
             <ChevronLeft aria-hidden="true" />

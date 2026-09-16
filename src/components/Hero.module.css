@@ -80,7 +80,8 @@
 }
 
 .bannerSlide picture,
-.bannerSlide > a {
+.bannerSlide > a,
+.bannerSlide > button {
   display: block;
   width: 100%;
   height: 100%;
@@ -88,6 +89,17 @@
 
 .brasaoSlide {
   background: #174b47;
+}
+
+.pnabSlide {
+  background: #fff;
+}
+
+.bannerAction {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
 .banner {
