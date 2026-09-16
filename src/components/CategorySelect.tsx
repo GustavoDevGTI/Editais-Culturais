@@ -1,17 +1,15 @@
 import { Check, ChevronDown, SlidersHorizontal } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import type { Categoria } from "../types/edital";
-import { categorias } from "../types/edital";
 import styles from "./Editais.module.css";
 
 interface CategorySelectProps {
+  categorias: Categoria[];
   value: Categoria | "Todas";
   onChange: (value: Categoria | "Todas") => void;
 }
 
-const options: Array<Categoria | "Todas"> = ["Todas", ...categorias];
-
-export function CategorySelect({ value, onChange }: CategorySelectProps) {
+export function CategorySelect({ categorias, value, onChange }: CategorySelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -55,7 +53,7 @@ export function CategorySelect({ value, onChange }: CategorySelectProps) {
 
       {isOpen && (
         <div className={styles.categoryMenu} id={menuId} role="listbox" aria-label="Área cultural">
-          {options.map((option) => (
+          {(["Todas", ...categorias] as Array<Categoria | "Todas">).map((option) => (
             <button
               className={value === option ? styles.selectedCategory : ""}
               type="button"

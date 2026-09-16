@@ -5,7 +5,7 @@ export const editais: Edital[] = [
     id: "concurso-brasao-municipal",
     title: "Concurso para escolha do Brasão Municipal",
     summary: "Concurso para escolha da proposta que representará o novo Brasão Municipal de Amargosa, com prêmio de R$ 10 mil.",
-    category: "Patrimônio",
+    category: "Identidade municipal",
     status: "Aberto",
     deadline: "Consulte o prazo no portal de inscrições",
     publishedDate: "2026-09-10",

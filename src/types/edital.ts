@@ -1,13 +1,6 @@
-export const categorias = [
-  "Artes visuais",
-  "Música",
-  "Patrimônio",
-  "Cultura popular",
-] as const;
-
 export const statuses = ["Aberto", "Em breve", "Encerrado"] as const;
 
-export type Categoria = (typeof categorias)[number];
+export type Categoria = string;
 export type Status = (typeof statuses)[number];
 
 export interface EditalExternalAccess {

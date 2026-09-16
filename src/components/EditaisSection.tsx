@@ -6,6 +6,7 @@ import styles from "./Editais.module.css";
 
 interface EditaisSectionProps {
   categoria: Categoria | "Todas";
+  categorias: Categoria[];
   editais: Edital[];
   lastUpdatedLabel: string;
   query: string;
@@ -28,6 +29,7 @@ export function EditaisSection(props: EditaisSectionProps) {
 
         <EditaisFilters
           categoria={props.categoria}
+          categorias={props.categorias}
           query={props.query}
           status={props.status}
           onCategoriaChange={props.onCategoriaChange}

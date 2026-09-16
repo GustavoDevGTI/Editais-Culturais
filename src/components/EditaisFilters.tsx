@@ -7,6 +7,7 @@ import styles from "./Editais.module.css";
 
 interface EditaisFiltersProps {
   categoria: Categoria | "Todas";
+  categorias: Categoria[];
   query: string;
   status: Status | "Todos";
   onCategoriaChange: (value: Categoria | "Todas") => void;
@@ -28,7 +29,7 @@ export function EditaisFilters(props: EditaisFiltersProps) {
           <span className="sr-only">Buscar editais</span>
           <input value={props.query} onChange={(event) => props.onQueryChange(event.target.value)} placeholder="Busque por palavra-chave..." />
         </label>
-        <CategorySelect value={props.categoria} onChange={props.onCategoriaChange} />
+        <CategorySelect categorias={props.categorias} value={props.categoria} onChange={props.onCategoriaChange} />
         <button className={styles.filterToggle} type="button" aria-expanded={showFilters} onClick={() => setShowFilters((current) => !current)}>
           <Filter aria-hidden="true" /> Filtros <span>{statusFilterCount}</span>
         </button>

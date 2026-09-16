@@ -8,6 +8,7 @@ import styles from "./AllEditaisPage.module.css";
 interface AllEditaisPageProps {
   editais: Edital[];
   categoria: Categoria | "Todas";
+  categorias: Categoria[];
   query: string;
   status: Status | "Todos";
   onBack: () => void;
@@ -41,6 +42,7 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
 
           <EditaisFilters
             categoria={props.categoria}
+            categorias={props.categorias}
             query={props.query}
             status={props.status}
             onCategoriaChange={props.onCategoriaChange}

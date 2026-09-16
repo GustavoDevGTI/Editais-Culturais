@@ -22,6 +22,11 @@ export function App() {
   const { closeAccessibility, closeAbout, closeAllEditais, closeEdital, editalId, openAllEditais, openEdital, showAccessibility, showAbout, showAllEditais } = useEditalRoute();
 
   const orderedEditais = useMemo(() => [...editais].sort(compareEditais), []);
+  const categorias = useMemo(
+    () => Array.from(new Set(editais.map((edital) => edital.category)))
+      .sort((left, right) => left.localeCompare(right, "pt-BR", { sensitivity: "base" })),
+    [],
+  );
   const lastUpdatedLabel = useMemo(() => getLastUpdatedLabel(editais), []);
 
   const filteredEditais = useMemo(() => {
@@ -63,6 +68,7 @@ export function App() {
     return (
       <AllEditaisPage
         categoria={categoria}
+        categorias={categorias}
         editais={filteredEditais}
         query={query}
         status={status}
@@ -92,6 +98,7 @@ export function App() {
         <Hero onExplore={openAllEditais} />
         <EditaisSection
           categoria={categoria}
+          categorias={categorias}
           editais={filteredEditais}
           lastUpdatedLabel={lastUpdatedLabel}
           query={query}
