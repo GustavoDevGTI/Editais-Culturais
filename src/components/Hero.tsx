@@ -78,16 +78,24 @@ export function Hero({ onExplore }: HeroProps) {
         </article>
 
         <article className={`${styles.slide} ${styles.bannerSlide} ${styles.artSlide} ${activeSlide === 1 ? styles.active : ""}`} aria-hidden={activeSlide !== 1}>
-          <picture>
-            <source media="(max-width: 820px)" srcSet={artworkMobile} />
-            <img
-              className={styles.banner}
-              src={artworkDesktop}
-              alt="Cadastro Municipal de Agentes Culturais. Sua arte, sua história, sua cultura. Cadastre-se e fortaleça as políticas públicas de cultura em Amargosa."
-              width="4081"
-              height="1020"
-            />
-          </picture>
+          <a
+            href="https://docs.google.com/forms/d/1Vh3jhadwomxUPvtiREkEX4L-xBd9dE4VmidStXkkydQ/viewform?chromeless=1&edit_requested=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            tabIndex={activeSlide === 1 ? 0 : -1}
+            aria-label="Acessar o Cadastro Municipal de Agentes Culturais. Abre um formulário em uma nova aba."
+          >
+            <picture>
+              <source media="(max-width: 820px)" srcSet={artworkMobile} />
+              <img
+                className={styles.banner}
+                src={artworkDesktop}
+                alt="Cadastro Municipal de Agentes Culturais. Sua arte, sua história, sua cultura. Cadastre-se e fortaleça as políticas públicas de cultura em Amargosa."
+                width="4081"
+                height="1020"
+              />
+            </picture>
+          </a>
         </article>
 
         <article className={`${styles.slide} ${styles.bannerSlide} ${styles.brasaoSlide} ${activeSlide === 2 ? styles.active : ""}`} aria-hidden={activeSlide !== 2}>
