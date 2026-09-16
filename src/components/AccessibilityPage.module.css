@@ -6,9 +6,9 @@
 .brand img { display: block; width: 10.5rem; height: 2.8rem; object-fit: contain; }
 .accessibility { justify-self: end; }
 .page { min-height: calc(100dvh - 4.5rem); padding: 3.5rem 0 5rem; background: var(--paper); }
-.hero { max-width: 52rem; }
+.hero { max-width: 52rem; margin-inline: auto; text-align: center; }
 .hero h1 { margin: 0; font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); font-weight: 400; letter-spacing: -0.05em; line-height: 0.96; }
-.hero > p:last-child { max-width: 46rem; margin: 1.25rem 0 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.75; }
+.hero > p:last-child { max-width: 46rem; margin: 1.25rem auto 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.75; }
 .section { margin-top: 3rem; }
 .section h2 { margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3rem); }
 .siteMap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.65rem; margin: 0; padding: 0; list-style: none; }
