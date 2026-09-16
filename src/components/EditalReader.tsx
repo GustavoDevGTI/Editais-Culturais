@@ -13,6 +13,8 @@ const minZoom = 0.5;
 const maxZoom = 4;
 const zoomStep = 0.1;
 const pageSwipeThreshold = 52;
+const pdfBasePageWidth = 595 * 1.4;
+const maxInitialZoom = 1.5;
 
 interface TouchPoint {
   x: number;
@@ -53,6 +55,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const [draggingDocument, setDraggingDocument] = useState(false);
   const [activeMatchId, setActiveMatchId] = useState<string | null>(null);
   const documentViewportRef = useRef<HTMLDivElement>(null);
+  const userAdjustedZoomRef = useRef(false);
   const matchNavigationPageRef = useRef<number | null>(null);
   const dragStateRef = useRef<{ pointerId: number; x: number; y: number; scrollLeft: number; scrollTop: number } | null>(null);
   const touchPointsRef = useRef(new Map<number, TouchPoint>());
@@ -70,6 +73,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     setQuery("");
     setActiveMatchId(null);
     matchNavigationPageRef.current = null;
+    userAdjustedZoomRef.current = false;
     setPageNumber(1);
     setZoom(1);
     setZoomInput("100");
@@ -78,6 +82,23 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     window.document.title = `${activeEdital.title} | Editais Culturais`;
     return () => { window.document.title = "Editais Culturais | Amargosa"; };
   }, [activeEdital.id, activeEdital.title]);
+
+  useEffect(() => {
+    const viewport = documentViewportRef.current;
+    if (!viewport || !pdfDocument) return;
+
+    const fitDocumentToReader = () => {
+      if (userAdjustedZoomRef.current) return;
+      const availableWidth = viewport.clientWidth - 40;
+      const fittedZoom = Math.min(maxInitialZoom, Math.max(1, availableWidth / pdfBasePageWidth));
+      setZoom(Number(fittedZoom.toFixed(2)));
+    };
+
+    fitDocumentToReader();
+    const observer = new ResizeObserver(fitDocumentToReader);
+    observer.observe(viewport);
+    return () => observer.disconnect();
+  }, [activeEdital.id, pdfDocument]);
 
   useEffect(() => {
     if (!editingZoom) setZoomInput(String(Math.round(zoom * 100)));
@@ -207,10 +228,12 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   };
 
   const changeZoom = (direction: -1 | 1) => {
+    userAdjustedZoomRef.current = true;
     setZoom((value) => Math.min(maxZoom, Math.max(minZoom, Number((value + direction * zoomStep).toFixed(2)))));
   };
 
   const fineTuneZoom = (direction: -1 | 1) => {
+    userAdjustedZoomRef.current = true;
     setZoom((value) => Math.min(maxZoom, Math.max(minZoom, Number((value + direction * 0.01).toFixed(2)))));
   };
 
@@ -223,6 +246,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     }
 
     const boundedPercentage = Math.min(maxZoom * 100, Math.max(minZoom * 100, Math.round(typedPercentage)));
+    userAdjustedZoomRef.current = true;
     setZoom(Number((boundedPercentage / 100).toFixed(2)));
     setZoomInput(String(boundedPercentage));
     setEditingZoom(false);
@@ -286,6 +310,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
       if (!gesture) return;
 
       if (touchPointsRef.current.size >= 2 && gesture.startDistance > 0) {
+        userAdjustedZoomRef.current = true;
         const nextZoom = Math.min(
           maxZoom,
           Math.max(minZoom, Number((gesture.startZoom * distanceBetweenTouches() / gesture.startDistance).toFixed(2))),
