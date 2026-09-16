@@ -7,6 +7,7 @@ import styles from "./Editais.module.css";
 interface EditaisSectionProps {
   categoria: Categoria | "Todas";
   editais: Edital[];
+  lastUpdatedLabel: string;
   query: string;
   status: Status | "Todos";
   onCategoriaChange: (value: Categoria | "Todas") => void;
@@ -37,7 +38,7 @@ export function EditaisSection(props: EditaisSectionProps) {
 
         <div className={styles.resultsMeta}>
           <p><strong>{props.editais.length}</strong> {props.editais.length === 1 ? "oportunidade encontrada" : "oportunidades encontradas"}</p>
-          <p><Clock3 aria-hidden="true" />Atualizado em 4 de setembro de 2026</p>
+          {props.lastUpdatedLabel && <p><Clock3 aria-hidden="true" />Atualizado em {props.lastUpdatedLabel}</p>}
         </div>
 
         {props.editais.length > 0 ? (

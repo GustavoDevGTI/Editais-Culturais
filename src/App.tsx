@@ -9,7 +9,7 @@ import { Hero } from "./components/Hero";
 import { editais } from "./data/editais";
 import { useEditalRoute } from "./hooks/useEditalRoute";
 import type { Categoria, Status } from "./types/edital";
-import { compareEditais } from "./utils/editais";
+import { compareEditais, getLastUpdatedLabel } from "./utils/editais";
 
 const EditalReader = lazy(() =>
   import("./components/EditalReader").then((module) => ({ default: module.EditalReader })),
@@ -22,6 +22,7 @@ export function App() {
   const { closeAccessibility, closeAbout, closeAllEditais, closeEdital, editalId, openAllEditais, openEdital, showAccessibility, showAbout, showAllEditais } = useEditalRoute();
 
   const orderedEditais = useMemo(() => [...editais].sort(compareEditais), []);
+  const lastUpdatedLabel = useMemo(() => getLastUpdatedLabel(editais), []);
 
   const filteredEditais = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");
@@ -92,6 +93,7 @@ export function App() {
         <EditaisSection
           categoria={categoria}
           editais={filteredEditais}
+          lastUpdatedLabel={lastUpdatedLabel}
           query={query}
           status={status}
           onCategoriaChange={setCategoria}
