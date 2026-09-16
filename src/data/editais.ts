@@ -10,7 +10,7 @@ export const editais: Edital[] = [
     deadline: "Consulte o prazo no portal de inscrições",
     publishedDate: "2026-09-10",
     publishedAt: "Publicado em 10 de setembro de 2026",
-    label: "Concurso público",
+    label: "Concurso nº 001/2026",
     audience: "Pessoas interessadas em participar do concurso para escolha do Brasão Municipal.",
     featured: true,
     pdfFile: "documents/concurso-brasao-municipal-001-2026.pdf",
