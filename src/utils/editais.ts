@@ -13,7 +13,10 @@ export function compareEditais(left: Edital, right: Edital) {
 
 export function getLastUpdatedLabel(editais: Edital[]) {
   const latestDate = editais.reduce(
-    (latest, edital) => edital.publishedDate > latest ? edital.publishedDate : latest,
+    (latest, edital) => {
+      const referenceDate = edital.updatedDate ?? edital.publishedDate;
+      return referenceDate > latest ? referenceDate : latest;
+    },
     "",
   );
 

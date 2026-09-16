@@ -24,6 +24,7 @@ export interface Edital {
   status: Status;
   deadline: string;
   publishedDate: string;
+  updatedDate?: string;
   publishedAt: string;
   label: string;
   audience: string;
