@@ -427,17 +427,30 @@
   background: #173f4d;
 }
 .zoomStepper button {
+  display: grid;
   width: 100%;
   height: auto;
   min-height: 0;
+  place-items: center;
   border: 0;
   border-radius: 0;
   background: #173f4d;
   color: white;
+  padding: 0;
+  line-height: 0;
 }
 .zoomStepper button:first-child { border-bottom: 1px solid rgb(255 255 255 / 14%); }
 .zoomStepper button:hover { background: rgb(255 255 255 / 12%); }
-.zoomStepper svg { width: 0.65rem; height: 0.65rem; stroke-width: 3; }
+.zoomStepper button::before {
+  width: 0;
+  height: 0;
+  border-right: 0.22rem solid transparent;
+  border-left: 0.22rem solid transparent;
+  content: "";
+}
+.zoomStepper button:first-child::before { border-bottom: 0.3rem solid white; }
+.zoomStepper button:last-child::before { border-top: 0.3rem solid white; }
+.zoomStepper svg { display: none; }
 
 .documentViewport {
   min-height: 0;
