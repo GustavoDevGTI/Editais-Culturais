@@ -13,8 +13,8 @@ export const editais: Edital[] = [
     label: "Concurso público",
     audience: "Pessoas interessadas em participar do concurso para escolha do Brasão Municipal.",
     featured: true,
-    pdfFile: "documents/chamada-publica-pnab-002-2026.pdf",
-    pageCount: 45,
+    pdfFile: "documents/concurso-brasao-municipal-001-2026.pdf",
+    pageCount: 24,
     externalAccess: {
       url: "https://servicos.amargosa.ba.gov.br/b.php?pg=o%2Fbusca_servicos&search=bras%C3%A3o",
       label: "Inscrever-se no Portal de Serviços",
