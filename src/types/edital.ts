@@ -15,6 +15,14 @@ export interface EditalExternalAccess {
   label: string;
 }
 
+export interface EditalDocument {
+  id: string;
+  title: string;
+  publishedAt: string;
+  pdfFile: string;
+  pageCount: number;
+}
+
 export interface Edital {
   id: string;
   title: string;
@@ -30,5 +38,8 @@ export interface Edital {
   officialUrl?: string;
   pdfFile?: string;
   pageCount?: number;
+  cardImage?: string;
+  cardImageAlt?: string;
+  relatedDocuments?: EditalDocument[];
   externalAccess?: EditalExternalAccess;
 }

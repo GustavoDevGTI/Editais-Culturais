@@ -33,10 +33,19 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
       </div>
       <div className={styles.cardBody}>
         <span className={styles.number} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-        <div>
-          <p className={styles.label}>{edital.label}</p>
-          <h3>{edital.title}</h3>
-          <p>{edital.summary}</p>
+        <div className={styles.cardContent}>
+          <div>
+            <p className={styles.label}>{edital.label}</p>
+            <h3>{edital.title}</h3>
+            <p>{edital.summary}</p>
+          </div>
+          {edital.cardImage && (
+            <img
+              className={styles.cardImage}
+              src={`${import.meta.env.BASE_URL}${edital.cardImage}`}
+              alt={edital.cardImageAlt ?? ""}
+            />
+          )}
         </div>
       </div>
       <div className={styles.cardFooter}>

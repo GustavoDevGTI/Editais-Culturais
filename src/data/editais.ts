@@ -1,6 +1,5 @@
 import type { Edital } from "../types/edital";
 
-// Conteúdo demonstrativo. Para publicar um novo edital, adicione um item nesta lista.
 export const editais: Edital[] = [
   {
     id: "concurso-brasao-municipal",
@@ -15,7 +14,7 @@ export const editais: Edital[] = [
     audience: "Pessoas interessadas em participar do concurso para escolha do Brasão Municipal.",
     featured: true,
     pdfFile: "documents/chamada-publica-pnab-002-2026.pdf",
-    pageCount: 44,
+    pageCount: 45,
     externalAccess: {
       url: "https://servicos.amargosa.ba.gov.br/b.php?pg=o%2Fbusca_servicos&search=bras%C3%A3o",
       label: "Inscrever-se no Portal de Serviços",
@@ -34,42 +33,45 @@ export const editais: Edital[] = [
     audience: "Espaços, ambientes, coletivos e iniciativas artístico-culturais de Amargosa.",
     featured: true,
     pdfFile: "documents/chamada-publica-pnab-002-2026.pdf",
-    pageCount: 44,
-  },
-  {
-    id: "bolsa-criacao-artistas",
-    title: "Bolsa de Criação para Artistas Locais",
-    summary: "Apoio para desenvolver novas obras, pesquisas e processos criativos em Amargosa.",
-    category: "Artes visuais",
-    status: "Aberto",
-    deadline: "30 de outubro de 2026",
-    publishedDate: "2026-08-29",
-    publishedAt: "Publicado em 29 de agosto de 2026",
-    label: "Inscrições abertas",
-    audience: "Artistas visuais residentes no município.",
-  },
-  {
-    id: "circuito-musical-serra",
-    title: "Circuito Musical da Serra",
-    summary: "Seleção de artistas e bandas para compor a programação cultural do verão.",
-    category: "Música",
-    status: "Em breve",
-    deadline: "A partir de 5 de novembro de 2026",
-    publishedDate: "2026-08-27",
-    publishedAt: "Publicado em 27 de agosto de 2026",
-    label: "Prepare-se",
-    audience: "Artistas solo, bandas e grupos musicais da região.",
-  },
-  {
-    id: "inventario-afetivo",
-    title: "Inventário Afetivo de Amargosa",
-    summary: "Chamamento para iniciativas de memória, patrimônio e histórias da cidade.",
-    category: "Patrimônio",
-    status: "Encerrado",
-    deadline: "Encerrado em 2 de setembro de 2026",
-    publishedDate: "2026-08-04",
-    publishedAt: "Publicado em 4 de agosto de 2026",
-    label: "Resultado disponível",
-    audience: "Pesquisadores, moradores, coletivos e agentes culturais.",
+    pageCount: 45,
+    cardImage: "images/pnab-logo.png",
+    cardImageAlt: "Política Nacional Aldir Blanc — PNAB",
+    relatedDocuments: [
+      {
+        id: "errata-01",
+        title: "1ª errata — inclusão de coletivos carnavalescos e juvenis",
+        publishedAt: "6 de agosto de 2026",
+        pdfFile: "documents/pnab-002-2026-errata-01.pdf",
+        pageCount: 2,
+      },
+      {
+        id: "errata-02",
+        title: "2ª errata — retificação da Categoria 4 e prorrogação das inscrições",
+        publishedAt: "11 de agosto de 2026",
+        pdfFile: "documents/pnab-002-2026-errata-02.pdf",
+        pageCount: 3,
+      },
+      {
+        id: "resultado-habilitacao-preliminar",
+        title: "Resultado preliminar de habilitação e triagem",
+        publishedAt: "27 de agosto de 2026",
+        pdfFile: "documents/pnab-002-2026-resultado-habilitacao-preliminar.pdf",
+        pageCount: 4,
+      },
+      {
+        id: "resultado-habilitacao-pos-recurso",
+        title: "Resultado após recursos de habilitação e triagem",
+        publishedAt: "3 de setembro de 2026",
+        pdfFile: "documents/pnab-002-2026-resultado-habilitacao-pos-recurso.pdf",
+        pageCount: 4,
+      },
+      {
+        id: "errata-03",
+        title: "3ª errata — prorrogação do resultado provisório da seleção",
+        publishedAt: "9 de setembro de 2026",
+        pdfFile: "documents/pnab-002-2026-errata-03.pdf",
+        pageCount: 1,
+      },
+    ],
   },
 ];

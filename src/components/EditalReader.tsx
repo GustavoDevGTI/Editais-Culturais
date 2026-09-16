@@ -40,8 +40,23 @@ interface EditalReaderProps {
 
 export function EditalReader({ activeId, editais, onBack, onSelect }: EditalReaderProps) {
   const activeEdital = editais.find((edital) => edital.id === activeId) ?? editais[0];
-  const pdfUrl = activeEdital.pdfFile
-    ? `${import.meta.env.BASE_URL}${activeEdital.pdfFile}`
+  const [activeDocumentId, setActiveDocumentId] = useState("main");
+  const relatedDocument = activeEdital.relatedDocuments?.find((document) => document.id === activeDocumentId);
+  const activePdfFile = relatedDocument?.pdfFile ?? activeEdital.pdfFile;
+  const activeDocumentTitle = relatedDocument?.title ?? "Edital completo";
+  const activeDocumentPageCount = relatedDocument?.pageCount ?? activeEdital.pageCount;
+  const documentChoices = activeEdital.pdfFile ? [
+    {
+      id: "main",
+      title: "Edital completo",
+      publishedAt: activeEdital.publishedAt.replace("Publicado em ", ""),
+      pdfFile: activeEdital.pdfFile,
+      pageCount: activeEdital.pageCount ?? 0,
+    },
+    ...(activeEdital.relatedDocuments ?? []),
+  ] : [];
+  const pdfUrl = activePdfFile
+    ? `${import.meta.env.BASE_URL}${activePdfFile}`
     : undefined;
   const { document: pdfDocument, error, indexing, loading, pageTextItems } = usePdfDocument(pdfUrl);
   const [query, setQuery] = useState("");
@@ -70,6 +85,10 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   }, []);
 
   useEffect(() => {
+    setActiveDocumentId("main");
+  }, [activeEdital.id]);
+
+  useEffect(() => {
     setQuery("");
     setActiveMatchId(null);
     matchNavigationPageRef.current = null;
@@ -81,7 +100,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     setDocumentMode("pdf");
     window.document.title = `${activeEdital.title} | Editais Culturais`;
     return () => { window.document.title = "Editais Culturais | Amargosa"; };
-  }, [activeEdital.id, activeEdital.title]);
+  }, [activeDocumentId, activeEdital.id, activeEdital.title]);
 
   useEffect(() => {
     const viewport = documentViewportRef.current;
@@ -98,7 +117,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     const observer = new ResizeObserver(fitDocumentToReader);
     observer.observe(viewport);
     return () => observer.disconnect();
-  }, [activeEdital.id, pdfDocument]);
+  }, [activeDocumentId, activeEdital.id, pdfDocument]);
 
   useEffect(() => {
     if (!editingZoom) setZoomInput(String(Math.round(zoom * 100)));
@@ -117,7 +136,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     });
     return grouped;
   }, [results]);
-  const totalPages = pdfDocument?.numPages ?? activeEdital.pageCount ?? 0;
+  const totalPages = pdfDocument?.numPages ?? activeDocumentPageCount ?? 0;
   const normalizedListQuery = listQuery.trim().toLocaleLowerCase("pt-BR");
   const visibleEditais = useMemo(() => {
     const orderedEditais = [...editais].sort(compareEditais);
@@ -493,6 +512,31 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
             )}
           </section>
 
+          {documentChoices.length > 1 && (
+            <section className={styles.documentSet} aria-labelledby="documentos-edital-title">
+              <h2 id="documentos-edital-title">Documentos deste edital</h2>
+              <div className={styles.documentSetList}>
+                {documentChoices.map((document) => (
+                  <button
+                    key={document.id}
+                    type="button"
+                    className={document.id === activeDocumentId ? styles.activeDocument : ""}
+                    aria-current={document.id === activeDocumentId ? "true" : undefined}
+                    onClick={() => setActiveDocumentId(document.id)}
+                  >
+                    <FileText aria-hidden="true" />
+                    <span>
+                      <strong>{document.title}</strong>
+                      <small>
+                        {document.publishedAt} · {document.pageCount} {document.pageCount === 1 ? "página" : "páginas"}
+                      </small>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+
           <section className={styles.allEditais}>
             <h2>Todos os editais</h2>
             <label className={styles.editalSearch}>
@@ -526,7 +570,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
           </section>
         </aside>
 
-        <section className={styles.documentPanel} aria-label={`Documento: ${activeEdital.title}`} aria-busy={loading || indexing}>
+        <section className={styles.documentPanel} aria-label={`${activeEdital.title}: ${activeDocumentTitle}`} aria-busy={loading || indexing}>
           {pdfUrl && (
             <div className={styles.documentToolbar}>
               {documentMode === "pdf" && (
@@ -597,11 +641,11 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                       </span>
                     </div>
                     <button type="button" onClick={() => changeZoom(1)} disabled={zoom >= maxZoom} aria-label="Aumentar zoom"><ZoomIn /></button>
-                    <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
+                    <a href={pdfUrl} download aria-label={`Baixar ${activeDocumentTitle} em PDF`}><Download /></a>
                   </div>
                 )}
                 {documentMode === "html" && (
-                  <a href={pdfUrl} download aria-label="Baixar PDF"><Download /></a>
+                  <a href={pdfUrl} download aria-label={`Baixar ${activeDocumentTitle} em PDF`}><Download /></a>
                 )}
               </div>
             </div>
@@ -609,7 +653,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
           {documentMode === "pdf" && accessiblePageTexts.length > 0 && (
             <section className="sr-only" aria-labelledby="texto-acessivel-title">
-              <h2 id="texto-acessivel-title">Conteúdo textual do edital {activeEdital.title}</h2>
+              <h2 id="texto-acessivel-title">Conteúdo textual de {activeDocumentTitle} — {activeEdital.title}</h2>
               {accessiblePageTexts.map((text, index) => text && (
                 <section key={index} aria-labelledby={`texto-pagina-${index + 1}`}>
                   <h3 id={`texto-pagina-${index + 1}`}>Página {index + 1}</h3>
@@ -628,7 +672,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
             onPointerCancel={documentMode === "pdf" ? cancelDocumentDrag : undefined}
             onScroll={documentMode === "pdf" ? updateVisiblePage : undefined}
           >
-            {documentMode === "pdf" && loading && <div className={styles.documentMessage}><span className={styles.spinner} />Carregando o edital completo…</div>}
+            {documentMode === "pdf" && loading && <div className={styles.documentMessage}><span className={styles.spinner} />Carregando {activeDocumentTitle.toLocaleLowerCase("pt-BR")}…</div>}
             {documentMode === "pdf" && error && <div className={styles.documentMessage}><FileText aria-hidden="true" /><strong>{error}</strong><span>Tente baixar o arquivo e abri-lo no seu dispositivo.</span></div>}
             {documentMode === "pdf" && !pdfUrl && <div className={styles.documentMessage}><FileText aria-hidden="true" /><strong>Documento ainda não disponível</strong><span>As informações deste edital já podem ser consultadas, mas o PDF será publicado em breve.</span></div>}
             {documentMode === "pdf" && pdfDocument && (
@@ -649,7 +693,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
               <article className={styles.htmlDocument} aria-labelledby="html-document-title">
                 <header>
                   <span>Versão HTML acessível</span>
-                  <h2 id="html-document-title">{activeEdital.title}</h2>
+                  <h2 id="html-document-title">{activeDocumentTitle} — {activeEdital.title}</h2>
                   <p>Conteúdo textual extraído do documento e organizado por página.</p>
                 </header>
                 {accessiblePageTexts.map((text, index) => text && (

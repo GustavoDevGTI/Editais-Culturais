@@ -82,6 +82,8 @@
 .closed { background: #f9dfda; color: #a93428; }
 .category { color: var(--muted); font-size: 0.75rem; font-weight: 700; }
 .cardBody { display: grid; grid-template-columns: 3rem 1fr; gap: 0.85rem; padding: 1.15rem 0; }
+.cardContent { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 1.5rem; }
+.cardImage { display: block; width: clamp(6.5rem, 11vw, 9.5rem); max-height: 6.4rem; object-fit: contain; }
 .number { padding-top: 0.12rem; color: var(--sand-dark); font-family: var(--font-display); font-size: 2rem; font-style: italic; line-height: 1; }
 .label { margin: 0 0 0.4rem !important; color: var(--terracotta) !important; font-size: 0.64rem !important; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
 .card h3 { margin: 0 0 0.45rem; font-size: 1.4rem; letter-spacing: -0.035em; }
@@ -128,6 +130,8 @@
   .resultsMeta p:last-child { display: none; }
   .card { padding: 1.2rem 1rem 1rem; }
   .cardBody { grid-template-columns: 2.2rem 1fr; }
+  .cardContent { grid-template-columns: minmax(0, 1fr) 5rem; gap: 0.7rem; }
+  .cardImage { width: 5rem; max-height: 4.6rem; }
   .number { font-size: 1.5rem; }
   .card h3 { font-size: 1.18rem; }
   .cardActions { flex-wrap: wrap; }
