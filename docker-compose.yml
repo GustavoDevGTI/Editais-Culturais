@@ -1,9 +1,7 @@
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: editais-culturais:latest
+    image: ghcr.io/gustavodevgti/editais-culturais:latest
+    pull_policy: always
     container_name: editais-culturais
     restart: unless-stopped
     ports:
