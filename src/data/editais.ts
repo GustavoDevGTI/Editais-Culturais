@@ -77,7 +77,7 @@ export const editais: Edital[] = [
   {
     id: "selecao-pareceristas-apoio-pnab-001-2026",
     title: "Seleção de Pareceristas e Apoio Administrativo",
-    summary: "Selecionou profissionais para avaliar projetos culturais e prestar apoio técnico administrativo na execução da PNAB em Amargosa.",
+    summary: "Seleciona profissionais para avaliar projetos culturais e prestar apoio técnico administrativo na execução da PNAB em Amargosa.",
     category: "Gestão cultural",
     status: "Encerrado",
     deadline: "Inscrições encerradas em 20 de abril de 2026",
