@@ -66,7 +66,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   const [zoomInput, setZoomInput] = useState("100");
   const [editingZoom, setEditingZoom] = useState(false);
   const [documentMode, setDocumentMode] = useState<"pdf" | "html">("pdf");
-  const [singlePageMode, setSinglePageMode] = useState(() => window.matchMedia("(max-width: 720px)").matches);
+  const [mobileContinuousMode, setMobileContinuousMode] = useState(() => window.matchMedia("(max-width: 720px)").matches);
   const [draggingDocument, setDraggingDocument] = useState(false);
   const [activeMatchId, setActiveMatchId] = useState<string | null>(null);
   const documentViewportRef = useRef<HTMLDivElement>(null);
@@ -78,7 +78,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 720px)");
-    const updateMode = () => setSinglePageMode(media.matches);
+    const updateMode = () => setMobileContinuousMode(media.matches);
     updateMode();
     media.addEventListener("change", updateMode);
     return () => media.removeEventListener("change", updateMode);
@@ -166,15 +166,11 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
   const changePage = (nextPage: number) => {
     const boundedPage = Math.min(Math.max(nextPage, 1), totalPages || 1);
-    matchNavigationPageRef.current = singlePageMode ? null : boundedPage;
+    matchNavigationPageRef.current = boundedPage;
     setActiveMatchId(null);
     setPageNumber(boundedPage);
     window.requestAnimationFrame(() => {
-      if (singlePageMode) {
-        documentViewportRef.current?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      } else {
-        window.document.getElementById(`pdf-page-${boundedPage}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      window.document.getElementById(`pdf-page-${boundedPage}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   };
 
@@ -228,7 +224,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
   const updateVisiblePage = () => {
     const viewport = documentViewportRef.current;
-    if (!viewport || singlePageMode) return;
+    if (!viewport) return;
 
     const viewportTop = viewport.getBoundingClientRect().top + 24;
     const pages = Array.from(viewport.querySelectorAll<HTMLElement>("[data-pdf-page]"));
@@ -289,6 +285,8 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     if (!viewport) return;
 
     if (event.pointerType === "touch") {
+      if (mobileContinuousMode && zoom <= 1) return;
+
       touchPointsRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
       viewport.setPointerCapture(event.pointerId);
 
@@ -372,7 +370,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
       if (viewport?.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
       if (touchPointsRef.current.size === 0) {
-        if (gesture && !gesture.pinching && zoom <= 1) {
+          if (gesture && !mobileContinuousMode && !gesture.pinching && zoom <= 1) {
           const deltaX = endedPoint.x - gesture.startX;
           const deltaY = endedPoint.y - gesture.startY;
           if (Math.abs(deltaY) >= pageSwipeThreshold && Math.abs(deltaY) > Math.abs(deltaX) * 1.15) {
@@ -407,9 +405,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   };
 
   const displayedPages = pdfDocument
-    ? singlePageMode
-      ? [pageNumber]
-      : Array.from({ length: pdfDocument.numPages }, (_, index) => index + 1)
+    ? Array.from({ length: pdfDocument.numPages }, (_, index) => index + 1)
     : [];
   const accessiblePageTexts = useMemo(() => pageTextItems.map((items) => items
     .filter((item) => item.trim().length > 0)
