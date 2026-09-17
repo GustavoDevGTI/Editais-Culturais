@@ -25,7 +25,7 @@ export function AccessibilityPage({ editais, onBack, onOpen }: AccessibilityPage
         <div className={styles.accessibility}><AccessibilityMenu /></div>
       </header>
 
-      <main className={styles.page} id="conteudo-acessibilidade">
+      <main className={`${styles.page} cultural-pattern-bg`} id="conteudo-acessibilidade">
         <div className="container">
           <div className={styles.hero}>
             <p className="section-kicker">Acesso para todas as pessoas</p>

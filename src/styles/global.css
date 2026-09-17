@@ -11,6 +11,25 @@ svg { flex: 0 0 auto; }
 
 .container { width: min(100% - 4rem, 74rem); margin-inline: auto; }
 .site-shell { min-width: 20rem; }
+.cultural-pattern-bg {
+  position: relative;
+  isolation: isolate;
+  background: var(--paper);
+}
+.cultural-pattern-bg::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image: url("/images/amargosa-cultural-pattern.png");
+  background-position: center 0.75rem;
+  background-repeat: repeat;
+  background-size: 52rem auto;
+  content: "";
+  mix-blend-mode: multiply;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.cultural-pattern-bg > :not(.skip-link) { position: relative; z-index: 1; }
 .section-kicker { margin: 0 0 0.75rem; color: var(--terracotta); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
 h2 { margin: 0; font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 3.65rem); font-weight: 400; letter-spacing: -0.04em; line-height: 1; }
 
@@ -60,9 +79,11 @@ html[data-contrast="high"] footer { border-top: 0.15rem solid #fff; background: 
 html[data-contrast="high"] footer * { color: #fff !important; }
 html[data-contrast="high"] input::placeholder { color: #d8d8d8; opacity: 1; }
 html[data-contrast="high"] [vw-access-button] { outline: 0.2rem solid #ffd800; outline-offset: 0.15rem; }
+html[data-contrast="high"] .cultural-pattern-bg::before { display: none; }
 
 @media (max-width: 700px) {
   .container { width: min(100% - 2.5rem, 74rem); }
+  .cultural-pattern-bg::before { background-position: center 0.35rem; background-size: 42rem auto; opacity: 0.16; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -414,7 +414,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     .trim()), [pageTextItems]);
 
   return (
-    <div className={styles.readerShell}>
+    <div className={`${styles.readerShell} cultural-pattern-bg`}>
       <a className="skip-link" href="#documento-edital">Pular para o documento</a>
       <header className={styles.topbar}>
         <button className={styles.backButton} type="button" onClick={onBack}>

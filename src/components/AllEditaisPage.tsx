@@ -30,7 +30,7 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
         </button>
         <div className={styles.accessibility}><AccessibilityMenu /></div>
       </header>
-      <main className={styles.page} id="lista-completa">
+      <main className={`${styles.page} cultural-pattern-bg`} id="lista-completa">
         <div className="container">
           <div className={styles.heading}>
             <div>

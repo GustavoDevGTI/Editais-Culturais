@@ -26,7 +26,7 @@ export function AboutPage({ onBack }: AboutPageProps) {
         <div className={styles.accessibility}><AccessibilityMenu /></div>
       </header>
 
-      <main id="conteudo-sobre">
+      <main className="cultural-pattern-bg" id="conteudo-sobre">
         <section className={styles.hero}>
           <div className="container">
             <div className={styles.heroContent}>
