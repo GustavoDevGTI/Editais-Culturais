@@ -28,7 +28,7 @@ export const editais: Edital[] = [
     summary: "Seleciona espaços, ambientes, coletivos e iniciativas artístico-culturais para receber subsídio de manutenção.",
     category: "Cultura popular",
     status: "Encerrado",
-    deadline: "15 dias corridos após a publicação",
+    deadline: "Inscrições encerradas em 14 de agosto de 2026",
     publishedDate: "2026-07-30",
     publishedAt: "Publicado em 30 de julho de 2026",
     label: "Chamada pública nº 002/2026",
