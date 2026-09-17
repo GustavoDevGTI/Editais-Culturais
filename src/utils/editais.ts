@@ -8,6 +8,7 @@ const statusPriority: Record<Status, number> = {
 
 export function compareEditais(left: Edital, right: Edital) {
   return statusPriority[left.status] - statusPriority[right.status]
+    || left.publishedDate.localeCompare(right.publishedDate)
     || left.title.localeCompare(right.title, "pt-BR", { sensitivity: "base" });
 }
 
