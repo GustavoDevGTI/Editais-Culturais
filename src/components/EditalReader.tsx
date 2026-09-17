@@ -370,7 +370,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
 
       if (viewport?.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
       if (touchPointsRef.current.size === 0) {
-          if (gesture && !mobileContinuousMode && !gesture.pinching && zoom <= 1) {
+        if (gesture && !mobileContinuousMode && !gesture.pinching && zoom <= 1) {
           const deltaX = endedPoint.x - gesture.startX;
           const deltaY = endedPoint.y - gesture.startY;
           if (Math.abs(deltaY) >= pageSwipeThreshold && Math.abs(deltaY) > Math.abs(deltaX) * 1.15) {
