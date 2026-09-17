@@ -31,7 +31,7 @@ export const editais: Edital[] = [
     deadline: "15 dias corridos após a publicação",
     publishedDate: "2026-07-30",
     publishedAt: "Publicado em 30 de julho de 2026",
-    label: "Edital nº 002/2026",
+    label: "Chamada pública nº 002/2026",
     audience: "Espaços, ambientes, coletivos e iniciativas artístico-culturais de Amargosa.",
     featured: true,
     pdfFile: "documents/chamada-publica-pnab-002-2026.pdf",
