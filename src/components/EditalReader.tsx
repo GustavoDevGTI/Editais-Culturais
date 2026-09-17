@@ -89,11 +89,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
   }, [activeEdital.id]);
 
   useEffect(() => {
-    const compactViewport = window.matchMedia("(max-width: 1200px), (max-height: 800px)");
-    if (!compactViewport.matches) return;
-
     const frame = window.requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       documentViewportRef.current?.scrollTo({ top: 0, left: 0, behavior: "auto" });
     });
 

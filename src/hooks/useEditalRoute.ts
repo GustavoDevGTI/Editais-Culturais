@@ -36,6 +36,11 @@ export function useEditalRoute() {
 
     window.location.hash = `/editais/${encodeURIComponent(id)}`;
     window.history.replaceState({ ...window.history.state, editalOrigin }, "");
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
   };
 
   const closeEdital = () => {

@@ -708,8 +708,19 @@
   }
   .pageLabel { height: 1.5rem; flex: 0 0 auto; white-space: nowrap; font-size: 0.56rem; line-height: 1; letter-spacing: 0.1em; }
   .pageMeta { display: flex; height: 1.5rem; min-width: 0; align-items: center; gap: 0.5rem; }
-  .externalNotice { align-items: stretch; flex-direction: column; }
-  .externalNotice a { justify-content: center; }
+  .externalNotice {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.4rem 0.55rem;
+  }
+  .externalNotice strong { font-size: 0.68rem; line-height: 1.2; }
+  .externalNotice a {
+    min-height: 2.15rem;
+    justify-content: center;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.68rem;
+  }
   .status { width: auto; height: 1.5rem; min-height: 0; align-items: center; white-space: nowrap; padding: 0 0.45rem; font-size: 0.62rem; line-height: 1; }
   .deadline { height: 1.5rem; min-width: 0; align-items: center; gap: 0.3rem; white-space: nowrap; font-size: 0.62rem; line-height: 1; }
   .deadline svg { width: 0.82rem; height: 0.82rem; flex: 0 0 auto; }
