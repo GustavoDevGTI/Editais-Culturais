@@ -47,12 +47,12 @@ export function CategorySelect({ categorias, value, onChange }: CategorySelectPr
         aria-controls={menuId}
         onClick={() => setIsOpen((current) => !current)}
       >
-        <span>{value === "Todas" ? "Todas as áreas" : value}</span>
+        <span>{value === "Todas" ? "Categorias" : value}</span>
         <ChevronDown className={isOpen ? styles.chevronOpen : ""} aria-hidden="true" />
       </button>
 
       {isOpen && (
-        <div className={styles.categoryMenu} id={menuId} role="listbox" aria-label="Área cultural">
+        <div className={styles.categoryMenu} id={menuId} role="listbox" aria-label="Categorias culturais">
           {(["Todas", ...categorias] as Array<Categoria | "Todas">).map((option) => (
             <button
               className={value === option ? styles.selectedCategory : ""}
@@ -62,7 +62,7 @@ export function CategorySelect({ categorias, value, onChange }: CategorySelectPr
               key={option}
               onClick={() => selectOption(option)}
             >
-              <span>{option === "Todas" ? "Todas as áreas" : option}</span>
+              <span>{option === "Todas" ? "Categorias" : option}</span>
               {value === option && <Check aria-hidden="true" />}
             </button>
           ))}
