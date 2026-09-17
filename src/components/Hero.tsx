@@ -2,7 +2,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
-const slideCount = 4;
+const slideCount = 5;
 
 interface HeroProps {
   onExplore: () => void;
@@ -40,6 +40,8 @@ export function Hero({ onExplore }: HeroProps) {
   };
 
   const photoImage = `${import.meta.env.BASE_URL}images/amargosa-hero.jpg`;
+  const editaisDesktop = `${import.meta.env.BASE_URL}images/banner-editais-culturais-desktop.png`;
+  const editaisMobile = `${import.meta.env.BASE_URL}images/banner-editais-culturais-mobile.png`;
   const artworkDesktop = `${import.meta.env.BASE_URL}images/banner-cultura-desktop.png`;
   const artworkMobile = `${import.meta.env.BASE_URL}images/banner-cultura-mobile.png`;
   const brasaoDesktop = `${import.meta.env.BASE_URL}images/concurso-brasao-desktop-final.png`;
@@ -77,12 +79,33 @@ export function Hero({ onExplore }: HeroProps) {
           </div>
         </article>
 
-        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.artSlide} ${activeSlide === 1 ? styles.active : ""}`} aria-hidden={activeSlide !== 1}>
+        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.pnabSlide} ${activeSlide === 1 ? styles.active : ""}`} aria-hidden={activeSlide !== 1}>
+          <button
+            className={styles.bannerAction}
+            type="button"
+            onClick={onExplore}
+            tabIndex={activeSlide === 1 ? 0 : -1}
+            aria-label="Acessar todos os editais culturais de Amargosa"
+          >
+            <picture>
+              <source media="(max-width: 820px)" srcSet={editaisMobile} />
+              <img
+                className={styles.banner}
+                src={editaisDesktop}
+                alt="Editais Culturais. Consulte todos os editais culturais de Amargosa. Acesse aqui."
+                width="4529"
+                height="1018"
+              />
+            </picture>
+          </button>
+        </article>
+
+        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.artSlide} ${activeSlide === 2 ? styles.active : ""}`} aria-hidden={activeSlide !== 2}>
           <a
             href="https://docs.google.com/forms/d/1Vh3jhadwomxUPvtiREkEX4L-xBd9dE4VmidStXkkydQ/viewform?chromeless=1&edit_requested=true"
             target="_blank"
             rel="noopener noreferrer"
-            tabIndex={activeSlide === 1 ? 0 : -1}
+            tabIndex={activeSlide === 2 ? 0 : -1}
             aria-label="Acessar o Cadastro Municipal de Agentes Culturais. Abre um formulário em uma nova aba."
           >
             <picture>
@@ -98,12 +121,12 @@ export function Hero({ onExplore }: HeroProps) {
           </a>
         </article>
 
-        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.brasaoSlide} ${activeSlide === 2 ? styles.active : ""}`} aria-hidden={activeSlide !== 2}>
+        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.brasaoSlide} ${activeSlide === 3 ? styles.active : ""}`} aria-hidden={activeSlide !== 3}>
           <a
             href="https://servicos.amargosa.ba.gov.br/b.php?pg=o%2Fbusca_servicos&search=bras%C3%A3o"
             target="_blank"
             rel="noopener noreferrer"
-            tabIndex={activeSlide === 2 ? 0 : -1}
+            tabIndex={activeSlide === 3 ? 0 : -1}
             aria-label="Inscrever-se no concurso para escolha do Brasão Municipal. Abre o Portal de Serviços de Amargosa em uma nova aba."
           >
             <picture>
@@ -119,12 +142,12 @@ export function Hero({ onExplore }: HeroProps) {
           </a>
         </article>
 
-        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.pnabSlide} ${activeSlide === 3 ? styles.active : ""}`} aria-hidden={activeSlide !== 3}>
+        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.pnabSlide} ${activeSlide === 4 ? styles.active : ""}`} aria-hidden={activeSlide !== 4}>
           <button
             className={styles.bannerAction}
             type="button"
             onClick={onExplore}
-            tabIndex={activeSlide === 3 ? 0 : -1}
+            tabIndex={activeSlide === 4 ? 0 : -1}
             aria-label="Acessar os editais da Política Nacional Aldir Blanc"
           >
             <picture>
@@ -148,7 +171,7 @@ export function Hero({ onExplore }: HeroProps) {
         </button>
       </div>
 
-      <div className={`${styles.controls} ${activeSlide === 1 || activeSlide === 3 ? styles.artControls : styles.photoControls}`}>
+      <div className={`${styles.controls} ${activeSlide === 1 || activeSlide === 2 || activeSlide === 4 ? styles.artControls : styles.photoControls}`}>
         <div className={styles.controlPanel}>
           <button type="button" onClick={showPrevious} aria-label="Banner anterior">
             <ChevronLeft aria-hidden="true" />
