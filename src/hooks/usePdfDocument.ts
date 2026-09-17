@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getDocument, GlobalWorkerOptions, type PDFDocumentProxy } from "pdfjs-dist";
 import workerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
-GlobalWorkerOptions.workerSrc = workerUrl;
+GlobalWorkerOptions.workerSrc = `${workerUrl}?v=2`;
 
 export function usePdfDocument(url?: string) {
   const [document, setDocument] = useState<PDFDocumentProxy | null>(null);
