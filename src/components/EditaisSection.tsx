@@ -24,7 +24,7 @@ export function EditaisSection(props: EditaisSectionProps) {
     <section className={`${styles.section} cultural-pattern-bg`} id="editais">
       <div className="container">
         <div className={styles.heading}>
-          <div><p className="section-kicker">Oportunidades em destaque</p><h2>Editais para fazer a cultura acontecer.</h2></div>
+          <div><h2>Editais para fazer a cultura acontecer.</h2></div>
         </div>
 
         <EditaisFilters
