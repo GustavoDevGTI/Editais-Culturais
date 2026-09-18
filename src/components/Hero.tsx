@@ -1,8 +1,16 @@
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
 const slideCount = 5;
+const slideControlColors = [
+  "#cf573b",
+  "#cf2e4a",
+  "#c8750a",
+  "#2b6353",
+  "#cf2f4b",
+] as const;
 
 interface HeroProps {
   onExplore: () => void;
@@ -171,7 +179,10 @@ export function Hero({ onExplore }: HeroProps) {
         </button>
       </div>
 
-      <div className={`${styles.controls} ${activeSlide === 1 || activeSlide === 2 || activeSlide === 4 ? styles.artControls : styles.photoControls}`}>
+      <div
+        className={styles.controls}
+        style={{ "--control-accent": slideControlColors[activeSlide] } as CSSProperties}
+      >
         <div className={styles.controlPanel}>
           <button type="button" onClick={showPrevious} aria-label="Banner anterior">
             <ChevronLeft aria-hidden="true" />
