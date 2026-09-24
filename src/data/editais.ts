@@ -1,7 +1,5 @@
 import type { Edital } from "../types/edital";
 
-const showPnabCardLogo = false;
-
 export const editais: Edital[] = [
   {
     id: "concurso-brasao-municipal",
@@ -39,8 +37,7 @@ export const editais: Edital[] = [
     featured: true,
     pdfFile: "documents/chamada-publica-pnab-002-2026.pdf",
     pageCount: 45,
-    cardImage: showPnabCardLogo ? "images/pnab-logo.png" : undefined,
-    cardImageAlt: "Política Nacional Aldir Blanc — PNAB",
+    cardWordmark: { acronym: "PNAB", name: "Política Nacional Aldir Blanc" },
     relatedDocuments: [
       {
         id: "errata-01",
@@ -101,7 +98,6 @@ export const editais: Edital[] = [
     featured: true,
     pdfFile: "documents/selecao-pareceristas-apoio-pnab-001-2026.pdf",
     pageCount: 12,
-    cardImage: showPnabCardLogo ? "images/pnab-logo.png" : undefined,
-    cardImageAlt: "Política Nacional Aldir Blanc — PNAB",
+    cardWordmark: { acronym: "PNAB", name: "Política Nacional Aldir Blanc" },
   },
 ];

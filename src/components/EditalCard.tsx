@@ -46,6 +46,12 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
               alt={edital.cardImageAlt ?? ""}
             />
           )}
+          {edital.cardWordmark && (
+            <span className={styles.cardWordmark}>
+              <strong>{edital.cardWordmark.acronym}</strong>
+              <span>{edital.cardWordmark.name}</span>
+            </span>
+          )}
         </div>
       </div>
       <div className={styles.cardFooter}>
