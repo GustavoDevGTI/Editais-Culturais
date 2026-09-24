@@ -34,7 +34,7 @@ export interface Edital {
   pageCount?: number;
   cardImage?: string;
   cardImageAlt?: string;
-  cardWordmark?: { acronym: string; name: string };
+  cardImageVariant?: "official-name";
   relatedDocuments?: EditalDocument[];
   externalAccess?: EditalExternalAccess;
 }

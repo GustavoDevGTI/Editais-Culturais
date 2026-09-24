@@ -37,7 +37,9 @@ export const editais: Edital[] = [
     featured: true,
     pdfFile: "documents/chamada-publica-pnab-002-2026.pdf",
     pageCount: 45,
-    cardWordmark: { acronym: "PNAB", name: "Política Nacional Aldir Blanc" },
+    cardImage: "images/pnab-official-name.png",
+    cardImageAlt: "Política Nacional Aldir Blanc de Fomento à Cultura",
+    cardImageVariant: "official-name",
     relatedDocuments: [
       {
         id: "errata-01",
@@ -98,6 +100,8 @@ export const editais: Edital[] = [
     featured: true,
     pdfFile: "documents/selecao-pareceristas-apoio-pnab-001-2026.pdf",
     pageCount: 12,
-    cardWordmark: { acronym: "PNAB", name: "Política Nacional Aldir Blanc" },
+    cardImage: "images/pnab-official-name.png",
+    cardImageAlt: "Política Nacional Aldir Blanc de Fomento à Cultura",
+    cardImageVariant: "official-name",
   },
 ];
