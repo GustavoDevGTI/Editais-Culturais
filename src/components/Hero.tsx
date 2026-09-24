@@ -3,7 +3,8 @@ import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
-const slideCount = 5;
+const showPnabBanner = false;
+const slideCount = showPnabBanner ? 5 : 4;
 const slideControlColors = [
   "#cf573b",
   "#cf2e4a",
@@ -150,26 +151,28 @@ export function Hero({ onExplore }: HeroProps) {
           </a>
         </article>
 
-        <article className={`${styles.slide} ${styles.bannerSlide} ${styles.pnabSlide} ${activeSlide === 4 ? styles.active : ""}`} aria-hidden={activeSlide !== 4}>
-          <button
-            className={styles.bannerAction}
-            type="button"
-            onClick={onExplore}
-            tabIndex={activeSlide === 4 ? 0 : -1}
-            aria-label="Acessar os editais da Política Nacional Aldir Blanc"
-          >
-            <picture>
-              <source media="(max-width: 820px)" srcSet={pnabMobile} />
-              <img
-                className={styles.banner}
-                src={pnabDesktop}
-                alt="Política Nacional Aldir Blanc. Acesse os editais aqui."
-                width="1600"
-                height="359"
-              />
-            </picture>
-          </button>
-        </article>
+        {showPnabBanner && (
+          <article className={`${styles.slide} ${styles.bannerSlide} ${styles.pnabSlide} ${activeSlide === 4 ? styles.active : ""}`} aria-hidden={activeSlide !== 4}>
+            <button
+              className={styles.bannerAction}
+              type="button"
+              onClick={onExplore}
+              tabIndex={activeSlide === 4 ? 0 : -1}
+              aria-label="Acessar os editais da Política Nacional Aldir Blanc"
+            >
+              <picture>
+                <source media="(max-width: 820px)" srcSet={pnabMobile} />
+                <img
+                  className={styles.banner}
+                  src={pnabDesktop}
+                  alt="Política Nacional Aldir Blanc. Acesse os editais aqui."
+                  width="1600"
+                  height="359"
+                />
+              </picture>
+            </button>
+          </article>
+        )}
 
         <button className={`${styles.mobileArrow} ${styles.mobileArrowPrevious}`} type="button" onClick={showPrevious} aria-label="Banner anterior">
           <ChevronLeft aria-hidden="true" />
