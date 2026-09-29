@@ -1,5 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import type { Edital } from "../types/edital";
+import { DeadlineCountdown } from "./DeadlineCountdown";
 import { compareEditais } from "../utils/editais";
 import { AccessibilityMenu, AccessibilitySettings } from "./AccessibilityControls";
 import { Footer } from "./Footer";
@@ -63,7 +64,7 @@ export function AccessibilityPage({ editais, onBack, onOpen }: AccessibilityPage
                       </div>
                       <span className={`${styles.status} ${
                         edital.status === "Aberto" ? styles.open : edital.status === "Em breve" ? styles.soon : styles.closed
-                      }`}>{edital.status}</span>
+                      }`}>{edital.status === "Aberto" && edital.deadlineAt ? <DeadlineCountdown deadlineAt={edital.deadlineAt} /> : edital.status}</span>
                     </div>
                     <p className={styles.summary}>{edital.summary}</p>
                     <p className={styles.meta}><span>Categoria: {edital.category}</span><span>Prazo: {edital.deadline}</span></p>

@@ -27,9 +27,8 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
       />
       <div className={styles.cardTopline}>
         <div className={styles.statusMeta}>
-          <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
+          <span className={`${styles.status} ${statusClass}`}><i />{edital.status === "Aberto" && edital.deadlineAt ? <DeadlineCountdown deadlineAt={edital.deadlineAt} /> : edital.status}</span>
           <span className={styles.toplineDeadline}><CalendarDays aria-hidden="true" />{edital.deadline}</span>
-          {edital.status === "Aberto" && edital.deadlineAt && <DeadlineCountdown deadlineAt={edital.deadlineAt} />}
         </div>
         <span className={styles.category}>{edital.category}</span>
       </div>

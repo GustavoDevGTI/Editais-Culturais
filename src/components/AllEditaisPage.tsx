@@ -63,9 +63,8 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
                   <div className={styles.cardContent}>
                     <span className={styles.topline}>
                       <span className={styles.statusMeta}>
-                        <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
+                        <span className={`${styles.status} ${statusClass}`}><i />{edital.status === "Aberto" && edital.deadlineAt ? <DeadlineCountdown deadlineAt={edital.deadlineAt} /> : edital.status}</span>
                         <span className={styles.toplineDeadline}><CalendarDays aria-hidden="true" />{edital.deadline}</span>
-                        {edital.status === "Aberto" && edital.deadlineAt && <DeadlineCountdown deadlineAt={edital.deadlineAt} />}
                       </span>
                       <span className={styles.category}>{edital.category}</span>
                     </span>

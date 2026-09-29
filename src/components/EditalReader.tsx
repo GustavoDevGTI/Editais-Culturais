@@ -432,7 +432,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
           <div className={styles.pageHeadingTop}>
             <p className={`section-kicker ${styles.pageLabel}`}>{activeEdital.label}</p>
             <div className={styles.pageMeta}>
-              <span className={`${styles.status} ${statusClass}`}>{activeEdital.status}</span>
+              <span className={`${styles.status} ${statusClass}`}>{activeEdital.status === "Aberto" && activeEdital.deadlineAt ? <DeadlineCountdown deadlineAt={activeEdital.deadlineAt} /> : activeEdital.status}</span>
               <span className={styles.deadline}><CalendarDays aria-hidden="true" />{activeEdital.deadline}</span>
             </div>
           </div>
@@ -441,7 +441,6 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
             <div className={styles.externalNotice}>
               <div>
                 <strong>Inscrições em plataforma externa</strong>
-                {activeEdital.deadlineAt && <DeadlineCountdown deadlineAt={activeEdital.deadlineAt} />}
               </div>
               <a href={activeEdital.externalAccess.url} target="_blank" rel="noopener noreferrer">
                 {activeEdital.externalAccess.label}<ExternalLink aria-hidden="true" />
