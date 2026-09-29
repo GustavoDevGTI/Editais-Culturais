@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, CalendarDays, ExternalLink } from "lucide-react"
 import type { Categoria, Edital, Status } from "../types/edital";
 import { AccessibilityMenu } from "./AccessibilityControls";
 import { Footer } from "./Footer";
+import { DeadlineCountdown } from "./DeadlineCountdown";
 import { EditaisFilters } from "./EditaisFilters";
 import styles from "./AllEditaisPage.module.css";
 
@@ -64,6 +65,7 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
                       <span className={styles.statusMeta}>
                         <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
                         <span className={styles.toplineDeadline}><CalendarDays aria-hidden="true" />{edital.deadline}</span>
+                        {edital.status === "Aberto" && edital.deadlineAt && <DeadlineCountdown deadlineAt={edital.deadlineAt} />}
                       </span>
                       <span className={styles.category}>{edital.category}</span>
                     </span>
@@ -71,7 +73,7 @@ export function AllEditaisPage(props: AllEditaisPageProps) {
                     <strong>{edital.title}</strong>
                     <span className={styles.footer}>
                       <span className={styles.cardActions}>
-                        {edital.externalAccess && (
+                        {edital.status === "Aberto" && edital.externalAccess && (
                           <a
                             className={styles.externalAccess}
                             href={edital.externalAccess.url}

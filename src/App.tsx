@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { AccessibilityPage } from "./components/AccessibilityPage";
 import { AboutPage } from "./components/AboutPage";
 import { AllEditaisPage } from "./components/AllEditaisPage";
@@ -9,25 +9,47 @@ import { Hero } from "./components/Hero";
 import { editais } from "./data/editais";
 import { useEditalRoute } from "./hooks/useEditalRoute";
 import type { Categoria, Status } from "./types/edital";
-import { compareEditais, getLastUpdatedLabel } from "./utils/editais";
+import { compareEditais, getLastUpdatedLabel, resolveEditalDeadline } from "./utils/editais";
 
 const EditalReader = lazy(() =>
   import("./components/EditalReader").then((module) => ({ default: module.EditalReader })),
 );
 
 export function App() {
+  const [now, setNow] = useState(() => Date.now());
   const [query, setQuery] = useState("");
   const [categoria, setCategoria] = useState<Categoria | "Todas">("Todas");
   const [status, setStatus] = useState<Status | "Todos">("Todos");
   const { closeAccessibility, closeAbout, closeAllEditais, closeEdital, editalId, openAllEditais, openEdital, showAccessibility, showAbout, showAllEditais } = useEditalRoute();
 
-  const orderedEditais = useMemo(() => [...editais].sort(compareEditais), []);
+  useEffect(() => {
+    const refresh = () => setNow(Date.now());
+    const nextDeadline = editais
+      .map((edital) => edital.deadlineAt ? Date.parse(edital.deadlineAt) : Infinity)
+      .filter((deadline) => deadline > Date.now())
+      .sort((left, right) => left - right)[0];
+    const timeout = nextDeadline === undefined ? undefined : window.setTimeout(refresh, nextDeadline - Date.now());
+    const interval = window.setInterval(refresh, 60_000);
+    window.addEventListener("focus", refresh);
+    document.addEventListener("visibilitychange", refresh);
+
+    return () => {
+      if (timeout !== undefined) window.clearTimeout(timeout);
+      window.clearInterval(interval);
+      window.removeEventListener("focus", refresh);
+      document.removeEventListener("visibilitychange", refresh);
+    };
+  }, [now]);
+
+  const currentEditais = useMemo(() => editais.map((edital) => resolveEditalDeadline(edital, now)), [now]);
+
+  const orderedEditais = useMemo(() => [...currentEditais].sort(compareEditais), [currentEditais]);
   const categorias = useMemo(
     () => Array.from(new Set(editais.map((edital) => edital.category)))
       .sort((left, right) => left.localeCompare(right, "pt-BR", { sensitivity: "base" })),
     [],
   );
-  const lastUpdatedLabel = useMemo(() => getLastUpdatedLabel(editais), []);
+  const lastUpdatedLabel = useMemo(() => getLastUpdatedLabel(currentEditais), [currentEditais]);
 
   const filteredEditais = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");
@@ -56,7 +78,7 @@ export function App() {
       <Suspense fallback={<div className="route-loading" role="status">Abrindo o edital…</div>}>
         <EditalReader
           activeId={editalId}
-          editais={editais}
+          editais={currentEditais}
           onBack={closeEdital}
           onSelect={openEdital}
         />

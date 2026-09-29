@@ -75,7 +75,7 @@ export function AccessibilityPage({ editais, onBack, onOpen }: AccessibilityPage
                           onOpen(edital.id);
                         }}
                       >Abrir edital no leitor acessível</a>
-                      {edital.externalAccess && <a href={edital.externalAccess.url} target="_blank" rel="noopener noreferrer">Inscrever-se em plataforma externa</a>}
+                      {edital.status === "Aberto" && edital.externalAccess && <a href={edital.externalAccess.url} target="_blank" rel="noopener noreferrer">Inscrever-se em plataforma externa</a>}
                     </div>
                   </article>
                 </li>

@@ -6,6 +6,7 @@ import { compareEditais } from "../utils/editais";
 import { searchPdfPages, type PdfSearchResult } from "../utils/pdfSearch";
 import { PdfCanvas } from "./PdfCanvas";
 import { AccessibilityMenu } from "./AccessibilityControls";
+import { DeadlineCountdown } from "./DeadlineCountdown";
 import styles from "./EditalReader.module.css";
 
 const emptySearchResults: PdfSearchResult[] = [];
@@ -436,10 +437,11 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
             </div>
           </div>
           <h1 id="edital-title">{activeEdital.title}</h1>
-          {activeEdital.externalAccess && (
+          {activeEdital.status === "Aberto" && activeEdital.externalAccess && (
             <div className={styles.externalNotice}>
               <div>
                 <strong>Inscrições em plataforma externa</strong>
+                {activeEdital.deadlineAt && <DeadlineCountdown deadlineAt={activeEdital.deadlineAt} />}
               </div>
               <a href={activeEdital.externalAccess.url} target="_blank" rel="noopener noreferrer">
                 {activeEdital.externalAccess.label}<ExternalLink aria-hidden="true" />

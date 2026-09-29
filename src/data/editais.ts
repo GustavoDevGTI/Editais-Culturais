@@ -7,10 +7,12 @@ export const editais: Edital[] = [
     summary: "Concurso para escolha da proposta que representará o novo Brasão Municipal de Amargosa, com prêmio de R$ 10 mil.",
     category: "Identidade municipal",
     status: "Aberto",
-    // Encerramento publicado no PNCP para o concurso nº 001/2026.
-    deadline: "Inscrições até 30 de setembro de 2026",
+    // Prazo confirmado para o portal; conferir divergência com o horário registrado no PNCP.
+    deadline: "Inscrições até 30 de setembro de 2026, às 23h59 (Brasília)",
+    deadlineAt: "2026-09-30T23:59:00-03:00",
+    closedDeadline: "Inscrições encerradas em 30 de setembro de 2026, às 23h59 (Brasília)",
     publishedDate: "2026-09-10",
-    updatedDate: "2026-09-25",
+    updatedDate: "2026-09-29",
     publishedAt: "Publicado em 10 de setembro de 2026",
     label: "Concurso nº 001/2026",
     audience: "Pessoas interessadas em participar do concurso para escolha do Brasão Municipal.",

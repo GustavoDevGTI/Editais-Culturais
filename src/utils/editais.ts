@@ -12,6 +12,14 @@ export function compareEditais(left: Edital, right: Edital) {
     || left.title.localeCompare(right.title, "pt-BR", { sensitivity: "base" });
 }
 
+export function resolveEditalDeadline(edital: Edital, now: number): Edital {
+  if (!edital.deadlineAt || !edital.closedDeadline || now < Date.parse(edital.deadlineAt)) {
+    return edital;
+  }
+
+  return { ...edital, status: "Encerrado", deadline: edital.closedDeadline };
+}
+
 export function getLastUpdatedLabel(editais: Edital[]) {
   const latestDate = editais.reduce(
     (latest, edital) => {

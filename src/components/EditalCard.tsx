@@ -1,5 +1,6 @@
 import { ArrowRight, CalendarDays, ExternalLink } from "lucide-react";
 import type { Edital } from "../types/edital";
+import { DeadlineCountdown } from "./DeadlineCountdown";
 import styles from "./Editais.module.css";
 
 interface EditalCardProps {
@@ -28,6 +29,7 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
         <div className={styles.statusMeta}>
           <span className={`${styles.status} ${statusClass}`}><i />{edital.status}</span>
           <span className={styles.toplineDeadline}><CalendarDays aria-hidden="true" />{edital.deadline}</span>
+          {edital.status === "Aberto" && edital.deadlineAt && <DeadlineCountdown deadlineAt={edital.deadlineAt} />}
         </div>
         <span className={styles.category}>{edital.category}</span>
       </div>
@@ -50,7 +52,7 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
       </div>
       <div className={styles.cardFooter}>
         <div className={styles.cardActions}>
-          {edital.externalAccess && (
+          {edital.status === "Aberto" && edital.externalAccess && (
             <a
               className={styles.externalAccess}
               href={edital.externalAccess.url}
