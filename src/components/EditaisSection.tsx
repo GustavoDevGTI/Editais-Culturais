@@ -8,6 +8,7 @@ interface EditaisSectionProps {
   categoria: Categoria | "Todas";
   categorias: Categoria[];
   editais: Edital[];
+  editalNumbers: ReadonlyMap<string, number>;
   lastUpdatedLabel: string;
   query: string;
   status: Status | "Todos";
@@ -45,7 +46,7 @@ export function EditaisSection(props: EditaisSectionProps) {
 
         {props.editais.length > 0 ? (
           <div className={styles.list}>
-            {props.editais.map((edital, index) => <EditalCard key={edital.id} edital={edital} index={index} onOpen={props.onOpen} />)}
+            {props.editais.map((edital, index) => <EditalCard key={edital.id} edital={edital} number={props.editalNumbers.get(edital.id) ?? index + 1} onOpen={props.onOpen} />)}
           </div>
         ) : (
           <div className={styles.empty}>

@@ -5,11 +5,11 @@ import styles from "./Editais.module.css";
 
 interface EditalCardProps {
   edital: Edital;
-  index: number;
+  number: number;
   onOpen: (edital: Edital) => void;
 }
 
-export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
+export function EditalCard({ edital, number, onOpen }: EditalCardProps) {
   const statusClass = edital.status === "Aberto" ? styles.open : edital.status === "Em breve" ? styles.soon : styles.closed;
   const cardStatusClass = edital.status === "Aberto"
     ? styles.cardOpen
@@ -33,7 +33,7 @@ export function EditalCard({ edital, index, onOpen }: EditalCardProps) {
         <span className={styles.category}>{edital.category}</span>
       </div>
       <div className={styles.cardBody}>
-        <span className={styles.number} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+        <span className={styles.number} aria-hidden="true">{String(number).padStart(2, "0")}</span>
         <div className={`${styles.cardContent} ${edital.cardImageVariant === "official-name" ? styles.officialNameContent : ""}`}>
           <div>
             <p className={styles.label}>{edital.label}</p>

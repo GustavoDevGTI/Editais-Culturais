@@ -12,6 +12,15 @@ export function compareEditais(left: Edital, right: Edital) {
     || left.title.localeCompare(right.title, "pt-BR", { sensitivity: "base" });
 }
 
+export function getEditalNumbers(editais: Edital[]): Map<string, number> {
+  const newestFirst = [...editais].sort((left, right) =>
+    right.publishedDate.localeCompare(left.publishedDate)
+    || left.title.localeCompare(right.title, "pt-BR", { sensitivity: "base" }),
+  );
+
+  return new Map(newestFirst.map((edital, index) => [edital.id, index + 1]));
+}
+
 export function resolveEditalDeadline(edital: Edital, now: number): Edital {
   if (!edital.deadlineAt || !edital.closedDeadline || now < Date.parse(edital.deadlineAt)) {
     return edital;
