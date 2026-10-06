@@ -34,14 +34,18 @@ interface TouchGesture {
 
 interface EditalReaderProps {
   activeId: string;
+  documentId: string;
   editais: Edital[];
   onBack: () => void;
+  onDocumentSelect: (id: string) => void;
   onSelect: (id: string) => void;
 }
 
-export function EditalReader({ activeId, editais, onBack, onSelect }: EditalReaderProps) {
+export function EditalReader({ activeId, documentId, editais, onBack, onDocumentSelect, onSelect }: EditalReaderProps) {
   const activeEdital = editais.find((edital) => edital.id === activeId) ?? editais[0];
-  const [activeDocumentId, setActiveDocumentId] = useState("main");
+  const activeDocumentId = activeEdital.relatedDocuments?.some((document) => document.id === documentId)
+    ? documentId
+    : "main";
   const relatedDocument = activeEdital.relatedDocuments?.find((document) => document.id === activeDocumentId);
   const activePdfFile = relatedDocument?.pdfFile ?? activeEdital.pdfFile;
   const activeDocumentTitle = relatedDocument?.title ?? "Edital completo";
@@ -84,10 +88,6 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
     media.addEventListener("change", updateMode);
     return () => media.removeEventListener("change", updateMode);
   }, []);
-
-  useEffect(() => {
-    setActiveDocumentId("main");
-  }, [activeEdital.id]);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -527,7 +527,7 @@ export function EditalReader({ activeId, editais, onBack, onSelect }: EditalRead
                     type="button"
                     className={document.id === activeDocumentId ? styles.activeDocument : ""}
                     aria-current={document.id === activeDocumentId ? "true" : undefined}
-                    onClick={() => setActiveDocumentId(document.id)}
+                    onClick={() => onDocumentSelect(document.id)}
                   >
                     <FileText aria-hidden="true" />
                     <span>

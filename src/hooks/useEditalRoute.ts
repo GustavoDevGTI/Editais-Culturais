@@ -10,9 +10,19 @@ function readEditalOrigin(): EditalOrigin {
 
 function readRoute() {
   const match = window.location.hash.match(routePattern);
-  if (match) return { editalId: decodeURIComponent(match[1]), showAbout: false, showAccessibility: false, showAllEditais: false };
+  if (match) {
+    const query = window.location.hash.split("?", 2)[1] ?? "";
+    return {
+      editalId: decodeURIComponent(match[1]),
+      documentId: new URLSearchParams(query).get("document") ?? "main",
+      showAbout: false,
+      showAccessibility: false,
+      showAllEditais: false,
+    };
+  }
   return {
     editalId: null,
+    documentId: "main",
     showAbout: /^#\/sobre\/?$/.test(window.location.hash),
     showAccessibility: /^#\/acessibilidade\/?$/.test(window.location.hash),
     showAllEditais: /^#\/editais\/?$/.test(window.location.hash),
@@ -48,6 +58,16 @@ export function useEditalRoute() {
     window.location.hash = origin === "home" ? "editais" : origin === "accessibility" ? "/acessibilidade" : "/editais";
   };
 
+  const openDocument = (documentId: string) => {
+    const { editalId } = readRoute();
+    if (!editalId) return;
+
+    const query = documentId === "main"
+      ? ""
+      : `?${new URLSearchParams({ document: documentId })}`;
+    window.location.hash = `/editais/${encodeURIComponent(editalId)}${query}`;
+  };
+
   const openAllEditais = () => {
     window.location.hash = "/editais";
   };
@@ -69,8 +89,10 @@ export function useEditalRoute() {
     closeAbout,
     closeAllEditais,
     closeEdital,
+    documentId: route.documentId,
     editalId: route.editalId,
     openAllEditais,
+    openDocument,
     openEdital,
     showAccessibility: route.showAccessibility,
     showAbout: route.showAbout,

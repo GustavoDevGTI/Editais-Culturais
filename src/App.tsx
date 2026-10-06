@@ -20,7 +20,7 @@ export function App() {
   const [query, setQuery] = useState("");
   const [categoria, setCategoria] = useState<Categoria | "Todas">("Todas");
   const [status, setStatus] = useState<Status | "Todos">("Todos");
-  const { closeAccessibility, closeAbout, closeAllEditais, closeEdital, editalId, openAllEditais, openEdital, showAccessibility, showAbout, showAllEditais } = useEditalRoute();
+  const { closeAccessibility, closeAbout, closeAllEditais, closeEdital, documentId, editalId, openAllEditais, openDocument, openEdital, showAccessibility, showAbout, showAllEditais } = useEditalRoute();
 
   useEffect(() => {
     const refresh = () => setNow(Date.now());
@@ -79,8 +79,10 @@ export function App() {
       <Suspense fallback={<div className="route-loading" role="status">Abrindo o edital…</div>}>
         <EditalReader
           activeId={editalId}
+          documentId={documentId}
           editais={currentEditais}
           onBack={closeEdital}
+          onDocumentSelect={openDocument}
           onSelect={openEdital}
         />
       </Suspense>
