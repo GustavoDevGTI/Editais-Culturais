@@ -43,9 +43,9 @@ interface EditalReaderProps {
 
 export function EditalReader({ activeId, documentId, editais, onBack, onDocumentSelect, onSelect }: EditalReaderProps) {
   const activeEdital = editais.find((edital) => edital.id === activeId) ?? editais[0];
-  const activeDocumentId = activeEdital.relatedDocuments?.some((document) => document.id === documentId)
-    ? documentId
-    : "main";
+  const activeDocumentId = activeEdital.relatedDocuments?.find(
+    (document) => document.routeNumber === documentId || document.id === documentId,
+  )?.id ?? "main";
   const relatedDocument = activeEdital.relatedDocuments?.find((document) => document.id === activeDocumentId);
   const activePdfFile = relatedDocument?.pdfFile ?? activeEdital.pdfFile;
   const activeDocumentTitle = relatedDocument?.title ?? "Edital completo";
@@ -53,6 +53,7 @@ export function EditalReader({ activeId, documentId, editais, onBack, onDocument
   const documentChoices = activeEdital.pdfFile ? [
     {
       id: "main",
+      routeNumber: "main",
       title: "Edital completo",
       publishedAt: activeEdital.publishedAt.replace("Publicado em ", ""),
       pdfFile: activeEdital.pdfFile,
@@ -527,7 +528,7 @@ export function EditalReader({ activeId, documentId, editais, onBack, onDocument
                     type="button"
                     className={document.id === activeDocumentId ? styles.activeDocument : ""}
                     aria-current={document.id === activeDocumentId ? "true" : undefined}
-                    onClick={() => onDocumentSelect(document.id)}
+                    onClick={() => onDocumentSelect(document.routeNumber)}
                   >
                     <FileText aria-hidden="true" />
                     <span>

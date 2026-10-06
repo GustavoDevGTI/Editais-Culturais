@@ -24,6 +24,7 @@ export const editais: Edital[] = [
     relatedDocuments: [
       {
         id: "resultado-habilitacao-inscritos",
+        routeNumber: "01",
         title: "Resultado de habilitação dos inscritos",
         publishedAt: "6 de outubro de 2026",
         pdfFile: "documents/concurso-brasao-municipal-001-2026-resultado-habilitacao.pdf",
@@ -57,6 +58,7 @@ export const editais: Edital[] = [
     relatedDocuments: [
       {
         id: "errata-01",
+        routeNumber: "01",
         title: "1ª errata — inclusão de coletivos carnavalescos e juvenis",
         publishedAt: "6 de agosto de 2026",
         pdfFile: "documents/pnab-002-2026-errata-01.pdf",
@@ -64,6 +66,7 @@ export const editais: Edital[] = [
       },
       {
         id: "errata-02",
+        routeNumber: "02",
         title: "2ª errata — retificação da Categoria 4 e prorrogação das inscrições",
         publishedAt: "11 de agosto de 2026",
         pdfFile: "documents/pnab-002-2026-errata-02.pdf",
@@ -71,6 +74,7 @@ export const editais: Edital[] = [
       },
       {
         id: "resultado-habilitacao-preliminar",
+        routeNumber: "03",
         title: "Resultado preliminar de habilitação e triagem",
         publishedAt: "27 de agosto de 2026",
         pdfFile: "documents/pnab-002-2026-resultado-habilitacao-preliminar.pdf",
@@ -78,6 +82,7 @@ export const editais: Edital[] = [
       },
       {
         id: "resultado-habilitacao-pos-recurso",
+        routeNumber: "04",
         title: "Resultado após recursos de habilitação e triagem",
         publishedAt: "3 de setembro de 2026",
         pdfFile: "documents/pnab-002-2026-resultado-habilitacao-pos-recurso.pdf",
@@ -85,6 +90,7 @@ export const editais: Edital[] = [
       },
       {
         id: "errata-03",
+        routeNumber: "05",
         title: "3ª errata — prorrogação do resultado provisório da seleção",
         publishedAt: "9 de setembro de 2026",
         pdfFile: "documents/pnab-002-2026-errata-03.pdf",
@@ -92,6 +98,7 @@ export const editais: Edital[] = [
       },
       {
         id: "errata-04",
+        routeNumber: "06",
         title: "4ª errata — prazo de 23 dias úteis para o resultado provisório",
         publishedAt: "24 de setembro de 2026",
         pdfFile: "documents/pnab-002-2026-errata-04.pdf",

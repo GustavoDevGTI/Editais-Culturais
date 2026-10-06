@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const routePattern = /^#\/editais\/([^/?#]+)/;
+const routePattern = /^#\/editais\/([^/?#]+)(?:\/(\d{2}))?\/?(?:\?([^#]*))?$/;
 type EditalOrigin = "home" | "all" | "accessibility";
 
 function readEditalOrigin(): EditalOrigin {
@@ -11,10 +11,9 @@ function readEditalOrigin(): EditalOrigin {
 function readRoute() {
   const match = window.location.hash.match(routePattern);
   if (match) {
-    const query = window.location.hash.split("?", 2)[1] ?? "";
     return {
       editalId: decodeURIComponent(match[1]),
-      documentId: new URLSearchParams(query).get("document") ?? "main",
+      documentId: match[2] ?? new URLSearchParams(match[3] ?? "").get("document") ?? "main",
       showAbout: false,
       showAccessibility: false,
       showAllEditais: false,
@@ -58,14 +57,12 @@ export function useEditalRoute() {
     window.location.hash = origin === "home" ? "editais" : origin === "accessibility" ? "/acessibilidade" : "/editais";
   };
 
-  const openDocument = (documentId: string) => {
+  const openDocument = (documentNumber: string) => {
     const { editalId } = readRoute();
     if (!editalId) return;
 
-    const query = documentId === "main"
-      ? ""
-      : `?${new URLSearchParams({ document: documentId })}`;
-    window.location.hash = `/editais/${encodeURIComponent(editalId)}${query}`;
+    const suffix = documentNumber === "main" ? "" : `/${documentNumber}`;
+    window.location.hash = `/editais/${encodeURIComponent(editalId)}${suffix}`;
   };
 
   const openAllEditais = () => {

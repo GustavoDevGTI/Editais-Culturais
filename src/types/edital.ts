@@ -10,6 +10,7 @@ export interface EditalExternalAccess {
 
 export interface EditalDocument {
   id: string;
+  routeNumber: string;
   title: string;
   publishedAt: string;
   pdfFile: string;
