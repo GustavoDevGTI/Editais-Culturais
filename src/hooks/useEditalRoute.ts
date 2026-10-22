@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
+import { editais } from "../data/editais";
 
 const routePattern = /^#\/editais\/([^/?#]+)(?:\/(\d{2}))?\/?(?:\?([^#]*))?$/;
 type EditalOrigin = "home" | "all" | "accessibility";
+
+export function getEditalHash(id: string) {
+  const edital = editais.find((item) => item.id === id);
+  const defaultDocument = edital?.relatedDocuments?.find(
+    (document) => document.id === edital.defaultDocumentId,
+  );
+  const suffix = defaultDocument ? `/${defaultDocument.routeNumber}` : "";
+  return `#/editais/${encodeURIComponent(id)}${suffix}`;
+}
 
 function readEditalOrigin(): EditalOrigin {
   if (window.history.state?.editalOrigin === "accessibility") return "accessibility";
@@ -43,7 +53,7 @@ export function useEditalRoute() {
       ? readEditalOrigin()
       : currentRoute.showAccessibility ? "accessibility" : currentRoute.showAllEditais ? "all" : "home";
 
-    window.location.hash = `/editais/${encodeURIComponent(id)}`;
+    window.location.hash = getEditalHash(id);
     window.history.replaceState({ ...window.history.state, editalOrigin }, "");
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 

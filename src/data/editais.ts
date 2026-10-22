@@ -55,6 +55,7 @@ export const editais: Edital[] = [
     cardImage: "images/pnab-official-name.png",
     cardImageAlt: "Política Nacional Aldir Blanc de Fomento à Cultura",
     cardImageVariant: "official-name",
+    defaultDocumentId: "resultado-final-selecao",
     relatedDocuments: [
       {
         id: "errata-01",

@@ -1,5 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import type { Edital } from "../types/edital";
+import { getEditalHash } from "../hooks/useEditalRoute";
 import { DeadlineCountdown } from "./DeadlineCountdown";
 import { compareEditais } from "../utils/editais";
 import { AccessibilityMenu, AccessibilitySettings } from "./AccessibilityControls";
@@ -70,7 +71,7 @@ export function AccessibilityPage({ editais, onBack, onOpen }: AccessibilityPage
                     <p className={styles.meta}><span>Categoria: {edital.category}</span><span>Prazo: {edital.deadline}</span></p>
                     <div className={styles.actions}>
                       <a
-                        href={`#/editais/${encodeURIComponent(edital.id)}`}
+                        href={getEditalHash(edital.id)}
                         onClick={(event) => {
                           event.preventDefault();
                           onOpen(edital.id);
