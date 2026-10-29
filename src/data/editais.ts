@@ -12,7 +12,7 @@ export const editais: Edital[] = [
     deadlineAt: "2026-09-30T23:59:00-03:00",
     closedDeadline: "Inscrições encerradas em 30 de setembro de 2026, às 23h59 (Brasília)",
     publishedDate: "2026-09-10",
-    updatedDate: "2026-10-06",
+    updatedDate: "2026-10-28",
     publishedAt: "Publicado em 10 de setembro de 2026",
     label: "Concurso nº 001/2026",
     audience: "Pessoas interessadas em participar do concurso para escolha do Brasão Municipal.",
@@ -29,6 +29,14 @@ export const editais: Edital[] = [
         publishedAt: "6 de outubro de 2026",
         pdfFile: "documents/concurso-brasao-municipal-001-2026-resultado-habilitacao.pdf",
         pageCount: 2,
+      },
+      {
+        id: "retificacao-cronograma",
+        routeNumber: "02",
+        title: "Retificação do cronograma — avaliação das propostas",
+        publishedAt: "28 de outubro de 2026",
+        pdfFile: "documents/concurso-brasao-municipal-001-2026-retificacao-cronograma.pdf",
+        pageCount: 3,
       },
     ],
     externalAccess: {
