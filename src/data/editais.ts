@@ -53,7 +53,7 @@ export const editais: Edital[] = [
     // A 2ª errata prorrogou o prazo original de 14 para 20 de agosto.
     deadline: "Inscrições encerradas em 20 de agosto de 2026",
     publishedDate: "2026-07-30",
-    updatedDate: "2026-10-22",
+    updatedDate: "2026-11-11",
     publishedAt: "Publicado em 30 de julho de 2026",
     label: "Chamada pública nº 002/2026",
     audience: "Espaços, ambientes, coletivos e iniciativas artístico-culturais de Amargosa.",
@@ -124,9 +124,9 @@ export const editais: Edital[] = [
       {
         id: "resultado-final-selecao",
         routeNumber: "08",
-        title: "Resultado final da seleção",
-        publishedAt: "22 de outubro de 2026",
-        pdfFile: "documents/pnab-002-2026-resultado-final-selecao.pdf",
+        title: "Errata de homologação",
+        publishedAt: "11 de novembro de 2026",
+        pdfFile: "documents/pnab-002-2026-errata-homologacao.pdf",
         pageCount: 3,
       },
     ],
