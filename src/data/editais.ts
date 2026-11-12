@@ -53,7 +53,7 @@ export const editais: Edital[] = [
     // A 2ª errata prorrogou o prazo original de 14 para 20 de agosto.
     deadline: "Inscrições encerradas em 20 de agosto de 2026",
     publishedDate: "2026-07-30",
-    updatedDate: "2026-11-11",
+    updatedDate: "2026-11-12",
     publishedAt: "Publicado em 30 de julho de 2026",
     label: "Chamada pública nº 002/2026",
     audience: "Espaços, ambientes, coletivos e iniciativas artístico-culturais de Amargosa.",
@@ -63,7 +63,7 @@ export const editais: Edital[] = [
     cardImage: "images/pnab-official-name.png",
     cardImageAlt: "Política Nacional Aldir Blanc de Fomento à Cultura",
     cardImageVariant: "official-name",
-    defaultDocumentId: "resultado-final-selecao",
+    defaultDocumentId: "convocacao-assinatura-termos",
     relatedDocuments: [
       {
         id: "errata-01",
@@ -127,6 +127,14 @@ export const editais: Edital[] = [
         title: "Errata de homologação",
         publishedAt: "11 de novembro de 2026",
         pdfFile: "documents/pnab-002-2026-errata-homologacao.pdf",
+        pageCount: 3,
+      },
+      {
+        id: "convocacao-assinatura-termos",
+        routeNumber: "09",
+        title: "CONVOCAÇÃO.ASSINATURA DOS TERMOS",
+        publishedAt: "12 de novembro de 2026",
+        pdfFile: "documents/pnab-002-2026-convocacao-assinatura-termos.pdf",
         pageCount: 3,
       },
     ],
