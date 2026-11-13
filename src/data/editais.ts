@@ -132,7 +132,7 @@ export const editais: Edital[] = [
       {
         id: "convocacao-assinatura-termos",
         routeNumber: "09",
-        title: "CONVOCAÇÃO.ASSINATURA DOS TERMOS",
+        title: "Convocação assinatura dos termos",
         publishedAt: "12 de novembro de 2026",
         pdfFile: "documents/pnab-002-2026-convocacao-assinatura-termos.pdf",
         pageCount: 3,
