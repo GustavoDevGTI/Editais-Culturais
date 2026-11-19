@@ -2,6 +2,29 @@ import type { Edital } from "../types/edital";
 
 export const editais: Edital[] = [
   {
+    id: "chamada-publica-formacao-artistico-cultural-003-2026",
+    title: "CHAMADA PÚBLICA Nº 003/2026",
+    summary: "Seleciona propostas de formação artístico-cultural em Amargosa, como oficinas, cursos livres, laboratórios e outras atividades formativas.",
+    category: "Formação cultural",
+    status: "Aberto",
+    deadline: "Inscrições por 10 dias úteis após a publicação em 19 de novembro de 2026",
+    publishedDate: "2026-11-19",
+    updatedDate: "2026-11-19",
+    publishedAt: "Publicado em 19 de novembro de 2026",
+    label: "Aviso",
+    audience: "Agentes culturais e grupos ou coletivos culturais cadastrados em Amargosa.",
+    featured: true,
+    pdfFile: "documents/chamada-publica-formacao-artistico-cultural-003-2026.pdf",
+    pageCount: 17,
+    cardImage: "images/pnab-official-name.png",
+    cardImageAlt: "Política Nacional Aldir Blanc de Fomento à Cultura",
+    cardImageVariant: "official-name",
+    externalAccess: {
+      url: "https://forms.gle/sStKP2jwX11Mco248",
+      label: "Inscrever-se no formulário",
+    },
+  },
+  {
     id: "concurso-brasao-municipal",
     title: "Concurso para escolha do Brasão Municipal",
     summary: "Concurso para escolha da proposta que representará o novo Brasão Municipal de Amargosa, com prêmio de R$ 10 mil.",
