@@ -3,7 +3,7 @@ import type { Edital } from "../types/edital";
 export const editais: Edital[] = [
   {
     id: "chamada-publica-formacao-artistico-cultural-003-2026",
-    title: "CHAMADA PÚBLICA Nº 003/2026",
+    title: "Chamada Pública de Formação Artístico-Cultural PNAB",
     summary: "Seleciona propostas de formação artístico-cultural em Amargosa, como oficinas, cursos livres, laboratórios e outras atividades formativas.",
     category: "Formação cultural",
     status: "Aberto",
@@ -11,7 +11,7 @@ export const editais: Edital[] = [
     publishedDate: "2026-11-19",
     updatedDate: "2026-11-19",
     publishedAt: "Publicado em 19 de novembro de 2026",
-    label: "Edital",
+    label: "Chamada pública nº 003/2026",
     audience: "Agentes culturais e grupos ou coletivos culturais cadastrados em Amargosa.",
     featured: true,
     pdfFile: "documents/chamada-publica-formacao-artistico-cultural-003-2026-edital.pdf",
