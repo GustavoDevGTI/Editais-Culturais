@@ -16,9 +16,8 @@ export const editais: Edital[] = [
     featured: true,
     pdfFile: "documents/chamada-publica-formacao-artistico-cultural-003-2026-edital.pdf",
     pageCount: 15,
-    cardImage: "images/pnab-official-name.png",
-    cardImageAlt: "Política Nacional Aldir Blanc de Fomento à Cultura",
-    cardImageVariant: "official-name",
+    cardImage: "images/pnab-logo.png",
+    cardImageAlt: "Logo da Política Nacional Aldir Blanc — PNAB",
     externalAccess: {
       url: "https://forms.gle/sStKP2jwX11Mco248",
       label: "Inscrever-se no formulário",
@@ -83,9 +82,8 @@ export const editais: Edital[] = [
     featured: true,
     pdfFile: "documents/chamada-publica-pnab-002-2026.pdf",
     pageCount: 45,
-    cardImage: "images/pnab-official-name.png",
-    cardImageAlt: "Política Nacional Aldir Blanc de Fomento à Cultura",
-    cardImageVariant: "official-name",
+    cardImage: "images/pnab-logo.png",
+    cardImageAlt: "Logo da Política Nacional Aldir Blanc — PNAB",
     defaultDocumentId: "convocacao-assinatura-termos",
     relatedDocuments: [
       {
@@ -177,8 +175,7 @@ export const editais: Edital[] = [
     featured: true,
     pdfFile: "documents/selecao-pareceristas-apoio-pnab-001-2026.pdf",
     pageCount: 12,
-    cardImage: "images/pnab-official-name.png",
-    cardImageAlt: "Política Nacional Aldir Blanc de Fomento à Cultura",
-    cardImageVariant: "official-name",
+    cardImage: "images/pnab-logo.png",
+    cardImageAlt: "Logo da Política Nacional Aldir Blanc — PNAB",
   },
 ];

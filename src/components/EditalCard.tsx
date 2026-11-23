@@ -34,7 +34,7 @@ export function EditalCard({ edital, number, onOpen }: EditalCardProps) {
       </div>
       <div className={styles.cardBody}>
         <span className={styles.number} aria-hidden="true">{String(number).padStart(2, "0")}</span>
-        <div className={`${styles.cardContent} ${edital.cardImageVariant === "official-name" ? styles.officialNameContent : ""}`}>
+        <div className={styles.cardContent}>
           <div>
             <p className={styles.label}>{edital.label}</p>
             <h3>{edital.title}</h3>
@@ -42,7 +42,7 @@ export function EditalCard({ edital, number, onOpen }: EditalCardProps) {
           </div>
           {edital.cardImage && (
             <img
-              className={`${styles.cardImage} ${edital.cardImageVariant === "official-name" ? styles.officialNameImage : ""}`}
+              className={styles.cardImage}
               src={`${import.meta.env.BASE_URL}${edital.cardImage}`}
               alt={edital.cardImageAlt ?? ""}
             />

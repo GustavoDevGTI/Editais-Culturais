@@ -37,7 +37,6 @@ export interface Edital {
   pageCount?: number;
   cardImage?: string;
   cardImageAlt?: string;
-  cardImageVariant?: "official-name";
   defaultDocumentId?: string;
   relatedDocuments?: EditalDocument[];
   externalAccess?: EditalExternalAccess;
